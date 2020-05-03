@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/res_navigate"
+        android:icon="@drawable/navigate_icon"
+        android:title="Navigate"/>
+
+    <item
+        android:id="@+id/res_menu"
+        android:icon="@drawable/menu_icon"
+        android:title="Menu"/>
+
+    <item
+        android:id="@+id/res_contact"
+        android:icon="@drawable/contact_icon"
+        android:title="Contact"/>
+
+</menu>

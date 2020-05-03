@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RestaurantNavigation">
+
+    <RelativeLayout
+        android:id="@+id/resturant1"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="400dp">
+
+        <ImageView
+            android:id="@+id/res_img1"
+            android:background="@drawable/rounded_corners"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="250dp"
+            android:src="@drawable/restaurant"/>
+
+        <TextView
+            android:id="@+id/res1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="145dp"
+            android:layout_marginRight="140dp"
+            android:fontFamily="@font/robotocondensedbold"
+            android:text="Kulkarni's Snacks"
+            android:textSize="15sp"
+            android:textColor="@color/black"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/group75"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/res1"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/helveticaneuemedium500"
+            android:layout_marginLeft="145dp"
+            android:layout_marginRight="60dp"
+            android:text="Typical maharashtrian vegiterian"
+            android:textSize="12sp"
+            android:textColor="@color/grey"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/res1"
+            android:fontFamily="@font/helveticaneuemedium500"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="145dp"
+            android:layout_marginRight="95dp"
+            android:text="₹80 | 8:00 AM - 10:00 PM"
+            android:textSize="12sp"
+            android:textColor="@color/grey"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helveticaneuemedium500"
+            android:layout_below="@+id/res1"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="145dp"
+            android:layout_marginRight="95dp"
+            android:text="Open Now"
+            android:textSize="12sp"
+            android:textColor="@color/green"/>
+
+    </RelativeLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_res"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:verticalScrollbarPosition="defaultPosition"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_alignParentBottom="true"
+        android:isScrollContainer="false"
+        app:menu="@menu/restaurant_nav"
+        android:foreground="?attr/selectableItemBackground"
+        android:background="?android:attr/windowBackground"
+        app:itemTextColor="@color/tab_bottom_color"
+        app:itemIconTint="@color/tab_bottom_color"
+        app:labelVisibilityMode="labeled"/>
+</LinearLayout>

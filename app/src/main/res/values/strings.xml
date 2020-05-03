@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">DashIN</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description1">"Find your favourite Mess and Reserve a Seat"</string>
+    <string name="description2">"Order at your favourite food outlets before you even reach there"</string>
+    <string name="description3">"Order from your favourite outlets near you easily."</string>
+
+    <string name="slecttime">"Select time you will visit the restaurant"</string>
+    <string name="search_hint">"Search for a restaurant or a mess"</string>
+</resources>

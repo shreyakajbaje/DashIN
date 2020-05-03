@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/bgimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/image10" />
+
+        <ImageView
+            android:id="@+id/titlename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="top|center"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="130dp"
+            android:src="@drawable/dashin" />
+
+        <TextView
+            android:id="@+id/hello_gujrati"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/robotocondensedbold"
+            android:gravity="center"
+            android:textSize="60dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="250dp"/>
+
+        <ImageView
+            android:id="@+id/reconnect"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="end|start"
+            android:layout_marginTop="530dp"
+            android:src="@drawable/letsreconnect" />
+
+        <View
+            android:id="@+id/thickline"
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layout_below="@+id/bgimage"
+            android:background="@android:color/holo_red_dark" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="630dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/robotocondensedbold"
+            android:text="+91"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="240dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:ellipsize="start"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:paddingLeft="15dp"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/nextpg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:clickable="true" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/signuphere"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/robotocondensedbold"
+        android:layout_alignParentBottom="true"
+        android:gravity="center|bottom"
+        android:layout_marginRight="80dp"
+        android:layout_marginLeft="80dp"
+        android:text="Don't have an account?Sign Up"
+        android:textSize="18sp"
+        android:textColor="@color/black"/>
+
+</RelativeLayout>

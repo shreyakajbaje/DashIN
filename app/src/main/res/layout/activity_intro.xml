@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IntroActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pagerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.viewpager.widget.ViewPager>
+
+    <ImageView
+        android:id="@+id/getstart"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="600dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/start_button" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/dot_layout" />
+
+    <View
+        android:layout_width="302dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/dot_layout"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="600dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="80dp" />
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:fontFamily="@font/robotocondensedbold"
+        android:backgroundTint="@color/white"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="30dp"
+        android:background="@null"
+        android:textSize="30dp"
+        android:text="Next"
+        android:alpha=".5"
+        android:textColor="@color/button_color"/>
+
+    <Button
+        android:id="@+id/btn_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/robotocondensedbold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="30dp"
+        android:background="@null"
+        android:textSize="30dp"
+        android:text="Skip"
+        android:alpha=".5"
+        android:textColor="@color/button_color"/>
+
+</RelativeLayout>
