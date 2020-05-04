@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/restaurant_after_search"
+        android:layout_width="380dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rectangle52">
+
+        <ImageView
+            android:id="@+id/res_img1"
+            android:layout_width="110dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="250dp"
+            android:background="@drawable/rounded_corners"
+            android:src="@drawable/restaurant" />
+
+        <TextView
+            android:id="@+id/res1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="110dp"
+            android:fontFamily="@font/robotocondensedbold"
+            android:text="Kulkarni's Snacks"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/group75" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/res1"
+            android:layout_marginLeft="145dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="95dp"
+            android:fontFamily="@font/helveticaneuemedium500"
+            android:text="Open Now"
+            android:textColor="@color/green"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
