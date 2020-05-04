@@ -1,8 +1,6 @@
 package com.example.dashin;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
@@ -11,10 +9,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
+import com.example.dashin.adapters.MyPagerAdapter;
 
 public class IntroActivity extends AppCompatActivity {
     private ViewPager viewPager;
@@ -45,7 +44,7 @@ public class IntroActivity extends AppCompatActivity {
         btnskip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(IntroActivity.this,WelcomeActivity.class);
+                Intent intent = new Intent(IntroActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -64,7 +63,7 @@ public class IntroActivity extends AppCompatActivity {
         start_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(IntroActivity.this,WelcomeActivity.class);
+                Intent intent = new Intent(IntroActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });

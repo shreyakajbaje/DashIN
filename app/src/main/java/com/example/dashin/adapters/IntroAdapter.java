@@ -1,8 +1,12 @@
-package com.example.dashin;
+package com.example.dashin.adapters;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.example.dashin.fragments.onboarding1;
+import com.example.dashin.fragments.onboarding2;
+import com.example.dashin.fragments.onboarding3;
 
 public class IntroAdapter extends FragmentPagerAdapter {
     public IntroAdapter(FragmentManager fm) {

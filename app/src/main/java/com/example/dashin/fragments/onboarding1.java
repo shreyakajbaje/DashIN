@@ -1,28 +1,28 @@
-package com.example.dashin;
+package com.example.dashin.fragments;
 
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class onboarding2 extends Fragment {
+import com.example.dashin.R;
 
+public class onboarding1 extends Fragment {
 
-    public onboarding2() {
+    public onboarding1() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_onboarding2, container, false);
+        return inflater.inflate(R.layout.fragment_onboarding1, container, false);
     }
 
 }

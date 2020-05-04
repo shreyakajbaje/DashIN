@@ -19,7 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         final BottomNavigationView navigation = findViewById(R.id.bottom_nav);
-        navigation.setSelectedItemId(R.id.nav_setting);
+        navigation.setSelectedItemId(R.id.nav_profile);
 
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -33,7 +33,7 @@ public class SettingsActivity extends AppCompatActivity {
                         Intent a1 = new Intent(SettingsActivity.this,HomescreenActivity.class);
                         startActivity(a1);
                         break;
-                    case  R.id.nav_setting:
+                    case  R.id.nav_profile:
                         break;
                     case R.id.nav_search:
                         Intent a2 = new Intent(SettingsActivity.this,SearchActivity.class);

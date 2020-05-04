@@ -46,7 +46,7 @@ public class PaymentScreen extends AppCompatActivity implements CompoundButton.O
                         Intent a = new Intent(PaymentScreen.this,HomescreenActivity.class);
                         startActivity(a);
                         break;
-                    case  R.id.nav_setting:
+                    case  R.id.nav_profile:
                         Intent a1 = new Intent(PaymentScreen.this,SettingsActivity.class);
                         startActivity(a1);
                     case  R.id.nav_search:

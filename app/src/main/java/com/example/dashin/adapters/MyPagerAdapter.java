@@ -1,4 +1,4 @@
-package com.example.dashin;
+package com.example.dashin.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

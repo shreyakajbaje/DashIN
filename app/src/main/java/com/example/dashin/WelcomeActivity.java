@@ -1,10 +1,8 @@
 package com.example.dashin;
 
 import android.content.Intent;
-import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -22,7 +20,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome_activity);
+        setContentView(R.layout.fragment_welcome);
 
         /*ImageView hello = findViewById(R.id.hello_gujrati);
         hello.setBackgroundResource(R.drawable.hello_animation);

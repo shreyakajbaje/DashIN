@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "205615685426",
+    "firebase_url": "https://dashin-f110e.firebaseio.com",
+    "project_id": "dashin-f110e",
+    "storage_bucket": "dashin-f110e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205615685426:android:74c0a115118b48a6c1012b",
+        "android_client_info": {
+          "package_name": "com.example.dashin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205615685426-0q4itj4od714itb5kfhmudf63ecia6sv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dashin",
+            "certificate_hash": "1124d84221dfda624d6ab0424f19e663a5b015e3"
+          }
+        },
+        {
+          "client_id": "205615685426-dck57vivm70le0hdj1hnfnpr867h25ui.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB60TjJeqNwDKPXPDQmz_LgdN8hwAoFX4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205615685426-dck57vivm70le0hdj1hnfnpr867h25ui.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

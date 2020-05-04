@@ -1,49 +1,64 @@
-package com.example.dashin;
+package com.example.dashin.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.os.CountDownTimer;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.dashin.HomescreenActivity;
+import com.example.dashin.MainActivity;
+import com.example.dashin.PaymentScreen;
+import com.example.dashin.R;
+import com.example.dashin.RestaurantCart;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class RestaurantCart extends AppCompatActivity {
+public class CartFragment extends Fragment {
 
-   ImageView imageView;
+    ImageView imageView;
+    
+
+    public CartFragment() {
+        // Required empty public constructor
+
+    }
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.restaurant_cart);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.restaurant_cart, container, false);
 
-        ImageView dinebtn = findViewById(R.id.dine_in);
+        ImageView dinebtn = view.findViewById(R.id.dine_in);
         dinebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RestaurantCart.this,PaymentScreen.class);
+                Intent intent = new Intent(getActivity(), PaymentScreen.class);
                 startActivity(intent);
             }
         });
 
-        ImageView backpg = findViewById(R.id.back_page);
+        ImageView backpg = view.findViewById(R.id.back_page);
         backpg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RestaurantCart.this,HomescreenActivity.class);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
         });
 
         final int[] count = {1};
-        final TextView txtCount = findViewById(R.id.item_no1);
-        ImageView buttonInc = findViewById(R.id.add_item1);
-        ImageView buttonDec = findViewById(R.id.remove_item1);
+        final TextView txtCount = view.findViewById(R.id.item_no1);
+        ImageView buttonInc = view.findViewById(R.id.add_item1);
+        ImageView buttonDec = view.findViewById(R.id.remove_item1);
 
         buttonInc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,9 +82,9 @@ public class RestaurantCart extends AppCompatActivity {
         });
 
         final int[] count1 = {1};
-        final TextView txtCount1 = findViewById(R.id.item_no2);
-        ImageView buttonInc1 = findViewById(R.id.add_item2);
-        ImageView buttonDec1 = findViewById(R.id.remove_item2);
+        final TextView txtCount1 = view.findViewById(R.id.item_no2);
+        ImageView buttonInc1 = view.findViewById(R.id.add_item2);
+        ImageView buttonDec1 = view.findViewById(R.id.remove_item2);
 
         buttonInc1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,9 +109,9 @@ public class RestaurantCart extends AppCompatActivity {
         });
 
         final int[] count2 = {1};
-        final TextView txtCount2 = findViewById(R.id.item_no3);
-        ImageView buttonInc2 = findViewById(R.id.add_item3);
-        ImageView buttonDec2 = findViewById(R.id.remove_item3);
+        final TextView txtCount2 = view.findViewById(R.id.item_no3);
+        ImageView buttonInc2 = view.findViewById(R.id.add_item3);
+        ImageView buttonDec2 = view.findViewById(R.id.remove_item3);
 
         buttonInc2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +135,7 @@ public class RestaurantCart extends AppCompatActivity {
             }
         });
 
-        imageView = findViewById(R.id.alertbox);
+        imageView = view.findViewById(R.id.alertbox);
         imageView.setImageResource(R.drawable.cupon_popup_txt);
 
         CountDownTimer timer = new CountDownTimer(5000, 1000) {
@@ -135,30 +150,8 @@ public class RestaurantCart extends AppCompatActivity {
             }
         }.start();
 
-        final BottomNavigationView navigation = findViewById(R.id.bottom_nav);
-        navigation.setSelectedItemId(R.id.nav_cart);
 
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.nav_cart:
-                        break;
-                    case R.id.nav_home:
-                        Intent a = new Intent(RestaurantCart.this,HomescreenActivity.class);
-                        startActivity(a);
-                        break;
-                    case R.id.nav_profile:
-                        Intent a1 = new Intent(RestaurantCart.this,SettingsActivity.class);
-                        startActivity(a1);
-                        break;
-                    case R.id.nav_search:
-                        Intent a2 = new Intent(RestaurantCart.this,SearchActivity.class);
-                        startActivity(a2);
-                        break;
-                }
-                return true;
-            }
-        });
+
+        return view;
     }
 }

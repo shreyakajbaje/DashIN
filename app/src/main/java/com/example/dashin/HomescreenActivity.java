@@ -49,7 +49,7 @@ public class HomescreenActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_home:
                         break;
-                    case  R.id.nav_setting:
+                    case  R.id.nav_profile:
                         Intent a1 = new Intent(HomescreenActivity.this,SettingsActivity.class);
                         startActivity(a1);
                         break;
