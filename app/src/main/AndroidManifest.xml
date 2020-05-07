@@ -11,11 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:screenOrientation="fullSensor" android:name=".MainActivity" />
         <activity android:screenOrientation="fullSensor" android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:screenOrientation="fullSensor" android:name=".IntroActivity"/>
         <activity android:screenOrientation="fullSensor" android:name=".LoginActivity"/>
@@ -25,7 +21,14 @@
         <activity android:name=".RestaurantNavigation" android:screenOrientation="fullSensor"/>
         <activity android:name=".ProfileActivity" android:screenOrientation="fullSensor"/>
         <activity android:name=".SettingsActivity" android:screenOrientation="fullSensor"/>
-        <activity android:name=".PaymentScreen" android:screenOrientation="fullSensor"/>
+        <activity android:name=".PaymentModule.PaymentScreen" android:screenOrientation="fullSensor">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PaymentModule.checksum"/>
     </application>
 
 </manifest>

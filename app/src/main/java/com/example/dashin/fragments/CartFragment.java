@@ -12,11 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.dashin.HomescreenActivity;
 import com.example.dashin.MainActivity;
-import com.example.dashin.PaymentScreen;
+import com.example.dashin.PaymentModule.PaymentScreen;
 import com.example.dashin.R;
-import com.example.dashin.RestaurantCart;
 
 
 public class CartFragment extends Fragment {

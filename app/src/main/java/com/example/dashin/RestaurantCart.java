@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.dashin.PaymentModule.PaymentScreen;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,7 @@ public class RestaurantCart extends AppCompatActivity {
         dinebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RestaurantCart.this,PaymentScreen.class);
+                Intent intent = new Intent(RestaurantCart.this, PaymentScreen.class);
                 startActivity(intent);
             }
         });
