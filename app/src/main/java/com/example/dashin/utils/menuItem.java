@@ -23,27 +23,18 @@ public class menuItem {
 
     String Image;
 
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    String ID;
     public menuItem()
     {
 
     }
-    public menuItem(String name, String description, String type, int price, String image,boolean veg,String id) {
+    public menuItem(String name, String description, String type, int price, String image,boolean veg) {
         Name = name;
         Description = description;
         Type = type;
         Price = price;
         Image=image;
         VEG=veg;
-        ID=id;
+
 
     }
 

@@ -31,6 +31,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemAdapter.menuHolder> {
     private StorageReference mStorageRef;
@@ -42,7 +44,7 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull menuHolder holder, int position, @NonNull final menuItem model) {
+    protected void onBindViewHolder(@NonNull menuHolder holder, final int position, @NonNull final menuItem model) {
         mStorageRef = FirebaseStorage.getInstance().getReference();
         holder.name.setText(model.getName());
         holder.description.setText(model.getDescription());
@@ -51,7 +53,7 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
         holder.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.collection("CUSTOMER/8682259087/Cart").document(model.getID()).get()
+                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(position).getId()).get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -60,8 +62,12 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
                                     if(documentSnapshot != null && documentSnapshot.exists()) {
                                         Toast.makeText(context,"Item already added in cart",Toast.LENGTH_SHORT).show();
                                     }else{
-                                        cartItem cartItem = new cartItem(model.getName(),1,model.getPrice(),model.isVEG(),model.getID());
-                                        db.collection("CUSTOMER/8682259087/Cart").document(model.getID()).set(cartItem);
+                                        Map<String, Object> docData = new HashMap<>();
+                                        docData.put("Name", model.getName());
+                                        docData.put("Quantity",1);
+                                        docData.put("Price",model.getPrice());
+                                        docData.put("VEG",model.isVEG());
+                                        db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(position).getId()).set(docData);
                                         Toast.makeText(context,"Item added in cart",Toast.LENGTH_SHORT).show();
                                     }
 

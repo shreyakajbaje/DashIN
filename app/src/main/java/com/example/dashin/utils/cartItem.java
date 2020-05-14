@@ -1,17 +1,12 @@
 package com.example.dashin.utils;
 
+import com.google.firebase.firestore.PropertyName;
+
 public class cartItem {
     private String Name;
 
-    public String getID() {
-        return ID;
-    }
 
-    public void setID(String ID) {
-        this.ID = ID;
-    }
 
-    private String ID;
     private int Price;
     private int Quantity;
 
@@ -28,12 +23,12 @@ public class cartItem {
     {
 
     }
-    public cartItem(String name, int Quantity, int Price,boolean veg,String id) {
+    public cartItem(String name, int Quantity, int Price,boolean veg) {
         Name = name;
         this.Quantity = Quantity;
         this.Price = Price;
         VEG=veg;
-        ID=id;
+
     }
 
 
