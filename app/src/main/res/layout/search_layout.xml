@@ -13,6 +13,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="290dp"
         android:src="@drawable/background_image"/>
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         popupTheme="@style/ThemeOverlay.AppCompat.Light"

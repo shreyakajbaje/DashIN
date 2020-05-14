@@ -73,17 +73,9 @@ public class HomescreenActivity extends AppCompatActivity {
         });
 
         ImageView img1 = findViewById(R.id.res_img1);
-        ImageView img2 = findViewById(R.id.res_img2);
-        ImageView img3 = findViewById(R.id.res_img3);
-        ImageView img4 = findViewById(R.id.res_img4);
-        ImageView img5 = findViewById(R.id.res_img5);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             img1.setClipToOutline(true);
-            img2.setClipToOutline(true);
-            img3.setClipToOutline(true);
-            img4.setClipToOutline(true);
-            img5.setClipToOutline(true);
         }
 
         ImageView imageView = findViewById(R.id.img1);
@@ -99,28 +91,16 @@ public class HomescreenActivity extends AppCompatActivity {
     Bitmap getRoundedCornerImage(int icon1,int icon2){
         // get the back image
         Bitmap backImage= BitmapFactory.decodeResource( getResources(), icon2);
-
         // Get the front image
-
         Bitmap originalImg=BitmapFactory.decodeResource( getResources(),icon1);
-
         // Convert the image to mutable bitmap for later editing
-
-
         Bitmap mutableBitmap = backImage.copy( Bitmap.Config.ARGB_8888, true);
-
         // Create Canvas object for the mutable image
-
         Canvas canvas = new Canvas(mutableBitmap);
-
         // Create paint object
-
         final Paint paint = new Paint();
-
         paint.setColor(Color.parseColor("#44aa77")) ;
-
         //  Draw the front image on the back image
-
         canvas.drawBitmap(originalImg, 25, 18, paint);
 
         return mutableBitmap;

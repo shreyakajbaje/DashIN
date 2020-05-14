@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+
+    <ImageView
+        android:id="@+id/front_pic"
+        android:background="@drawable/rounded_corners"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/restaurant"
+        android:outlineProvider="background"
+        android:layout_marginTop="15dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/resturant1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/busi_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/robotocondensedbold"
+            android:text="Kulkarni's Snacks"
+            android:textSize="15sp"
+            android:textColor="@color/black"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/busi_description"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/helveticaneuemedium500"
+            android:text="Typical maharashtrian vegiterian"
+            android:textSize="12sp"
+            android:textColor="@color/grey"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:text="₹"
+                android:textSize="12sp"
+                android:textColor="@color/grey"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/costing"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:text="80"
+                android:textSize="12sp"
+                android:textColor="@color/grey"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:text=" | "
+                android:textSize="12sp"
+                android:textColor="@color/grey"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/open_from"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:text="8:00 AM"
+                android:textSize="12sp"
+                android:textColor="@color/grey"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:text=" - "
+                android:textSize="12sp"
+                android:textColor="@color/grey"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/open_till"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:text="10:00 PM"
+                android:textSize="12sp"
+                android:textColor="@color/grey"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/open_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/helveticaneuemedium500"
+            android:layout_below="@+id/res1"
+            android:text="Open Now"
+            android:textSize="12sp"
+            android:textColor="@color/green"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:text="4.0"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_corners_for_rating"
+        android:paddingHorizontal="5dp"
+        android:textSize="15sp"
+        android:layout_alignParentRight="true"/>
+
+
+</LinearLayout>

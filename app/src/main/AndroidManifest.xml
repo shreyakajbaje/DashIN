@@ -9,26 +9,82 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:screenOrientation="fullSensor" android:name=".MainActivity" />
-        <activity android:screenOrientation="fullSensor" android:name=".SplashActivity">
 
-        </activity>
-        <activity android:screenOrientation="fullSensor" android:name=".IntroActivity"/>
-        <activity android:screenOrientation="fullSensor" android:name=".LoginActivity"/>
-        <activity android:screenOrientation="fullSensor" android:name=".OptionsActivity"/>
-        <activity android:name=".BookingScreen" android:screenOrientation="fullSensor"/>
-        <activity android:name=".RestaurantContact" android:screenOrientation="fullSensor"/>
-        <activity android:name=".RestaurantNavigation" android:screenOrientation="fullSensor"/>
-        <activity android:name=".ProfileActivity" android:screenOrientation="fullSensor"/>
-        <activity android:name=".SettingsActivity" android:screenOrientation="fullSensor"/>
-        <activity android:name=".PaymentModule.PaymentScreen" android:screenOrientation="fullSensor">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAuMK7p26Wq1BQ7JBVr3cIP2G_NZpDAP5M"/>
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="fullSensor" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="fullSensor"></activity>
+        <activity
+            android:name=".IntroActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PaymentModule.checksum"/>
+        <activity
+            android:name=".OptionsActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".BookingScreen"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".RestaurantContact"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".RestaurantNavigation"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".ProfileActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".PaymentModule.PaymentScreen"
+            android:screenOrientation="fullSensor">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PaymentModule.checksum" />
+        <service
+            android:name=".services.AppLocationService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
     </application>
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
 </manifest>
