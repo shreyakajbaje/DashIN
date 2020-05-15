@@ -3,6 +3,8 @@ package com.example.dashin.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -35,19 +37,23 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 
 public class VerifyOPTFragment extends Fragment {
 
-    String phonenumber;
-    EditText et1,et2,et3,et4,et5,et6;
-    TextView setphn;
-    Button pgnext;
+    private TextView mTextViewCountDown;
+    private TextView resend;
+    private String phonenumber;
+    private TextView setphn;
+    private Button pgnext;
+    private String TAG = "messapp";
+    private String mVerificationId;
+    private PinView pinView;
 
-    String TAG = "mapsapp";
-    String mVerificationId;
-    PinView pinView;
+    private ExampleThread thread;
+    private Handler mainHandler = new Handler();
 
     PhoneAuthProvider.ForceResendingToken mResendToken;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -65,6 +71,8 @@ public class VerifyOPTFragment extends Fragment {
 
         Bundle bundle = getArguments();
         phonenumber = bundle.getString("Number");
+        mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
+        resend = view.findViewById(R.id.resend_tv);
         pgnext = view.findViewById(R.id.nexthome);
         onConfirmClicked();
 
@@ -86,13 +94,13 @@ public class VerifyOPTFragment extends Fragment {
                 //     user action.
                 String code = credential.getSmsCode();
                 Log.d(TAG, "onVerificationCompleted:" + credential);
+
                 signInWithPhoneAuthCredential(credential);
 
                 if (code != null) {
                     pinView.setText(code);
                     //verifying the code
                 }
-
             }
 
             @Override
@@ -100,7 +108,6 @@ public class VerifyOPTFragment extends Fragment {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e);
-
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
                     // ...
@@ -109,8 +116,9 @@ public class VerifyOPTFragment extends Fragment {
                     // The SMS quota for the project has been exceeded
                     // ...
                     Log.e(TAG,"sms quota exceeded");
+                    Toast.makeText(getActivity(), "SMS quota exceeded. Please try again after some time.",
+                            Toast.LENGTH_LONG).show();
                 }
-
                 // Show a message and update the UI
                 // ...
             }
@@ -132,13 +140,35 @@ public class VerifyOPTFragment extends Fragment {
         };
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phonenumber,        // Phone number to verify
-                120,                 // Timeout duration
+                100,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 getActivity(),               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
 
+
+        //start counter
+        thread = new ExampleThread(99);
+        thread.start();
+
+        resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                        phonenumber,        // Phone number to verify
+                        100,                 // Timeout duration
+                        TimeUnit.SECONDS,   // Unit of timeout
+                        getActivity(),               // Activity (for callback binding)
+                        mCallbacks);        // OnVerificationStateChangedCallbacks
+
+
+            }
+        });
+
+
         return view;
     }
+
+
 
     private void setPinView(View v) {
 
@@ -181,7 +211,7 @@ public class VerifyOPTFragment extends Fragment {
                     //signing the user
                     signInWithPhoneAuthCredential(credential);
                 }else{
-                    Toast.makeText(getActivity(), "Creadentials not received!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please enter a valid OTP.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -196,6 +226,8 @@ public class VerifyOPTFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            thread.interrupt();
+
                                             getActivity().finish();
                                             Intent intent = new Intent(getActivity(), MainActivity.class);
                                             startActivity(intent);
@@ -228,4 +260,48 @@ public class VerifyOPTFragment extends Fragment {
                 });
 
     }
+
+    class ExampleThread extends Thread {
+        int seconds;
+        boolean restart = false;
+
+        ExampleThread(int seconds) {
+            this.seconds = seconds;
+        }
+
+        void restartThread(){
+            restart = true;
+        }
+        @Override
+        public void run() {
+            for (int i = seconds; i >= 0; i--) {
+                if(restart) {
+                    i = seconds;
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            restart = false;
+                        }
+                    });
+
+                }
+                //Log.d(TAG, "startThread: " + i);
+                final int finalI = i;
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTextViewCountDown.setText(String.valueOf(finalI));
+                    }
+                });
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
 }

@@ -12,5 +12,4 @@ public class Constants {
 
     public static final FirebaseStorage mStorage = FirebaseStorage.getInstance();
 
-
 }

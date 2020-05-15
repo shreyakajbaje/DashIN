@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.CustomerLogin">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="70dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/logo"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dashin_logo"
+        android:layout_marginTop="180dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:orientation="vertical"
+        android:layout_marginTop="250dp"
+        android:background="@drawable/card_2_background"
+        android:padding="30dp">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:id="@+id/progressBar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:layout_marginTop="30dp"
+            android:focusableInTouchMode="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint=" EMAIL"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:textColor="@color/grey"
+                android:ems="10"
+                android:inputType="text"
+                android:textSize="20sp"
+                android:id="@+id/signin_email" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_marginTop="25dp"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint=" PASSWORD"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:textColor="@color/grey"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:textSize="20sp"
+                android:id="@+id/signin_password" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/buttonSignin"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/helveticaneuemedium500"
+            android:backgroundTint="@color/bgcolor"
+            android:layout_gravity="center"
+            android:background="@drawable/button_rounded"
+            android:text="Sign In"
+            android:textColor="@color/white"
+            android:textSize="22sp"/>
+
+    </LinearLayout>
+
+</FrameLayout>

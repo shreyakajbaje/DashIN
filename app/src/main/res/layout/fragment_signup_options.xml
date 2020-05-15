@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/logo"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dashin_logo"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="500dp"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/card_2_background">
+
+        <TextView
+            android:layout_marginTop="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:fontFamily="@font/helveticaneuemedium500"
+            android:text="Select Option"
+            android:textSize="15dp"
+            android:textColor="@color/black"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/pg_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:text="Customer"/>
+
+            <RadioButton
+                android:id="@+id/pg_vendor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vendor"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:padding="10dp"/>
+
+            <RadioButton
+                android:id="@+id/pg_staff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Staff"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:padding="10dp"/>
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/signup_page"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
+            android:fontFamily="@font/helveticaneuemedium500"
+            android:backgroundTint="@color/bgcolor"
+            android:text="Sign Up"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:background="@drawable/button_rounded" />
+
+        <Button
+            android:id="@+id/signin_page"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/helveticaneuemedium500"
+            android:backgroundTint="@color/bgcolor"
+            android:text="Sign In"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:background="@drawable/button_rounded" />
+    </LinearLayout>
+
+
+</LinearLayout>

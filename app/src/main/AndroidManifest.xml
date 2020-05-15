@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dashin">
 
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -9,6 +17,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAuMK7p26Wq1BQ7JBVr3cIP2G_NZpDAP5M"/>
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".IntroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait">
         <activity android:name=".SearchBarTool"></activity>
         <activity android:name=".DetailedBillAndRepeat"></activity>
         <activity android:name=".MyOrdersActivity"></activity>
@@ -26,32 +56,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IntroActivity"
-            android:screenOrientation="fullSensor" />
-        <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="fullSensor" />
-        <activity
             android:name=".OptionsActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".BookingScreen"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RestaurantContact"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RestaurantNavigation"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
+
         <activity
-            android:name=".ProfileActivity"
-            android:screenOrientation="fullSensor" />
-        <activity
-            android:name=".SettingsActivity"
-            android:screenOrientation="fullSensor" />
-        <activity
-            android:name=".PaymentScreen"
-            android:screenOrientation="fullSensor" />
+            android:name=".PaymentModule.PaymentScreen"
+            android:screenOrientation="portrait">
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PaymentModule.checksum" />
+        <service
+            android:name=".services.AppLocationService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
     </application>
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+
+
 
 </manifest>

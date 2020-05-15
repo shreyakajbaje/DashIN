@@ -5,13 +5,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".HomescreenActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" >
@@ -23,35 +24,27 @@
             android:src="@drawable/ioc_iocn"/>
 
         <TextView
+            android:id="@+id/locality_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="Sahakarnagar"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="6dp"
+            android:text="Loading..."
             android:fontFamily="sans-serif-medium"
             android:textSize="15sp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/black"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="7dp"
-            android:src="@drawable/ioc_down_arrow_icon"/>
-
-        <ImageView
-            android:id="@+id/profile_btn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="150dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/profile_pic_icon"/>
 
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#eeeeee"
         android:layout_weight="1">
 
         <LinearLayout
@@ -59,531 +52,554 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:scrollbars="none">
 
-                <LinearLayout
+                <HorizontalScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp">
+                    android:layout_gravity="center"
+                    android:paddingVertical="6dp"
+                    android:background="@color/white"
+                    android:scrollbars="none">
 
-                    <ImageView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/ruchira_advertisement"/>
+                        android:layout_marginLeft="10dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/ruchira_advertisement"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:src="@drawable/ruchira_advertisement"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/ruchira_advertisement"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:src="@drawable/ruchira_advertisement"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/ruchira_advertisement"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:src="@drawable/ruchira_advertisement"/>
 
-                </LinearLayout>
-            </HorizontalScrollView>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:src="@drawable/ruchira_advertisement"/>
 
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_tags"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none">
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:paddingVertical="5dp"
+                >
 
-                <RelativeLayout
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+
+<!--            <HorizontalScrollView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:scrollbars="none">-->
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="7dp"-->
+<!--                    android:layout_marginLeft="2dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/img1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:src="@drawable/image6"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="38dp"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:layout_marginRight="40dp"-->
+<!--                        android:fontFamily="@font/robotocondensedbold"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="Lunch"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="40sp" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/img2"-->
+<!--                        android:layout_alignParentLeft="true"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="180dp"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:src="@drawable/image8"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="205dp"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:layout_marginRight="30dp"-->
+<!--                        android:fontFamily="@font/robotocondensedbold"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="Snacks"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="40sp" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/img3"-->
+<!--                        android:layout_alignParentLeft="true"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="363dp"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:src="@drawable/image5"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="405dp"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:layout_marginRight="30dp"-->
+<!--                        android:fontFamily="@font/robotocondensedbold"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="Dinner"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="40sp" />-->
+
+<!--                </RelativeLayout>-->
+<!--            </HorizontalScrollView>-->
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:layout_marginTop="3dp"
+                android:paddingVertical="4dp"
+                >
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginLeft="2dp">
-
-                    <ImageView
-                        android:id="@+id/img1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/image6"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="38dp"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginRight="40dp"
-                        android:fontFamily="@font/robotocondensedbold"
-                        android:gravity="center"
-                        android:text="Lunch"
-                        android:textColor="@color/white"
-                        android:textSize="40sp" />
-
-                    <ImageView
-                        android:id="@+id/img2"
-                        android:layout_alignParentLeft="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="180dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/image8"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="205dp"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginRight="30dp"
-                        android:fontFamily="@font/robotocondensedbold"
-                        android:gravity="center"
-                        android:text="Snacks"
-                        android:textColor="@color/white"
-                        android:textSize="40sp" />
-
-                    <ImageView
-                        android:id="@+id/img3"
-                        android:layout_alignParentLeft="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="363dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/image5"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="405dp"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginRight="30dp"
-                        android:fontFamily="@font/robotocondensedbold"
-                        android:gravity="center"
-                        android:text="Dinner"
-                        android:textColor="@color/white"
-                        android:textSize="40sp" />
-
-                </RelativeLayout>
-            </HorizontalScrollView>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
+                    android:orientation="horizontal"
+                    android:layout_weight="0.18">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="8dp"
                     android:src="@drawable/near_you_icon"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="23dp"
-                    android:layout_marginLeft="55dp"
-                    android:layout_marginRight="290dp"
-                    android:src="@drawable/near_you_text"/>
+                    android:layout_marginTop="13dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/near_you_text"
+                    />
+                </LinearLayout>
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/filter_btn"/>
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:id="@+id/resturant1"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="15dp">
-
-                    <ImageView
-                        android:id="@+id/res_img1"
-                        android:background="@drawable/rounded_corners"
-                        android:layout_width="120dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="250dp"
-                        android:src="@drawable/restaurant"/>
-
-                    <TextView
-                        android:id="@+id/res1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="140dp"
-                        android:fontFamily="@font/robotocondensedbold"
-                        android:text="Kulkarni's Snacks"
-                        android:textSize="15sp"
-                        android:textColor="@color/black"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/group75"
-                        android:layout_alignParentRight="true"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/res1"
-                        android:layout_marginTop="3dp"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="60dp"
-                        android:text="Typical maharashtrian vegiterian"
-                        android:textSize="12sp"
-                        android:textColor="@color/grey"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/res1"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_marginTop="22dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="95dp"
-                        android:text="₹80 | 8:00 AM - 10:00 PM"
-                        android:textSize="12sp"
-                        android:textColor="@color/grey"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_below="@+id/res1"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="95dp"
-                        android:text="Open Now"
-                        android:textSize="12sp"
-                        android:textColor="@color/green"/>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="15dp">
-
-                    <ImageView
-                        android:id="@+id/res_img2"
-                        android:background="@drawable/rounded_corners"
-                        android:layout_width="120dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="250dp"
-                        android:src="@drawable/restaurant"/>
-
-                    <TextView
-                        android:id="@+id/res2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="140dp"
-                        android:fontFamily="@font/robotocondensedbold"
-                        android:text="Shree Annapurana"
-                        android:textSize="15sp"
-                        android:textColor="@color/black"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/group75"
-                        android:layout_alignParentRight="true"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/res2"
-                        android:layout_marginTop="3dp"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="60dp"
-                        android:text="Typical maharashtrian vegiterian"
-                        android:textSize="12sp"
-                        android:textColor="@color/grey"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/res2"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_marginTop="22dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="95dp"
-                        android:text="₹80 | 8:00 AM - 10:00 PM"
-                        android:textSize="12sp"
-                        android:textColor="@color/grey"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_below="@+id/res2"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="95dp"
-                        android:text="Open Now"
-                        android:textSize="12sp"
-                        android:textColor="@color/green"/>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="15dp">
-
-                    <ImageView
-                        android:id="@+id/res_img3"
-                        android:background="@drawable/rounded_corners"
-                        android:layout_width="120dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="250dp"
-                        android:src="@drawable/restaurant"/>
-
-                    <TextView
-                        android:id="@+id/res3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="140dp"
-                        android:fontFamily="@font/robotocondensedbold"
-                        android:text="Shree Annapurana"
-                        android:textSize="15sp"
-                        android:textColor="@color/black"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/group75"
-                        android:layout_alignParentRight="true"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/res3"
-                        android:layout_marginTop="3dp"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="60dp"
-                        android:text="Typical maharashtrian vegiterian"
-                        android:textSize="12sp"
-                        android:textColor="@color/grey"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/res3"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_marginTop="22dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="95dp"
-                        android:text="₹80 | 8:00 AM - 10:00 PM"
-                        android:textSize="12sp"
-                        android:textColor="@color/grey"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_below="@+id/res3"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="95dp"
-                        android:text="Open Now"
-                        android:textSize="12sp"
-                        android:textColor="@color/green"/>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="15dp">
-
-                    <ImageView
-                        android:id="@+id/res_img4"
-                        android:background="@drawable/rounded_corners"
-                        android:layout_width="120dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="250dp"
-                        android:src="@drawable/restaurant"/>
-
-                    <TextView
-                        android:id="@+id/res4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="140dp"
-                        android:fontFamily="@font/robotocondensedbold"
-                        android:text="Shree Annapurana"
-                        android:textSize="15sp"
-                        android:textColor="@color/black"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/group75"
-                        android:layout_alignParentRight="true"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/res4"
-                        android:layout_marginTop="3dp"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="60dp"
-                        android:text="Typical maharashtrian vegiterian"
-                        android:textSize="12sp"
-                        android:textColor="@color/grey"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/res4"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_marginTop="22dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="95dp"
-                        android:text="₹80 | 8:00 AM - 10:00 PM"
-                        android:textSize="12sp"
-                        android:textColor="@color/grey"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_below="@+id/res4"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="95dp"
-                        android:text="Open Now"
-                        android:textSize="12sp"
-                        android:textColor="@color/green"/>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="15dp">
-
-                    <ImageView
-                        android:id="@+id/res_img5"
-                        android:background="@drawable/rounded_corners"
-                        android:layout_width="120dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="250dp"
-                        android:src="@drawable/restaurant"/>
-
-                    <TextView
-                        android:id="@+id/res5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="140dp"
-                        android:fontFamily="@font/robotocondensedbold"
-                        android:text="Shree Annapurana"
-                        android:textSize="15sp"
-                        android:textColor="@color/black"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/group75"
-                        android:layout_alignParentRight="true"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/res5"
-                        android:layout_marginTop="3dp"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="60dp"
-                        android:text="Typical maharashtrian vegiterian"
-                        android:textSize="12sp"
-                        android:textColor="@color/grey"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/res5"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_marginTop="22dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="95dp"
-                        android:text="₹80 | 8:00 AM - 10:00 PM"
-                        android:textSize="12sp"
-                        android:textColor="@color/grey"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/helveticaneuemedium500"
-                        android:layout_below="@+id/res5"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginLeft="145dp"
-                        android:layout_marginRight="95dp"
-                        android:text="Open Now"
-                        android:textSize="12sp"
-                        android:textColor="@color/green"/>
-
-                </RelativeLayout>
+                    android:src="@drawable/filter_btn"
+                    android:layout_weight="0.82"
+                    android:layout_marginRight="10dp"/>
             </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingVertical="5dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="fill_parent"-->
+<!--                android:layout_height="fill_parent"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/resturant1"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="80dp"-->
+<!--                    android:layout_marginTop="15dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/res_img1"-->
+<!--                        android:background="@drawable/rounded_corners"-->
+<!--                        android:layout_width="120dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginRight="250dp"-->
+<!--                        android:src="@drawable/restaurant"/>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/res1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="1dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="140dp"-->
+<!--                        android:fontFamily="@font/robotocondensedbold"-->
+<!--                        android:text="Kulkarni's Snacks"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textColor="@color/black"/>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:src="@drawable/group75"-->
+<!--                        android:layout_alignParentRight="true"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/res1"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="60dp"-->
+<!--                        android:text="Typical maharashtrian vegiterian"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/grey"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/res1"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_marginTop="22dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="95dp"-->
+<!--                        android:text="₹80 | 8:00 AM - 10:00 PM"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/grey"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_below="@+id/res1"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="95dp"-->
+<!--                        android:text="Open Now"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/green"/>-->
+
+<!--                </RelativeLayout>-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="80dp"-->
+<!--                    android:layout_marginTop="15dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/res_img2"-->
+<!--                        android:background="@drawable/rounded_corners"-->
+<!--                        android:layout_width="120dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginRight="250dp"-->
+<!--                        android:src="@drawable/restaurant"/>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/res2"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="1dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="140dp"-->
+<!--                        android:fontFamily="@font/robotocondensedbold"-->
+<!--                        android:text="Shree Annapurana"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textColor="@color/black"/>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:src="@drawable/group75"-->
+<!--                        android:layout_alignParentRight="true"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/res2"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="60dp"-->
+<!--                        android:text="Typical maharashtrian vegiterian"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/grey"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/res2"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_marginTop="22dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="95dp"-->
+<!--                        android:text="₹80 | 8:00 AM - 10:00 PM"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/grey"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_below="@+id/res2"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="95dp"-->
+<!--                        android:text="Open Now"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/green"/>-->
+
+<!--                </RelativeLayout>-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="80dp"-->
+<!--                    android:layout_marginTop="15dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/res_img3"-->
+<!--                        android:background="@drawable/rounded_corners"-->
+<!--                        android:layout_width="120dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginRight="250dp"-->
+<!--                        android:src="@drawable/restaurant"/>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/res3"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="1dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="140dp"-->
+<!--                        android:fontFamily="@font/robotocondensedbold"-->
+<!--                        android:text="Shree Annapurana"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textColor="@color/black"/>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:src="@drawable/group75"-->
+<!--                        android:layout_alignParentRight="true"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/res3"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="60dp"-->
+<!--                        android:text="Typical maharashtrian vegiterian"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/grey"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/res3"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_marginTop="22dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="95dp"-->
+<!--                        android:text="₹80 | 8:00 AM - 10:00 PM"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/grey"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_below="@+id/res3"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="95dp"-->
+<!--                        android:text="Open Now"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/green"/>-->
+
+<!--                </RelativeLayout>-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="80dp"-->
+<!--                    android:layout_marginTop="15dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/res_img4"-->
+<!--                        android:background="@drawable/rounded_corners"-->
+<!--                        android:layout_width="120dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginRight="250dp"-->
+<!--                        android:src="@drawable/restaurant"/>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/res4"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="1dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="140dp"-->
+<!--                        android:fontFamily="@font/robotocondensedbold"-->
+<!--                        android:text="Shree Annapurana"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textColor="@color/black"/>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:src="@drawable/group75"-->
+<!--                        android:layout_alignParentRight="true"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/res4"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="60dp"-->
+<!--                        android:text="Typical maharashtrian vegiterian"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/grey"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/res4"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_marginTop="22dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="95dp"-->
+<!--                        android:text="₹80 | 8:00 AM - 10:00 PM"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/grey"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_below="@+id/res4"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="95dp"-->
+<!--                        android:text="Open Now"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/green"/>-->
+
+<!--                </RelativeLayout>-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="80dp"-->
+<!--                    android:layout_marginTop="15dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/res_img5"-->
+<!--                        android:background="@drawable/rounded_corners"-->
+<!--                        android:layout_width="120dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginRight="250dp"-->
+<!--                        android:src="@drawable/restaurant"/>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/res5"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="1dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="140dp"-->
+<!--                        android:fontFamily="@font/robotocondensedbold"-->
+<!--                        android:text="Shree Annapurana"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textColor="@color/black"/>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:src="@drawable/group75"-->
+<!--                        android:layout_alignParentRight="true"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/res5"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="60dp"-->
+<!--                        android:text="Typical maharashtrian vegiterian"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/grey"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/res5"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_marginTop="22dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="95dp"-->
+<!--                        android:text="₹80 | 8:00 AM - 10:00 PM"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/grey"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/helveticaneuemedium500"-->
+<!--                        android:layout_below="@+id/res5"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:layout_marginLeft="145dp"-->
+<!--                        android:layout_marginRight="95dp"-->
+<!--                        android:text="Open Now"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textColor="@color/green"/>-->
+
+<!--                </RelativeLayout>-->
+<!--            </LinearLayout>-->
 
         </LinearLayout>
 
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_nav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:verticalScrollbarPosition="defaultPosition"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_alignParentBottom="true"
-            android:isScrollContainer="false"
-            app:menu="@menu/bottom_navigation"
-            android:background="?android:attr/windowBackground"
-            app:itemTextColor="@color/tab_bottom_color"
-            app:itemIconTint="@color/tab_bottom_color"
-            app:labelVisibilityMode="labeled"/>
-    </LinearLayout>
 
 </LinearLayout>
