@@ -24,10 +24,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dashin.HomescreenActivity;
+import com.example.dashin.MainActivity;
 import com.example.dashin.R;
-import com.example.dashin.RestaurantCart;
-import com.example.dashin.SearchActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -58,7 +56,7 @@ public class PaymentScreen extends AppCompatActivity {
         backpage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PaymentScreen.this, RestaurantCart.class);
+                Intent intent = new Intent(PaymentScreen.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -72,14 +70,14 @@ public class PaymentScreen extends AppCompatActivity {
                     case R.id.nav_cart:
                         break;
                     case R.id.nav_home:
-                        Intent a = new Intent(PaymentScreen.this, HomescreenActivity.class);
+                        Intent a = new Intent(PaymentScreen.this, MainActivity.class);
                         startActivity(a);
                         break;
                     case  R.id.nav_profile:
                       //  Intent a1 = new Intent(PaymentScreen.this, SettingsActivity.class);
                         //startActivity(a1);
                     case  R.id.nav_search:
-                        Intent a2 = new Intent(PaymentScreen.this, SearchActivity.class);
+                        Intent a2 = new Intent(PaymentScreen.this, MainActivity.class);
                         startActivity(a2);
                 }
                 return true;

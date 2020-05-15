@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 
 import com.example.dashin.R;
 import com.example.dashin.RestaurantActivity;
-import com.example.dashin.SearchActivity;
 
 public class SearchFragment extends Fragment {
 

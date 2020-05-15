@@ -2,7 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dashin">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -21,17 +28,17 @@
 
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="fullSensor"></activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".IntroActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,25 +47,20 @@
         </activity>
         <activity
             android:name=".OptionsActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".BookingScreen"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RestaurantContact"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RestaurantNavigation"
-            android:screenOrientation="fullSensor" />
-        <activity
-            android:name=".ProfileActivity"
-            android:screenOrientation="fullSensor" />
-        <activity
-            android:name=".SettingsActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".PaymentModule.PaymentScreen"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
 
 
             <intent-filter>
@@ -83,11 +85,6 @@
         android:glEsVersion="0x00020000"
         android:required="true"/>
 
-
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 
 </manifest>

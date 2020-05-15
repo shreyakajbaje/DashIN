@@ -1,24 +1,16 @@
 package com.example.dashin.fragments;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,26 +27,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dashin.HomescreenActivity;
-import com.example.dashin.ProfileActivity;
+
 import com.example.dashin.R;
 import com.example.dashin.adapters.MessAdapter;
-import com.example.dashin.classes.HttpDataHandler;
+import com.example.dashin.adapters.TagsAdapter;
 import com.example.dashin.classes.LocationAddress;
 import com.example.dashin.classes.ModelMess;
-import com.example.dashin.services.AppLocationService;
+import com.example.dashin.classes.ModelTag;
 import com.example.dashin.utils.Constants;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.Query;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 
@@ -62,7 +49,8 @@ import java.text.DecimalFormat;
 public class HomeFragment extends Fragment {
 
     MessAdapter adapter;
-    RecyclerView recyclerView;
+    TagsAdapter tagsAdapter;
+    RecyclerView recyclerView, recyclerView2;
     Location currentLocation;
     TextView locality;
 
@@ -76,19 +64,30 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.home_screen, container, false);
 
-        ImageView profile = view.findViewById(R.id.profile_btn);
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
 
         setUpLocation();
 
+        final Toolbar toolbar = view.findViewById(R.id.my_toolbar);
         locality = view.findViewById(R.id.locality_tv);
-        recyclerView = view.findViewById(R.id.rv);
+        locality.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(locality.getMaxLines()==1) {
+                    locality.setMaxLines(4);
+                    locality.setBottom(10);
+                    toolbar.setMinimumHeight(90);
+
+                }
+                else {
+                    locality.setMaxLines(1);
+                    locality.setBottom(3);
+                    toolbar.setMinimumHeight(55);
+                }
+            }
+        });
+
+
+
         setUpMessRecyclerView(view);
         setUpOffersRecyclerView(view);
         setUpFoodRecyclerView(view);
@@ -99,14 +98,23 @@ public class HomeFragment extends Fragment {
 
     private void setUpFoodRecyclerView(View view) {
 
-        ImageView imageView = view.findViewById(R.id.img1);
-        imageView.setImageBitmap(getRoundedCornerImage(R.drawable.image6,R.drawable.rectangle8));
+        Log.e("Tags", "rv setup");
+        recyclerView2 = view.findViewById(R.id.rv_tags);
+        Query query =
+                Constants.mFirestore.collection("Tags");
 
-        ImageView imageView1 = view.findViewById(R.id.img2);
-        imageView1.setImageBitmap(getRoundedCornerImage(R.drawable.image8,R.drawable.rectangle9));
+        FirestoreRecyclerOptions<ModelTag> options = new FirestoreRecyclerOptions.Builder<ModelTag>()
+                .setQuery(query, ModelTag.class)
+                .build();
 
-        ImageView imageView2 = view.findViewById(R.id.img3);
-        imageView2.setImageBitmap(getRoundedCornerImage(R.drawable.image5,R.drawable.rectangle9));
+        tagsAdapter = new TagsAdapter(options, new TagsAdapter.ClickListener() {
+            @Override public void onPositionClicked(int position) {
+                // callback performed on click
+            }
+        });
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
+        recyclerView2.setAdapter(tagsAdapter);
+
 
     }
 
@@ -114,6 +122,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setUpMessRecyclerView(View view) {
+        recyclerView = view.findViewById(R.id.rv);
         Log.e("ModelBooks", "setting up recycler view");
         Query query =
                 Constants.mFirestore.collection("Vendor");
@@ -136,6 +145,7 @@ public class HomeFragment extends Fragment {
         Log.e("ModelBooks", "on start");
         super.onStart();
         adapter.startListening();
+        tagsAdapter.startListening();
     }
 
     @Override
@@ -143,6 +153,7 @@ public class HomeFragment extends Fragment {
         Log.e("ModelBooks", "on stop");
         super.onStop();
         adapter.stopListening();
+        tagsAdapter.stopListening();
     }
 
     Bitmap getRoundedCornerImage(int icon1, int icon2){
@@ -177,7 +188,6 @@ public class HomeFragment extends Fragment {
 
     private void setUpLocation() {
 
-
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
 
@@ -207,7 +217,6 @@ public class HomeFragment extends Fragment {
                     101);
         }
 
-
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
@@ -223,9 +232,13 @@ public class HomeFragment extends Fragment {
                     double latitude = Double.parseDouble(df.format(currentLocation.getLatitude()));
                     double longitude = Double.parseDouble(df.format(currentLocation.getLongitude()));
                     LocationAddress locationAddress = new LocationAddress();
-                    locationAddress.getAddressFromLocation(latitude, longitude,
-                            getActivity(), new GeocoderHandler());
+                    try {
+                        locationAddress.getAddressFromLocation(latitude, longitude,
+                                getActivity(), new GeocoderHandler());
 
+                    }catch(Exception e ){
+                        Log.e("exception in geocoder", e.getMessage());
+                    }
                 } else {
                     Toast.makeText(getActivity(), "Turn on GPS", Toast.LENGTH_SHORT).show();
                 }

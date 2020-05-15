@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="170dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="5dp"
+    android:maxHeight="220dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="3dp"
+            >
+
+            <ImageView
+                android:id="@+id/offer_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="110dp"
+                android:padding="2dp"
+                android:src="@drawable/restaurant"
+                android:background="@drawable/rounded_corners"
+                android:scaleType="centerCrop"
+                />
+
+
+            <TextView
+                android:id="@+id/mess_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ruchira Snacks"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/mess_rating_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 3.8"
+                    android:drawableLeft="@drawable/ic_star"
+                    android:textSize="18sp"/>
+
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
+                    android:src="@drawable/ic_dot"
+                    android:tint="@color/quantum_grey900"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/mess_costing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="29 mins"
+                    android:textSize="18sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="95dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_corners"
+            app:cardElevation="3dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#CB0544"
+                android:text="20% OFF"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:textSize="20sp"
+                />
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+    </RelativeLayout>
+
+
+
+
+</com.google.android.material.card.MaterialCardView>

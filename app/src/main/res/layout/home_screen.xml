@@ -5,13 +5,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".HomescreenActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" >
@@ -27,23 +28,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="6dp"
             android:text="Loading..."
             android:fontFamily="sans-serif-medium"
             android:textSize="15sp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/black"/>
 
-<!--        <ImageView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="25dp"-->
-<!--            android:layout_marginLeft="7dp"-->
-<!--            android:src="@drawable/ioc_down_arrow_icon"/>-->
 
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#eeeeee"
         android:layout_weight="1">
 
         <LinearLayout
@@ -51,128 +52,150 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:scrollbars="none">
 
-                <LinearLayout
+                <HorizontalScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp">
+                    android:layout_gravity="center"
+                    android:paddingVertical="6dp"
+                    android:background="@color/white"
+                    android:scrollbars="none">
 
-                    <ImageView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/ruchira_advertisement"/>
+                        android:layout_marginLeft="10dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/ruchira_advertisement"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:src="@drawable/ruchira_advertisement"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/ruchira_advertisement"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:src="@drawable/ruchira_advertisement"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/ruchira_advertisement"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:src="@drawable/ruchira_advertisement"/>
 
-                </LinearLayout>
-            </HorizontalScrollView>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:src="@drawable/ruchira_advertisement"/>
 
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_tags"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none">
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:paddingVertical="5dp"
+                >
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginLeft="2dp">
+            </androidx.recyclerview.widget.RecyclerView>
 
-                    <ImageView
-                        android:id="@+id/img1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/image6"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="38dp"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginRight="40dp"
-                        android:fontFamily="@font/robotocondensedbold"
-                        android:gravity="center"
-                        android:text="Lunch"
-                        android:textColor="@color/white"
-                        android:textSize="40sp" />
 
-                    <ImageView
-                        android:id="@+id/img2"
-                        android:layout_alignParentLeft="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="180dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/image8"/>
+<!--            <HorizontalScrollView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:scrollbars="none">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="205dp"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginRight="30dp"
-                        android:fontFamily="@font/robotocondensedbold"
-                        android:gravity="center"
-                        android:text="Snacks"
-                        android:textColor="@color/white"
-                        android:textSize="40sp" />
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="7dp"-->
+<!--                    android:layout_marginLeft="2dp">-->
 
-                    <ImageView
-                        android:id="@+id/img3"
-                        android:layout_alignParentLeft="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="363dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/image5"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/img1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:src="@drawable/image6"/>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="405dp"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginRight="30dp"
-                        android:fontFamily="@font/robotocondensedbold"
-                        android:gravity="center"
-                        android:text="Dinner"
-                        android:textColor="@color/white"
-                        android:textSize="40sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="38dp"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:layout_marginRight="40dp"-->
+<!--                        android:fontFamily="@font/robotocondensedbold"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="Lunch"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="40sp" />-->
 
-                </RelativeLayout>
-            </HorizontalScrollView>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/img2"-->
+<!--                        android:layout_alignParentLeft="true"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="180dp"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:src="@drawable/image8"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="205dp"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:layout_marginRight="30dp"-->
+<!--                        android:fontFamily="@font/robotocondensedbold"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="Snacks"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="40sp" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/img3"-->
+<!--                        android:layout_alignParentLeft="true"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="363dp"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:src="@drawable/image5"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="405dp"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:layout_marginRight="30dp"-->
+<!--                        android:fontFamily="@font/robotocondensedbold"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="Dinner"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="40sp" />-->
+
+<!--                </RelativeLayout>-->
+<!--            </HorizontalScrollView>-->
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:background="@color/white"
+                android:layout_marginTop="3dp"
+                android:paddingVertical="4dp"
                 >
 
                 <LinearLayout
@@ -183,14 +206,13 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="8dp"
                     android:src="@drawable/near_you_icon"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="23dp"
+                    android:layout_marginTop="13dp"
                     android:layout_marginLeft="10dp"
                     android:src="@drawable/near_you_text"
                     />
@@ -199,17 +221,20 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/filter_btn"
                     android:layout_weight="0.82"
                     android:layout_marginRight="10dp"/>
             </LinearLayout>
 
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingVertical="5dp">
 
             </androidx.recyclerview.widget.RecyclerView>
 

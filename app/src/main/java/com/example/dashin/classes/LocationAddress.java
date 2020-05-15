@@ -28,18 +28,19 @@ public class LocationAddress {
                             latitude, longitude, 1);
 
                     if (addressList != null && addressList.size() > 0) {
-                        Log.e("in locAddr", addressList.toString());
+
                         Address address = addressList.get(0);
+                        Log.e("in locAddr", addressList.get(0).getAddressLine(0).toString());
                         StringBuilder sb = new StringBuilder();
-//                        for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-//                            sb.append(address.getAddressLine(i)).append("\n");
-//                        }
-                        sb.append(address.getLocality()).append(", ");
-                        sb.append(address.getPostalCode());
+                        for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+                            sb.append(address.getAddressLine(i)).append(",");
+                        }
+//                        sb.append(address.getLocality()).append(", ");
+//                        sb.append(address.getPostalCode());
                       //  sb.append(address.getCountryName());
+                        sb.append(addressList.get(0).getAddressLine(0));
                         result = sb.toString();
 
-                        Log.e("in locAddr", address.getLocality());
 
                     }
                 } catch (IOException e) {
