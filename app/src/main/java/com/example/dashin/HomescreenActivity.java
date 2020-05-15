@@ -28,15 +28,6 @@ public class HomescreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
 
-        ImageView profile = findViewById(R.id.profile_btn);
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomescreenActivity.this,ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-
         final BottomNavigationView navigation = findViewById(R.id.bottom_nav);
         navigation.setSelectedItemId(R.id.nav_home);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -44,18 +35,18 @@ public class HomescreenActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_cart:
-                        Intent a = new Intent(HomescreenActivity.this,RestaurantCart.class);
-                        startActivity(a);
+                        //Intent a = new Intent(HomescreenActivity.this,RestaurantCart.class);
+                        //startActivity(a);
                         break;
                     case R.id.nav_home:
                         break;
                     case  R.id.nav_profile:
-                        Intent a1 = new Intent(HomescreenActivity.this,SettingsActivity.class);
-                        startActivity(a1);
+                       // Intent a1 = new Intent(HomescreenActivity.this,SettingsActivity.class);
+                        //startActivity(a1);
                         break;
                     case  R.id.nav_search:
-                        Intent a2 = new Intent(HomescreenActivity.this,SearchActivity.class);
-                        startActivity(a2);
+                        //Intent a2 = new Intent(HomescreenActivity.this,SearchActivity.class);
+                        //startActivity(a2);
                         break;
                 }
                 return true;

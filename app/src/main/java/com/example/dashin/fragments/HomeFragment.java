@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment {
         setUpMessRecyclerView(view);
         setUpOffersRecyclerView(view);
         setUpFoodRecyclerView(view);
-        
+
         return view;
     }
 
@@ -101,8 +101,10 @@ public class HomeFragment extends Fragment {
 
         ImageView imageView = view.findViewById(R.id.img1);
         imageView.setImageBitmap(getRoundedCornerImage(R.drawable.image6,R.drawable.rectangle8));
+
         ImageView imageView1 = view.findViewById(R.id.img2);
         imageView1.setImageBitmap(getRoundedCornerImage(R.drawable.image8,R.drawable.rectangle9));
+
         ImageView imageView2 = view.findViewById(R.id.img3);
         imageView2.setImageBitmap(getRoundedCornerImage(R.drawable.image5,R.drawable.rectangle9));
 
@@ -148,21 +150,28 @@ public class HomeFragment extends Fragment {
         Bitmap backImage= BitmapFactory.decodeResource( getResources(), icon2);
 
         // Get the front image
+
         Bitmap originalImg=BitmapFactory.decodeResource( getResources(),icon1);
 
         // Convert the image to mutable bitmap for later editing
+
+
         Bitmap mutableBitmap = backImage.copy( Bitmap.Config.ARGB_8888, true);
 
         // Create Canvas object for the mutable image
+
         Canvas canvas = new Canvas(mutableBitmap);
 
         // Create paint object
+
         final Paint paint = new Paint();
 
         paint.setColor(Color.parseColor("#44aa77")) ;
+
         //  Draw the front image on the back image
 
         canvas.drawBitmap(originalImg, 25, 18, paint);
+
         return mutableBitmap;
     }
 

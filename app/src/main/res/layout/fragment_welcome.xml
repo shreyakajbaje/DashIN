@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WelcomeActivity">
+    tools:context=".fragments.EnterNumberFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -105,18 +105,19 @@
 
     </LinearLayout>
 
-
     <TextView
         android:id="@+id/signuphere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:clickable="true"
         android:fontFamily="@font/robotocondensedbold"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="Don't have an account?Sign Up"
         android:textSize="18sp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:focusable="true" />
 
 </LinearLayout>

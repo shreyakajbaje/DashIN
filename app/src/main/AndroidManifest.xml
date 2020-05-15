@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dashin">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -58,6 +59,8 @@
         <activity
             android:name=".PaymentModule.PaymentScreen"
             android:screenOrientation="fullSensor">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -28,7 +28,6 @@ import com.example.dashin.HomescreenActivity;
 import com.example.dashin.R;
 import com.example.dashin.RestaurantCart;
 import com.example.dashin.SearchActivity;
-import com.example.dashin.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -77,8 +76,8 @@ public class PaymentScreen extends AppCompatActivity {
                         startActivity(a);
                         break;
                     case  R.id.nav_profile:
-                        Intent a1 = new Intent(PaymentScreen.this, SettingsActivity.class);
-                        startActivity(a1);
+                      //  Intent a1 = new Intent(PaymentScreen.this, SettingsActivity.class);
+                        //startActivity(a1);
                     case  R.id.nav_search:
                         Intent a2 = new Intent(PaymentScreen.this, SearchActivity.class);
                         startActivity(a2);

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "205615685426-74af4e1ki18idjv4uefugklb1humu6h0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dashin",
+            "certificate_hash": "d71fe10f01d13fb36242457df6fa6d6cddba9468"
+          }
+        },
+        {
           "client_id": "205615685426-0q4itj4od714itb5kfhmudf63ecia6sv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

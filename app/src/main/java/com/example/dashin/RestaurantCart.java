@@ -150,8 +150,8 @@ public class RestaurantCart extends AppCompatActivity {
                         startActivity(a);
                         break;
                     case R.id.nav_profile:
-                        Intent a1 = new Intent(RestaurantCart.this,SettingsActivity.class);
-                        startActivity(a1);
+                        //Intent a1 = new Intent(RestaurantCart.this,SettingsActivity.class);
+                        //startActivity(a1);
                         break;
                     case R.id.nav_search:
                         Intent a2 = new Intent(RestaurantCart.this,SearchActivity.class);
