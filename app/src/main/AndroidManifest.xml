@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dashin">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -9,19 +10,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:screenOrientation="fullSensor" android:name=".MainActivity" />
-        <activity android:screenOrientation="fullSensor" android:name=".SplashActivity">
 
-        </activity>
+        <activity android:name=".PaymentModule.PaymentScreen" android:screenOrientation="fullSensor"/>
         <activity android:screenOrientation="fullSensor" android:name=".IntroActivity"/>
-        <activity android:screenOrientation="fullSensor" android:name=".LoginActivity"/>
+        <activity android:screenOrientation="fullSensor" android:name=".MainActivity"/>
         <activity android:screenOrientation="fullSensor" android:name=".OptionsActivity"/>
         <activity android:name=".BookingScreen" android:screenOrientation="fullSensor"/>
         <activity android:name=".RestaurantContact" android:screenOrientation="fullSensor"/>
         <activity android:name=".RestaurantNavigation" android:screenOrientation="fullSensor"/>
-        <activity android:name=".ProfileActivity" android:screenOrientation="fullSensor"/>
-        <activity android:name=".SettingsActivity" android:screenOrientation="fullSensor"/>
-        <activity android:name=".PaymentModule.PaymentScreen" android:screenOrientation="fullSensor">
+        <activity android:screenOrientation="fullSensor" android:name=".SplashActivity"/>
+        <activity android:screenOrientation="fullSensor" android:name=".LoginActivity"/>
+        <activity android:screenOrientation="fullSensor" android:name=".FirstPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -16,8 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.dashin.HomescreenActivity;
-import com.example.dashin.ProfileActivity;
 import com.example.dashin.R;
 
 
@@ -33,15 +31,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.home_screen, container, false);
-
-        ImageView profile = view.findViewById(R.id.profile_btn);
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
 
         ImageView img1 = view.findViewById(R.id.res_img1);
         ImageView img2 = view.findViewById(R.id.res_img2);

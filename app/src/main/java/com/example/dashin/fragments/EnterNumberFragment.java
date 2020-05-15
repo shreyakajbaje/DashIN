@@ -24,6 +24,7 @@ import com.example.dashin.utils.Constants;
 public class EnterNumberFragment extends Fragment {
 
     private ImageView nextpage;
+    TextView signup;
     private Drawable hanim;
     EditText phno;
     String st;
@@ -62,6 +63,12 @@ public class EnterNumberFragment extends Fragment {
 
         phno = view.findViewById(R.id.phone);
 
+        signup = view.findViewById(R.id.signuphere);
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
         nextpage = view.findViewById(R.id.nextpg);
         nextpage.setOnClickListener(new View.OnClickListener() {
