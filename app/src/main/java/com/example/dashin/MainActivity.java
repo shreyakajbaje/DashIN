@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         search_fragment=new SearchFragment();
         cart_fragment=new CartFragment();
         profile_fragment=new ProfileFragment();
+
         setFragment(home_fragment);
         Log.e("fragments", "oncreate");
         botnavview.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

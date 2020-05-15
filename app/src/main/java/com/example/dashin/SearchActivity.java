@@ -11,31 +11,38 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SearchActivity extends AppCompatActivity {
 
     RelativeLayout relativeLayout;
-
+    AutoCompleteTextView searchView;
+    ArrayAdapter<String> searchViewOptions;
+    ListView listView;
     private static final String[] restaurant = new String[]{"Kulkarni mess","Relax Veg"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_layout);
-
         relativeLayout = findViewById(R.id.restaurant_after_search);
-
-        AutoCompleteTextView searchView = findViewById(R.id.search);
+        searchView = findViewById(R.id.search);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.search_autocompletelayout,R.id.res1,restaurant);
         searchView.setAdapter(adapter);
-
+        listView=(ListView)findViewById(R.id.Search_list_view);
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -69,4 +76,5 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
+
 }

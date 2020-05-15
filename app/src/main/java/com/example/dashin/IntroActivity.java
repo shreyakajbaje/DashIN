@@ -67,7 +67,6 @@ public class IntroActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         layouts = new int[]{R.layout.slide_1,R.layout.slide_2,R.layout.slide_3};
         pagerAdapter = new MyPagerAdapter(layouts,getApplicationContext());
         viewPager.setAdapter(pagerAdapter);

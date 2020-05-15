@@ -151,7 +151,6 @@
             android:fontFamily="@font/helveticaneuemedium500"
             android:text="Annapurna Mess"/>
     </RelativeLayout>
-
     <LinearLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

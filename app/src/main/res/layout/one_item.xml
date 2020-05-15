@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dip"
+    android:background="@drawable/background_one_entity"
+    android:layout_marginBottom="-4dip"
+    >
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="300dip"
+        android:text="order"
+        android:fontFamily="@font/helveticaneuemedium500"
+        android:id="@+id/BillOrderName"
+        android:textSize="18dip"
+        android:layout_marginTop="15dip"
+        android:layout_marginLeft="27dip"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Item x 1"
+        android:fontFamily="@font/helveticaneuemedium500"
+        android:id="@+id/BillOrderPriceAndCount"
+        android:textSize="14dip"
+        android:layout_marginTop="47dip"
+        android:layout_marginLeft="27dip"
+        />
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="XXX"
+        android:fontFamily="@font/helveticaneuemedium500"
+        android:id="@+id/SubTotal"
+        android:textSize="18dip"
+        android:textColor="@color/black"
+        android:layout_marginTop="45dip"
+        android:layout_marginLeft="250dip"
+        />
+</RelativeLayout>

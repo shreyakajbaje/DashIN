@@ -9,23 +9,49 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:screenOrientation="fullSensor" android:name=".MainActivity" />
-        <activity android:screenOrientation="fullSensor" android:name=".SplashActivity">
+        <activity android:name=".SearchBarTool"></activity>
+        <activity android:name=".DetailedBillAndRepeat"></activity>
+        <activity android:name=".MyOrdersActivity"></activity>
+        <activity android:name=".DatabaseLogActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:screenOrientation="fullSensor" android:name=".IntroActivity"/>
-        <activity android:screenOrientation="fullSensor" android:name=".LoginActivity"/>
-        <activity android:screenOrientation="fullSensor" android:name=".OptionsActivity"/>
-        <activity android:name=".BookingScreen" android:screenOrientation="fullSensor"/>
-        <activity android:name=".RestaurantContact" android:screenOrientation="fullSensor"/>
-        <activity android:name=".RestaurantNavigation" android:screenOrientation="fullSensor"/>
-        <activity android:name=".ProfileActivity" android:screenOrientation="fullSensor"/>
-        <activity android:name=".SettingsActivity" android:screenOrientation="fullSensor"/>
-        <activity android:name=".PaymentScreen" android:screenOrientation="fullSensor"/>
+        <activity
+            android:name=".IntroActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".OptionsActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".BookingScreen"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".RestaurantContact"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".RestaurantNavigation"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".ProfileActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".PaymentScreen"
+            android:screenOrientation="fullSensor" />
     </application>
 
 </manifest>

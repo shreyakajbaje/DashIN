@@ -41,6 +41,10 @@ public class ProfileActivity extends AppCompatActivity {
                         Intent a1 = new Intent(ProfileActivity.this,HomescreenActivity.class);
                         startActivity(a1);
                         break;
+                    case R.id.My_orders:
+                        Intent a2 = new Intent(ProfileActivity.this,MyOrdersActivity.class);
+                        startActivity(a2);
+                        break;
                 }
                 return true;
             }
