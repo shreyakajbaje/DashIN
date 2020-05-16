@@ -7,7 +7,8 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
-import com.example.dashin.adapters.RecyclerViewAdapter;
+import com.example.dashin.CustomerModule.activities.BookingScreen;
+import com.example.dashin.CustomerModule.adapters.RecyclerViewAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -54,7 +55,7 @@ public class RestaurantActivity extends AppCompatActivity {
         bookseat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RestaurantActivity.this,BookingScreen.class);
+                Intent intent = new Intent(RestaurantActivity.this, BookingScreen.class);
                 startActivity(intent);
             }
         });

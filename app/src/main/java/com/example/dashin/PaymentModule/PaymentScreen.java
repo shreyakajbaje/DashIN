@@ -24,7 +24,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dashin.MainActivity;
+import com.example.dashin.CustomerModule.activities.MainActivity;
 import com.example.dashin.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

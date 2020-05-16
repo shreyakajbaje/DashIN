@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".MyOrdersActivity"
+    tools:context=".CustomerModule.activities.MyOrdersActivity"
     >
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
