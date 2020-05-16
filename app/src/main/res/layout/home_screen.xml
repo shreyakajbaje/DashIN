@@ -52,46 +52,56 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_offers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:paddingVertical="5dp"
+                >
+            </androidx.recyclerview.widget.RecyclerView>
 
-                <HorizontalScrollView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:paddingVertical="6dp"
-                    android:background="@color/white"
-                    android:scrollbars="none">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp">
+<!--                <HorizontalScrollView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:paddingVertical="6dp"-->
+<!--                    android:background="@color/white"-->
+<!--                    android:scrollbars="none">-->
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
-                            android:src="@drawable/ruchira_advertisement"/>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="10dp">-->
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
-                            android:src="@drawable/ruchira_advertisement"/>
+<!--                        <ImageView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginRight="8dp"-->
+<!--                            android:src="@drawable/ruchira_advertisement"/>-->
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
-                            android:src="@drawable/ruchira_advertisement"/>
+<!--                        <ImageView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginRight="8dp"-->
+<!--                            android:src="@drawable/ruchira_advertisement"/>-->
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
-                            android:src="@drawable/ruchira_advertisement"/>
+<!--                        <ImageView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginRight="8dp"-->
+<!--                            android:src="@drawable/ruchira_advertisement"/>-->
 
-                    </LinearLayout>
-                </HorizontalScrollView>
+<!--                        <ImageView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginRight="8dp"-->
+<!--                            android:src="@drawable/ruchira_advertisement"/>-->
+
+<!--                    </LinearLayout>-->
+<!--                </HorizontalScrollView>-->
 
 
 

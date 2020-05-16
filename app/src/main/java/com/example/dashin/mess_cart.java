@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.dashin.adapters.cartItemAdapter;
+import com.example.dashin.utils.Constants;
 import com.example.dashin.utils.cartItem;
 import com.example.dashin.utils.menuItem;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -19,7 +20,7 @@ import com.google.firebase.firestore.Query;
 
 public class mess_cart extends AppCompatActivity implements cartItemAdapter.setBill {
     RecyclerView cartitems;
-    private FirebaseFirestore db =FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = Constants.mFirestore;
 
     private CollectionReference cartRef=db.collection("CUSTOMER/8682259087/Cart");
     cartItemAdapter cartItemAdapter;

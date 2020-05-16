@@ -9,7 +9,7 @@ public class ModelMess {
     String BUSI_NAME, BUSI_DESCRIPTION, OWNER, ADDRESS, FRONT_PIC, OPEN_FROM, OPEN_TILL;
     Timestamp TimeStamp;
     GeoPoint LOCATION;
-    int COSTING;
+    int COSTING, DISCOUNT;
     double RATING;
 
     public ModelMess(String BUSI_NAME, String BUSI_DESCRIPTION, String OWNER, String ADDRESS, int COSTING, String FRONT_PIC, String OPEN_FROM, String OPEN_TILL, Timestamp timeStamp, GeoPoint LOCATION, double RATING) {
@@ -43,6 +43,14 @@ public class ModelMess {
                 ", LOCATION=" + LOCATION +
                 ", RATING=" + RATING +
                 '}';
+    }
+
+    public int getDISCOUNT() {
+        return DISCOUNT;
+    }
+
+    public void setDISCOUNT(int DISCOUNT) {
+        this.DISCOUNT = DISCOUNT;
     }
 
     public String getBUSI_NAME() {

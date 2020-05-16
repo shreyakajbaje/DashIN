@@ -52,19 +52,19 @@
                     android:drawableLeft="@drawable/ic_star"
                     android:textSize="18sp"/>
 
-                <ImageView
-                    android:layout_width="7dp"
-                    android:layout_height="7dp"
-                    android:src="@drawable/ic_dot"
-                    android:tint="@color/quantum_grey900"
-                    android:layout_marginHorizontal="5dp"
-                    android:layout_gravity="center"/>
-                <TextView
-                    android:id="@+id/mess_costing"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="29 mins"
-                    android:textSize="18sp"/>
+<!--                <ImageView-->
+<!--                    android:layout_width="7dp"-->
+<!--                    android:layout_height="7dp"-->
+<!--                    android:src="@drawable/ic_dot"-->
+<!--                    android:tint="@color/quantum_grey900"-->
+<!--                    android:layout_marginHorizontal="5dp"-->
+<!--                    android:layout_gravity="center"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="29 mins"-->
+<!--                    android:textSize="18sp"/>-->
 
             </LinearLayout>
 

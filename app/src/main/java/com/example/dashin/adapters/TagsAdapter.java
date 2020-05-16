@@ -48,7 +48,6 @@ public class TagsAdapter extends FirestoreRecyclerAdapter<ModelTag, TagsAdapter.
     @Override
     protected void onBindViewHolder(@NonNull final TagsAdapter.TagsHolder holder, final int position, @NonNull final ModelTag model) {
 
-        Log.e("Adapter models", model.toString());
         holder.tag.setText(model.getTag());
 
         //set front pic here

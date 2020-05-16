@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.dashin.R;
 import com.example.dashin.adapters.MessAdapter;
+import com.example.dashin.adapters.OffersAdapter;
 import com.example.dashin.adapters.TagsAdapter;
 import com.example.dashin.classes.LocationAddress;
 import com.example.dashin.classes.ModelMess;
@@ -50,7 +52,8 @@ public class HomeFragment extends Fragment {
 
     MessAdapter adapter;
     TagsAdapter tagsAdapter;
-    RecyclerView recyclerView, recyclerView2;
+    OffersAdapter offersAdapter;
+    RecyclerView recyclerView, recyclerView2, recyclerView3;
     Location currentLocation;
     TextView locality;
 
@@ -112,13 +115,33 @@ public class HomeFragment extends Fragment {
                 // callback performed on click
             }
         });
-        recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
+//        recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
+//        recyclerView2.setAdapter(tagsAdapter);
+
+        recyclerView2.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.HORIZONTAL, false));
         recyclerView2.setAdapter(tagsAdapter);
+
 
 
     }
 
     private void setUpOffersRecyclerView(View view) {
+        recyclerView3 = view.findViewById(R.id.rv_offers);
+        Log.e("ModelBooks", "setting up recycler view");
+        Query query =
+                Constants.mFirestore.collection("Vendor").whereGreaterThanOrEqualTo("DISCOUNT", 5);
+
+        FirestoreRecyclerOptions<ModelMess> options = new FirestoreRecyclerOptions.Builder<ModelMess>()
+                .setQuery(query, ModelMess.class)
+                .build();
+
+        offersAdapter = new OffersAdapter(options, new OffersAdapter.ClickListener() {
+            @Override public void onPositionClicked(int position) {
+                // callback performed on click
+            }
+        });
+        recyclerView3.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView3.setAdapter(offersAdapter);
     }
 
     private void setUpMessRecyclerView(View view) {
