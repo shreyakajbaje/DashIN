@@ -1,24 +1,39 @@
 package com.example.dashin.CustomerModule.fragments;
 
 import android.content.Intent;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.dashin.CustomerModule.activities.mess_activity;
+import com.example.dashin.CustomerModule.adapters.MessAdapter;
+import com.example.dashin.CustomerModule.models.ModelMess;
+import com.example.dashin.utils.Constants;
 import com.example.dashin.utils.DatabaseLogActivity;
 import com.example.dashin.R;
 import com.example.dashin.RestaurantActivity;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -29,6 +44,8 @@ public class SearchFragment extends Fragment {
     RelativeLayout relativeLayout;
     AutoCompleteTextView searchView;
     ArrayAdapter<String> adapter;
+    MessAdapter messAdapter;
+    RecyclerView recyclerView;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -41,7 +58,10 @@ public class SearchFragment extends Fragment {
         View view =  inflater.inflate(R.layout.search_layout, container, false);
         relativeLayout = view.findViewById(R.id.restaurant_after_search);
         searchView = view.findViewById(R.id.search);
+        recyclerView=view.findViewById(R.id.searchResults);
+        recyclerView.setVisibility(View.INVISIBLE);
         setSearchBarResults();
+        setUpMessRecyclerView();
         return view;
     }
 
@@ -69,5 +89,60 @@ public class SearchFragment extends Fragment {
                 });
             }
         });
+
+        // This display list of hotels according to search text. Filters are yet to be applied.
+        searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_SEARCH)
+                {
+                    if(!(v.getText().toString()==null||v.getText().toString()==""))
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+                    return false;
+            }
+        });
+
+        // This is to hide the list od searched hotels if search text is blank
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().isEmpty()) recyclerView.setVisibility(View.INVISIBLE);
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+    }
+    private void setUpMessRecyclerView() {
+        Log.e("ModelBooks", "setting up recycler view");
+        Query query = Constants.mFirestore.collection("VENDORS");
+
+        FirestoreRecyclerOptions<ModelMess> options = new FirestoreRecyclerOptions.Builder<ModelMess>()
+                .setQuery(query, ModelMess.class)
+                .build();
+
+        messAdapter = new MessAdapter(options, new MessAdapter.ClickListener() {
+            @Override public void onPositionClicked(int position) {
+                // callback performed on click
+            }
+        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(messAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        messAdapter.startListening();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        messAdapter.stopListening();
     }
 }
