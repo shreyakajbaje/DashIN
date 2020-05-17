@@ -39,4 +39,12 @@
         android:layout_marginTop="45dip"
         android:layout_marginLeft="250dip"
         />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:layout_below="@id/SubTotal"
+        android:layout_marginTop="13dip"
+        android:background="#e9e9e9"
+        />
 </RelativeLayout>

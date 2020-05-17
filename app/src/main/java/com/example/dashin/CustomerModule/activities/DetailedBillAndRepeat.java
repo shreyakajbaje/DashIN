@@ -3,6 +3,8 @@ package com.example.dashin.CustomerModule.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,19 +21,23 @@ import com.example.dashin.utils.DatabaseLogActivity;
 import com.example.dashin.CustomerModule.adapters.DetailsAdapter;
 import com.example.dashin.CustomerModule.adapters.OrdersAdapter;
 import com.example.dashin.R;
+import com.paytm.pgsdk.easypay.OnSwipeTouchListener;
 
 public class DetailedBillAndRepeat extends AppCompatActivity {
 DetailsAdapter detailsAdapter;
-ListView listView;
-TextView MessName, Address,DelOrEat,Amount;
+RecyclerView recyclerView;
+TextView MessName, Address,DelOrEat,Amount,reload;
 Button ReSubmit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_bill_and_repeat);
-        detailsAdapter=new DetailsAdapter(this,0, DatabaseLogActivity.details.get(OrdersAdapter.pos));
-        listView=(ListView)findViewById(R.id.ItemList);
-        listView.setAdapter(detailsAdapter);
+        //                                                                  Here must go the customer's number and unique order number
+        detailsAdapter=new DetailsAdapter(DatabaseLogActivity.makeRecyclerView("7218149193",OrdersAdapter.pos));
+        RecyclerView recyclerView= findViewById(R.id.ItemList);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(detailsAdapter);
         MessName=(TextView)findViewById(R.id.TitleHolder);
         Address=(TextView)findViewById(R.id.AddressHolder);
         DelOrEat=(TextView)findViewById(R.id.DelOrTakeHolder);
@@ -63,5 +69,15 @@ Button ReSubmit;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        detailsAdapter.startListening();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        detailsAdapter.stopListening();
     }
 }

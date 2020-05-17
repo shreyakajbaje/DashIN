@@ -4,11 +4,11 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
 
 public class SingleEntityOfOrders {
-    public String BUSI_NAME,BUSI_ADD,D_R_INDEX,OFFER_CODE,TRAN_ID,METHOD,TYPE,FROM,TO;
-    public Timestamp TIME;
-    public GeoPoint BUSI_LOC;
-    public long AMOUNT,STATUS;
-    public boolean OFFER;
+    String BUSI_NAME,BUSI_ADD,D_R_INDEX,OFFER_CODE,TRAN_ID,METHOD,TYPE,FROM,TO;
+    Timestamp TIME;
+    GeoPoint BUSI_LOC;
+    long AMOUNT,STATUS;
+    boolean OFFER;
 
     public SingleEntityOfOrders()
     {

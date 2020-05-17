@@ -67,14 +67,7 @@ public class DatabaseLogActivity extends AppCompatActivity {
                             int count = 0;
                             List<DocumentSnapshot> list = documentSnapshots.getDocuments();
                             for (int j = 0; j < documentSnapshots.size(); j++) {
-                                m[0] = m[0] + (list.get(j).getString("ITEM-NAME")+" x "+list.get(j).getLong("N").toString()+ ", ");
-                                details.get(OrderArraySize-b).add(new Details());
-                                details.get(OrderArraySize-b).get(j).setITEM_CAT(list.get(j).getString("ITEM-CAT"));
-                                details.get(OrderArraySize-b).get(j).setITEM_COST(list.get(j).getLong("ITEM-COST"));
-                                details.get(OrderArraySize-b).get(j).setITEM_ID(list.get(j).getString("ITEM-ID"));
-                                details.get(OrderArraySize-b).get(j).setITEM_NAME(list.get(j).getString("ITEM-NAME"));
-                                details.get(OrderArraySize-b).get(j).setN(list.get(j).getLong("N"));
-                                details.get(OrderArraySize-b).get(j).setSUB_TOTAL(list.get(j).getLong("SUB-TOT"));
+                                m[0] = m[0] + (list.get(j).getString("ITEM_NAME")+" x "+list.get(j).getLong("N").toString()+ ", ");
                             }
                             m[0] = m[0].substring(0, m[0].length() - 2);
                             textView.setText(m[0]);
@@ -96,6 +89,16 @@ public class DatabaseLogActivity extends AppCompatActivity {
         FirestoreRecyclerOptions<SingleEntityOfOrders> options = new FirestoreRecyclerOptions
                 .Builder<SingleEntityOfOrders>()
                 .setQuery(query,SingleEntityOfOrders.class)
+                .build();
+        return options;
+    }
+    public static FirestoreRecyclerOptions<Details> makeRecyclerView(String number,String orderID)
+    {
+        Query query = firebasePointer.collection("CUSTOMER/"+number+"/MY-ORDERS/"+orderID+"/DETAILS").orderBy("ITEM_NUM",Query.Direction.ASCENDING) ;
+
+        FirestoreRecyclerOptions<Details> options = new FirestoreRecyclerOptions
+                .Builder<Details>()
+                .setQuery(query,Details.class)
                 .build();
         return options;
     }

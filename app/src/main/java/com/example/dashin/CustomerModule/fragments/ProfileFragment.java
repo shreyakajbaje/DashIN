@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dashin.CustomerModule.activities.MyOrdersActivity;
 import com.example.dashin.LoginModule.activities.FirstPage;
 import com.example.dashin.CustomerModule.activities.MainActivity;
 import com.example.dashin.R;
@@ -29,7 +30,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 public class ProfileFragment extends Fragment {
 
-    RelativeLayout logout,next_setting;
+    RelativeLayout logout,next_setting, my_orders;
     TextView cName,cEmail;
     String userId;
 
@@ -113,6 +114,14 @@ public class ProfileFragment extends Fragment {
 
                 Constants.mAuth.addAuthStateListener(authStateListener);
                 Constants.mAuth.signOut();
+            }
+        });
+
+        my_orders=view.findViewById(R.id.my_orders_layout);
+        my_orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), MyOrdersActivity.class));
             }
         });
 

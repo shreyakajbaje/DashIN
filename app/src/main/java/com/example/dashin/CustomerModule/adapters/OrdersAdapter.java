@@ -29,16 +29,18 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class OrdersAdapter extends FirestoreRecyclerAdapter<SingleEntityOfOrders, OrdersAdapter.OrdersHolder> {
 public static SingleEntityOfOrders current;
-public static int pos;
+public static String pos;
+int m;
     @Override
     protected void onBindViewHolder(@NonNull final OrdersHolder holder, final int position, @NonNull final SingleEntityOfOrders model) {
-        DatabaseLogActivity.details=new ArrayList<>(DatabaseLogActivity.OrderArraySize);
-        for (int i=0;i<DatabaseLogActivity.OrderArraySize;i++)
+        m=DatabaseLogActivity.OrderArraySize;
+        DatabaseLogActivity.details=new ArrayList<>(m);
+        for (int i=0;i<m;i++)
         {
             DatabaseLogActivity.details.add(new ArrayList<Details>());
         }
         String date=model.getTIME().toDate().toLocaleString();
-        DatabaseLogActivity.setOrdersPreviewString(model.getFROM(),DatabaseLogActivity.OrderArraySize-position,holder.HoldMyValues);
+        DatabaseLogActivity.setOrdersPreviewString(model.getFROM(),m-position,holder.HoldMyValues);
         holder.HoldMyDate.setText(date);
         holder.HoldMyTitle.setText(model.getBUSI_NAME());
         holder.HoldMyAmount.setText("₹"+String.valueOf(model.getAMOUNT()));
@@ -48,7 +50,7 @@ public static int pos;
             @Override
             public void onClick(View v) {
                 current=model;
-                pos=position;
+                pos="ORDER-"+(m-position);
                 holder.itemView.getContext().startActivity(new Intent(holder.itemView.getContext(), DetailedBillAndRepeat.class));
             }
         });

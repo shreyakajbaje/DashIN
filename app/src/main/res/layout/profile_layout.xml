@@ -268,7 +268,15 @@
                 android:fontFamily="@font/robotocondensedbold"
                 android:textColor="@color/black"
                 android:textSize="20sp"/>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:layout_marginLeft="35dp"
+                android:text=""
+                android:textSize="10sp"
+                android:textColor="@color/grey"/>
 
             <ImageView
                 android:id="@+id/orders"

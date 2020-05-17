@@ -1,20 +1,20 @@
 package com.example.dashin.CustomerModule.models;
 
 public class Details {
-    public String ITEM_ID;
-    public String ITEM_CAT;
-    public String ITEM_NAME;
-    public long ITEM_COST;
-    public long N;
-    public long SUB_TOTAL;
+    String ITEM_ID;
+    String ITEM_CAT;
+    String ITEM_NAME;
+    long ITEM_COST;
+    long N;
+    long SUB_TOT;
 
-    public Details(String ITEM_ID, String ITEM_CAT, String ITEM_NAME, long ITEM_COST, long n, long SUB_TOTAL) {
+    public Details(String ITEM_ID, String ITEM_CAT, String ITEM_NAME, long ITEM_COST, long n, long SUB_TOT) {
         this.ITEM_ID = ITEM_ID;
         this.ITEM_CAT = ITEM_CAT;
         this.ITEM_NAME = ITEM_NAME;
         this.ITEM_COST = ITEM_COST;
         N = n;
-        this.SUB_TOTAL = SUB_TOTAL;
+        this.SUB_TOT = SUB_TOT;
     }
 
     public Details() {
@@ -60,12 +60,12 @@ public class Details {
         N = n;
     }
 
-    public long getSUB_TOTAL() {
-        return SUB_TOTAL;
+    public long getSUB_TOT() {
+        return SUB_TOT;
     }
 
-    public void setSUB_TOTAL(long SUB_TOTAL) {
-        this.SUB_TOTAL = SUB_TOTAL;
+    public void setSUB_TOT(long SUB_TOT) {
+        this.SUB_TOT = SUB_TOT;
     }
 
 }
