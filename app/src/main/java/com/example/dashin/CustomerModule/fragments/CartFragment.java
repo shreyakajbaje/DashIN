@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -13,14 +15,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dashin.CustomerModule.activities.MainActivity;
+import com.example.dashin.CustomerModule.adapters.cartItemAdapter;
+import com.example.dashin.CustomerModule.models.cartItem;
 import com.example.dashin.PaymentModule.PaymentScreen;
 import com.example.dashin.R;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment  implements cartItemAdapter.setBill  {
 
     ImageView imageView;
-    
+    RecyclerView cartitems;
+    private FirebaseFirestore db =FirebaseFirestore.getInstance();
+
+    private CollectionReference cartRef=db.collection("CUSTOMER/8682259087/Cart");
+
+    cartItemAdapter cartItemAdapter;
+    TextView itemTotalPrice,tax,deliveryFees,totalPrice;
 
     public CartFragment() {
         // Required empty public constructor
@@ -33,105 +47,26 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.restaurant_cart, container, false);
+        View view = inflater.inflate(R.layout.activity_mess_cart, container, false);
 
-        ImageView dinebtn = view.findViewById(R.id.dine_in);
-        dinebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), PaymentScreen.class);
-                startActivity(intent);
-            }
-        });
+        cartitems=view.findViewById(R.id.cartListView);
 
-        ImageView backpg = view.findViewById(R.id.back_page);
-        backpg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+        Query query = cartRef.orderBy("Name",Query.Direction.ASCENDING);
 
-        final int[] count = {1};
-        final TextView txtCount = view.findViewById(R.id.item_no1);
-        ImageView buttonInc = view.findViewById(R.id.add_item1);
-        ImageView buttonDec = view.findViewById(R.id.remove_item1);
+        FirestoreRecyclerOptions<cartItem> options=new FirestoreRecyclerOptions.Builder<cartItem>()
+                .setQuery(query, cartItem.class)
+                .build();
+        cartItemAdapter = new cartItemAdapter(options,getContext());
 
-        buttonInc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                count[0]++;
-                txtCount.setText(String.valueOf(count[0]));
-            }
-        });
-
-        buttonDec.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                count[0]--;
-                if (count[0] >= 0){
-                    txtCount.setText(String.valueOf(count[0]));
-                }
-                else {
-                    count[0] = 0;
-                }
-            }
-        });
-
-        final int[] count1 = {1};
-        final TextView txtCount1 = view.findViewById(R.id.item_no2);
-        ImageView buttonInc1 = view.findViewById(R.id.add_item2);
-        ImageView buttonDec1 = view.findViewById(R.id.remove_item2);
-
-        buttonInc1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                count1[0]++;
-                txtCount1.setText(String.valueOf(count1[0]));
-            }
-        });
-
-        buttonDec1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                count1[0]--;
-                if (count1[0] >= 0){
-                    txtCount1.setText(String.valueOf(count1[0]));
-                }
-                else {
-                    count1[0] = 0;
-                }
-
-            }
-        });
-
-        final int[] count2 = {1};
-        final TextView txtCount2 = view.findViewById(R.id.item_no3);
-        ImageView buttonInc2 = view.findViewById(R.id.add_item3);
-        ImageView buttonDec2 = view.findViewById(R.id.remove_item3);
-
-        buttonInc2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                count2[0]++;
-                txtCount2.setText(String.valueOf(count2[0]));
-            }
-        });
-
-        buttonDec2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                count2[0]--;
-                if (count2[0] >= 0){
-                    txtCount2.setText(String.valueOf(count2[0]));
-                }
-                else {
-                    count2[0] = 0;
-                }
-
-            }
-        });
+        cartitems.setNestedScrollingEnabled(false);
+        cartitems.setLayoutManager(new LinearLayoutManager(getContext()));
+        cartitems.setAdapter(cartItemAdapter);
+        //cartitems.setHasFixedSize(true);
+        cartItemAdapter.notifyDataSetChanged();
+        itemTotalPrice=view.findViewById(R.id.itemTotalPrice);
+        tax=view.findViewById(R.id.taxAmount);
+        deliveryFees=view.findViewById(R.id.deliveryFees);
+        totalPrice=view.findViewById(R.id.totalPrice);
 
         imageView = view.findViewById(R.id.alertbox);
         imageView.setImageResource(R.drawable.cupon_popup_txt);
@@ -147,9 +82,31 @@ public class CartFragment extends Fragment {
                 imageView.setVisibility(View.INVISIBLE); //(or GONE)
             }
         }.start();
-
+        cartItemAdapter.setBillListner(CartFragment.this);
 
 
         return view;
+    }
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        cartItemAdapter.startListening();
+
+    }
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        cartItemAdapter.stopListening();
+    }
+
+    @Override
+    public void setBillAmounts(int itemTotalPriceAmt) {
+        int taxAmt=25,deliverCharge=50;
+        tax.setText("₹"+taxAmt);
+        deliveryFees.setText("₹"+deliverCharge);
+        itemTotalPrice.setText("₹"+itemTotalPriceAmt);
+        totalPrice.setText("₹"+(taxAmt+deliverCharge+itemTotalPriceAmt));
     }
 }

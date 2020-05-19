@@ -29,5 +29,19 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">25sp</item>
     </style>
-
+    <style name="AppTheme.5Star">
+        <item name="colorAccent">@color/green</item>
+    </style>
+    <style name="AppTheme.4Star">
+        <item name="colorAccent">@color/openColor</item>
+    </style>
+    <style name="AppTheme.3Star">
+        <item name="colorAccent">@color/quantum_yellowA200</item>
+    </style>
+    <style name="AppTheme.2Star">
+        <item name="colorAccent">@color/quantum_orange</item>
+    </style>
+    <style name="AppTheme.1Star">
+        <item name="colorAccent">@color/closeColor</item>
+    </style>
 </resources>

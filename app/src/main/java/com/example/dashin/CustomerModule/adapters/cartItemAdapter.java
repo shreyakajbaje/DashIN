@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +28,7 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
     private boolean is1stTime=true;
     private ObservableSnapshotArray<cartItem> mSnapshots;
     private Context context;
+    private setBill setBill;
     public cartItemAdapter(@NonNull FirestoreRecyclerOptions<cartItem> options,Context context) {
         super(options);
         this.context=context;
@@ -59,7 +61,7 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
                             public void onSuccess(Void aVoid) {
                                 itemTotalPrice+=model.getPrice();
 
-                                ((mess_cart)context).setBillAmounts(itemTotalPrice);
+                                setBill.setBillAmounts(itemTotalPrice);
                             }
                         });
 
@@ -80,7 +82,7 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
                         public void onSuccess(Void aVoid) {
                             itemTotalPrice-=model.getPrice();
 
-                            ((mess_cart)context).setBillAmounts(itemTotalPrice);
+                            setBill.setBillAmounts(itemTotalPrice);
 
                         }
                     });
@@ -88,7 +90,24 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
 
             }
         });
-            ((mess_cart)context).setBillAmounts(itemTotalPrice);
+        holder.deleteItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(position).getId()).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        is1stTime=false;
+                        itemTotalPrice-=(model.getPrice()*model.getQuantity());
+
+                        setBill.setBillAmounts(itemTotalPrice);
+                        Toast.makeText(context,"Item deleted !",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+            }
+        });
+            setBill.setBillAmounts(itemTotalPrice);
 
        // Toast.makeText(context,"in",Toast.LENGTH_SHORT).show();
     }
@@ -103,9 +122,10 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
     class cartItemHolder extends RecyclerView.ViewHolder
     {
         TextView name,qty,price;
-        ImageView increaseItem,decreaseItem,vegNonveg;
+        ImageView increaseItem,decreaseItem,vegNonveg,deleteItem;
         public cartItemHolder(@NonNull View itemView) {
             super(itemView);
+            deleteItem=itemView.findViewById(R.id.itemDelete);
             name=itemView.findViewById(R.id.itemName);
             qty=itemView.findViewById(R.id.itemQuantity);
             price=itemView.findViewById(R.id.itemPrice);
@@ -117,6 +137,10 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
     public interface setBill
     {
          void setBillAmounts(int totalItemPrice);
+    }
+    public void setBillListner(setBill setBill)
+    {
+        this.setBill=setBill;
     }
     @Override
     public int getItemCount() {

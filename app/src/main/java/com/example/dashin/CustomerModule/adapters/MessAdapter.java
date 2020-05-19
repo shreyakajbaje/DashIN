@@ -1,6 +1,7 @@
 package com.example.dashin.CustomerModule.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Outline;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dashin.CustomerModule.activities.mess_activity;
 import com.example.dashin.R;
 import com.example.dashin.CustomerModule.models.ModelMess;
 import com.example.dashin.utils.Constants;
@@ -133,10 +135,10 @@ public class MessAdapter extends FirestoreRecyclerAdapter<ModelMess, MessAdapter
         @Override
         public void onClick(View v) {
 
-//            ModelMess model = getItem(getAdapterPosition());
-//            Log.e("hihih", model.getTitle());
-//            final Intent intent;
-//            intent =  new Intent(context, ReadMesss.class);
+            ModelMess model = getItem(getAdapterPosition());
+           // Log.e("hihih", model.getTitle());
+            final Intent intent;
+            intent =  new Intent(context, mess_activity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
 //            intent.putExtra("Mess", model.getTitle());
 //            intent.putExtra("by", model.getOwner());
@@ -147,7 +149,7 @@ public class MessAdapter extends FirestoreRecyclerAdapter<ModelMess, MessAdapter
 //            }else{
 //                intent.putExtra("Messbook", model.getOwner());
 //            }
-//            context.startActivity(intent);
+            context.startActivity(intent);
         }
 
 

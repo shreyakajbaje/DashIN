@@ -35,9 +35,11 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
         this.context=context;
     }
 
+
     @Override
     protected void onBindViewHolder(@NonNull menuHolder holder, final int position, @NonNull final menuItem model) {
         mStorageRef = FirebaseStorage.getInstance().getReference();
+
         holder.name.setText(model.getName());
         holder.description.setText(model.getDescription());
         holder.price.setText("₹ "+model.getPrice());

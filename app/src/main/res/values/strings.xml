@@ -9,4 +9,6 @@
 
     <string name="slecttime">"Select time you will visit the restaurant"</string>
     <string name="search_hint">"Search for a restaurant or a mess"</string>
+
+    <string name="mapbox_access_token">pk.eyJ1IjoicHJhdGhtZXNoMTIzIiwiYSI6ImNrYWM2MmZ1OTAwdjgydG9lb2Y1MnBzMTEifQ.EMiUVbUWAKEUl649XWOMUw</string>
 </resources>
