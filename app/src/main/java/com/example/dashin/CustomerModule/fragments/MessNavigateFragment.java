@@ -94,7 +94,7 @@ public class MessNavigateFragment extends Fragment implements PermissionsListene
                              Bundle savedInstanceState) {
         Mapbox.getInstance(getActivity(),getString(R.string.mapbox_access_token));
         // Inflate the layout for this fragment
-        //AIzaSyAuMK7p26Wq1BQ7JBVr3cIP2G_NZpDAP5M
+
         view = inflater.inflate(R.layout.fragment_mess_navigate, container, false);
         navigation= new MapboxNavigation(getContext(),getString(R.string.mapbox_access_token));
         mapView=view.findViewById(R.id.MapView);
