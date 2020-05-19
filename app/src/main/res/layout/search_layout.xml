@@ -4,9 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SearchActivity">
-
+    android:layout_height="match_parent">
+<!--
+**  IMP IMP IMP for the developer accessing this file, if you want to view what's behind
+    the weird recyclerview below the AutoCompleteTextView, just hide @+id/searchResults.
+    In the actual execution, this is not what the user sees at first. (-Heramb )
+-->
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +55,7 @@
     <AutoCompleteTextView
         android:id="@+id/search"
         android:layout_width="380dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dip"
         android:layout_marginTop="70dp"
         android:layout_centerHorizontal="true"
         android:hint="@string/search_hint"
@@ -62,7 +65,10 @@
         android:iconifiedByDefault="false"
         android:completionThreshold="1"
         android:background="@drawable/rectangle51"
-        android:queryBackground="@null"/>
+        android:queryBackground="@null"
+        android:imeOptions="actionSearch"
+        android:inputType="textAutoComplete|textAutoCorrect"
+        />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -153,6 +159,16 @@
             android:fontFamily="@font/helveticaneuemedium500"
             android:text="Annapurna Mess"/>
     </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="380dip"
+        android:layout_height="560dip"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/search"
+        android:layout_marginTop="5dip"
+        android:background="@color/white"
+        android:id="@+id/searchResults"
+
+        />
     <LinearLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

@@ -8,14 +8,14 @@ public class SingleEntityOfOrders {
     Timestamp TIME;
     GeoPoint BUSI_LOC;
     long AMOUNT,STATUS;
-    boolean OFFER;
+    boolean OFFER,LIKED;
 
     public SingleEntityOfOrders()
     {
 
     }
 
-    public SingleEntityOfOrders(String BUSI_NAME, String BUSI_ADD, String d_R_INDEX, String OFFER_CODE, String TRAN_ID, String METHOD, String TYPE, String FROM, String TO, Timestamp TIME, GeoPoint BUSI_LOC, long AMOUNT, long STATUS, boolean OFFER) {
+    public SingleEntityOfOrders(String BUSI_NAME, String BUSI_ADD, String d_R_INDEX, String OFFER_CODE, String TRAN_ID, String METHOD, String TYPE, String FROM, String TO, Timestamp TIME, GeoPoint BUSI_LOC, long AMOUNT, long STATUS, boolean OFFER,boolean LIKED) {
         this.BUSI_NAME = BUSI_NAME;
         this.BUSI_ADD = BUSI_ADD;
         D_R_INDEX = d_R_INDEX;
@@ -30,6 +30,7 @@ public class SingleEntityOfOrders {
         this.AMOUNT = AMOUNT;
         this.STATUS = STATUS;
         this.OFFER = OFFER;
+        this.LIKED = LIKED;
     }
 
     public String getBUSI_NAME() {
@@ -142,5 +143,13 @@ public class SingleEntityOfOrders {
 
     public void setOFFER(boolean OFFER) {
         this.OFFER = OFFER;
+    }
+
+    public boolean isLIKED() {
+        return LIKED;
+    }
+
+    public void setLIKED(boolean LIKED) {
+        this.LIKED = LIKED;
     }
 }

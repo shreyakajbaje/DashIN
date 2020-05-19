@@ -18,6 +18,8 @@ import com.example.dashin.utils.DatabaseLogActivity;
 import com.example.dashin.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -55,6 +57,20 @@ int m;
             }
         });
         final Transformation transformation = new RoundedCornersTransformation(17, 1);
+        if(model.isLIKED())
+        holder.likeButton.setLiked(true);
+
+        holder.likeButton.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                DatabaseLogActivity.firebasePointer.collection("CUSTOMER/"+model.getFROM()+"/MY-ORDERS").document("ORDER-"+(m-position)).update("LIKED",true);
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                DatabaseLogActivity.firebasePointer.collection("CUSTOMER/"+model.getFROM()+"/MY-ORDERS").document("ORDER-"+(m-position)).update("LIKED",false);
+            }
+        });
         Picasso.get().load("https://content3.jdmagicbox.com/comp/def_content/tiffin_services/default-tiffin-services-9.jpg?clr=254141").transform(transformation).resize(120, 120).centerCrop().into(holder.HoldMyPhoto);
     }
 
@@ -74,7 +90,8 @@ int m;
         TextView HoldMyAmount;
         TextView HoldMyAddress;
         ImageView HoldMyPhoto;
-        Button Billbutton;
+        LikeButton likeButton;
+
         public OrdersHolder(@NonNull final View itemView) {
             super(itemView);
             HoldMyAmount=(TextView)itemView.findViewById(R.id.HoldMyAmount);
@@ -84,6 +101,7 @@ int m;
             HoldMyValues=(TextView)itemView.findViewById(R.id.HoldMyOrder);
             HoldMyPhoto=(ImageView)itemView.findViewById(R.id.MessPhoto);
             HoldMyAddress=(TextView)itemView.findViewById(R.id.HoldMyAddress);
+            likeButton=itemView.findViewById(R.id.liked);
         }
     }
     public OrdersAdapter(@NonNull FirestoreRecyclerOptions options) {
