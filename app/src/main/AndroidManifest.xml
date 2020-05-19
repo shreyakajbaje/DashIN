@@ -48,7 +48,7 @@
         <activity android:name=".CustomerModule.activities.MyOrdersActivity"></activity>
         <activity android:name=".utils.DatabaseLogActivity" />
 
-        <activity android:name=".CustomerModule.activities.mess_activity">
+        <activity android:name=".CustomerModule.activities.MessActivity">
 
         </activity>
 

@@ -16,7 +16,7 @@ import com.example.dashin.CustomerModule.fragments.MessMenuFragment;
 import com.example.dashin.CustomerModule.fragments.MessNavigateFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class mess_activity extends AppCompatActivity {
+public class MessActivity extends AppCompatActivity {
 
     MessMenuFragment messMenuFragment;
     MessNavigateFragment messNavigateFragment;

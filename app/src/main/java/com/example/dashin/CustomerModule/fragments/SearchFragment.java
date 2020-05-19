@@ -23,13 +23,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.dashin.CustomerModule.activities.mess_activity;
+import com.example.dashin.CustomerModule.activities.MessActivity;
 import com.example.dashin.CustomerModule.adapters.MessAdapter;
 import com.example.dashin.CustomerModule.models.ModelMess;
 import com.example.dashin.utils.Constants;
 import com.example.dashin.utils.DatabaseLogActivity;
 import com.example.dashin.R;
-import com.example.dashin.RestaurantActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -83,7 +82,7 @@ public class SearchFragment extends Fragment {
                 searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(getActivity(), mess_activity.class);
+                        Intent intent = new Intent(getActivity(), MessActivity.class);
                         startActivity(intent);
                     }
                 });

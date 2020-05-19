@@ -16,7 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.dashin.CustomerModule.activities.mess_activity;
+import com.example.dashin.CustomerModule.activities.MessActivity;
 import com.example.dashin.R;
 import com.example.dashin.CustomerModule.models.ModelMess;
 import com.example.dashin.utils.Constants;
@@ -138,7 +138,7 @@ public class MessAdapter extends FirestoreRecyclerAdapter<ModelMess, MessAdapter
             ModelMess model = getItem(getAdapterPosition());
            // Log.e("hihih", model.getTitle());
             final Intent intent;
-            intent =  new Intent(context, mess_activity.class);
+            intent =  new Intent(context, MessActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
 //            intent.putExtra("Mess", model.getTitle());
 //            intent.putExtra("by", model.getOwner());
