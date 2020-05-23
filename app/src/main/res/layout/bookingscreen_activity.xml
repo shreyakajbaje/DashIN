@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/linearlayout1"
     tools:context=".CustomerModule.activities.BookingScreen">
 
-   <RelativeLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/linearlayout1">
+
+        <RelativeLayout
        android:layout_width="match_parent"
-       android:layout_height="wrap_content">
+       android:layout_height="wrap_content"
+>
 
        <ImageView
+           android:id="@+id/rl"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:src="@drawable/top_rectangle"
@@ -24,9 +30,8 @@
            android:layout_height="wrap_content"
            android:src="@drawable/booktable_txt"
            android:layout_centerHorizontal="true"
-           android:layout_marginLeft="140dp"
-           android:layout_marginRight="80dp"
-           android:layout_marginTop="55dp"/>
+           android:layout_alignBottom="@+id/rl"
+           android:layout_marginBottom="20dp"/>
    </RelativeLayout>
 
     <ImageView
@@ -111,7 +116,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="35dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -129,11 +134,15 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
+        android:scaleType="fitXY"
         android:layout_marginTop="40dp"
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="0dp"
         android:adjustViewBounds="?attr/isLightTheme"
         android:src="@drawable/bottom_rectangle"/>
 
-</LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>

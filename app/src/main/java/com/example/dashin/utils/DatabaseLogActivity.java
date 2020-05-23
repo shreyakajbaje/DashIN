@@ -52,7 +52,7 @@ public class DatabaseLogActivity extends AppCompatActivity {
     }
 
     public static void startSession() {
-        firebasePointer = FirebaseFirestore.getInstance();
+        firebasePointer = Constants.mFirestore;
     }
 
     public static void setOrdersPreviewString(String number, final int b, final TextView textView) {

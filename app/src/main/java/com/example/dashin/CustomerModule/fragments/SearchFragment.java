@@ -95,10 +95,11 @@ public class SearchFragment extends Fragment {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId== EditorInfo.IME_ACTION_SEARCH)
                 {
-                    if(!(v.getText().toString()==null||v.getText().toString()==""))
-                    recyclerView.setVisibility(View.VISIBLE);
+                    if(!(v.getText().toString()==null||v.getText().toString()=="")) {
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
                 }
-                    return false;
+                return false;
             }
         });
 

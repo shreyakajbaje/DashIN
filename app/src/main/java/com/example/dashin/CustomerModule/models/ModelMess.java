@@ -3,10 +3,15 @@ package com.example.dashin.CustomerModule.models;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.IgnoreExtraProperties;
+import com.google.firebase.firestore.PropertyName;
 
 @IgnoreExtraProperties
 public class ModelMess {
-    String BUSI_NAME, BUSI_DESCRIPTION, OWNER, ADDRESS, FRONT_PIC, OPEN_FROM, OPEN_TILL;
+    String BUSI_NAME, OWNER, FRONT_PIC, OPEN_FROM, OPEN_TILL;
+    @PropertyName("MESS_DESCRIPTION")
+    public String BUSI_DESCRIPTION;
+    @PropertyName("MESS_ADDRESS")
+    public String ADDRESS;
     Timestamp TimeStamp;
     GeoPoint LOCATION;
     int COSTING, DISCOUNT;
@@ -57,14 +62,18 @@ public class ModelMess {
         return BUSI_NAME;
     }
 
+
     public void setBUSI_NAME(String BUSI_NAME) {
         this.BUSI_NAME = BUSI_NAME;
     }
 
+
+    @PropertyName("MESS_DESCRIPTION")
     public String getBUSI_DESCRIPTION() {
         return BUSI_DESCRIPTION;
     }
 
+    @PropertyName("MESS_DESCRIPTION")
     public void setBUSI_DESCRIPTION(String BUSI_DESCRIPTION) {
         this.BUSI_DESCRIPTION = BUSI_DESCRIPTION;
     }
@@ -77,10 +86,12 @@ public class ModelMess {
         this.OWNER = OWNER;
     }
 
+    @PropertyName("MESS_ADDRESS")
     public String getADDRESS() {
         return ADDRESS;
     }
 
+    @PropertyName("MESS_ADDRESS")
     public void setADDRESS(String ADDRESS) {
         this.ADDRESS = ADDRESS;
     }
