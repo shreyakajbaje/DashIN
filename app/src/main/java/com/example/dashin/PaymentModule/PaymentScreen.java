@@ -30,6 +30,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,41 +47,17 @@ public class PaymentScreen extends AppCompatActivity {
     final int UPI_PAYMENT=0;
     AppAdapter adapter=null;
     LinearLayout cardsAndNetBanking;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_activity);
         cardsAndNetBanking=findViewById(R.id.cardNetBanking);
-
-        backpage = findViewById(R.id.back_pg);
-        backpage.setOnClickListener(new View.OnClickListener() {
+        toolbar=findViewById(R.id.my_toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PaymentScreen.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        final BottomNavigationView navigation = findViewById(R.id.bottom_nav);
-        navigation.setSelectedItemId(R.id.nav_cart);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.nav_cart:
-                        break;
-                    case R.id.nav_home:
-                        Intent a = new Intent(PaymentScreen.this, MainActivity.class);
-                        startActivity(a);
-                        break;
-                    case  R.id.nav_profile:
-                      //  Intent a1 = new Intent(PaymentScreen.this, SettingsActivity.class);
-                        //startActivity(a1);
-                    case  R.id.nav_search:
-                        Intent a2 = new Intent(PaymentScreen.this, MainActivity.class);
-                        startActivity(a2);
-                }
-                return true;
+            public void onClick(View view) {
+               finish();
             }
         });
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -90,8 +91,9 @@ public class MessMenuFragment extends Fragment {
                     JSONObject mess= new JSONObject(snapshot.getData()) ;
 
                     try {
+
                         messName.setText(mess.getString("BUSI_NAME"));
-                        description.setText(mess.getString("BUSI_DESCRIPTION"));
+                        description.setText(mess.getString("MESS_DESCRIPTION"));
                         priceOPeningHours.setText(mess.getString("OPEN_FROM")+"-"+mess.get("OPEN_TILL"));
                         rating.setText(mess.getString("RATING"));
                         String[] opentime=mess.getString("OPEN_FROM").split(" ");

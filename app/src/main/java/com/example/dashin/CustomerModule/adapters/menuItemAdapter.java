@@ -1,6 +1,7 @@
 package com.example.dashin.CustomerModule.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +38,9 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
 
 
     @Override
-    protected void onBindViewHolder(@NonNull menuHolder holder, final int position, @NonNull final menuItem model) {
+    protected void onBindViewHolder(@NonNull final menuHolder holder, final int position, @NonNull final menuItem model) {
         mStorageRef = FirebaseStorage.getInstance().getReference();
-
+        Log.e("call","adpter");
         holder.name.setText(model.getName());
         holder.description.setText(model.getDescription());
         holder.price.setText("₹ "+model.getPrice());
@@ -47,7 +48,7 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
         holder.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(position).getId()).get()
+                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -61,7 +62,7 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
                                         docData.put("Quantity",1);
                                         docData.put("Price",model.getPrice());
                                         docData.put("VEG",model.isVEG());
-                                        db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(position).getId()).set(docData);
+                                        db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).set(docData);
                                         Toast.makeText(context,"Item added in cart",Toast.LENGTH_SHORT).show();
                                     }
 
@@ -93,5 +94,6 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
             image=itemView.findViewById(R.id.menuImage);
         }
     }
+
 
 }

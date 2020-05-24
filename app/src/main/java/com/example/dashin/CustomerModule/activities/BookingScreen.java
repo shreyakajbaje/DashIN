@@ -1,6 +1,7 @@
 package com.example.dashin.CustomerModule.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,12 +14,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.dashin.PaymentModule.PaymentScreen;
 import com.example.dashin.R;
 
 public class BookingScreen extends AppCompatActivity {
 
     TextView showPopupBtn,booktime;
-    ImageView closePopupBtn;
+    ImageView closePopupBtn,proceedToPyment;
     PopupWindow popupWindow;
     LinearLayout linearLayout1;
     ImageView img1,img2,img3,img4,seat_no;
@@ -107,5 +109,13 @@ public class BookingScreen extends AppCompatActivity {
             }
         });
 
+        proceedToPyment=findViewById(R.id.proceedToPayment);
+        proceedToPyment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BookingScreen.this, PaymentScreen.class);
+                startActivity(intent);
+            }
+        });
     }
 }

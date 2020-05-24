@@ -28,9 +28,8 @@
         <LinearLayout
             android:layout_width="130dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_weight="0.5"
-            android:gravity="left"
+            android:gravity="left|center_vertical"
             android:orientation="vertical">
 
             <TextView
@@ -46,10 +45,9 @@
             <TextView
                 android:id="@+id/menuDescription"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
                 android:text="TextView"
                 android:textSize="12sp" />
         </LinearLayout>

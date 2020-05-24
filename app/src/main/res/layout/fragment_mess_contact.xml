@@ -64,7 +64,9 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="Kulkarni's Snacks"
                         android:textColor="#000000"
-                        android:textSize="30sp" />
+                        android:textSize="30sp"
+                        android:ellipsize="end"
+                        android:maxLines="1"/>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -130,13 +132,17 @@
                         android:layout_height="wrap_content"
                         android:text="Sandeep Kulkarni"
                         android:textColor="#000000"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:ellipsize="end"
+                        android:maxLines="1"/>
 
                     <TextView
                         android:id="@+id/ownerAtMess"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Owner at Kulkarni Snacks" />
+                        android:text="Owner at Kulkarni Snacks"
+                        android:ellipsize="end"
+                        android:maxLines="1"/>
 
                     <TextView
                         android:id="@+id/priceOpeningHours"
@@ -160,6 +166,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -173,7 +180,7 @@
                     android:id="@+id/vegNonVegText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_margin="10dp"
                     android:text="The Restaurant Serves Vegetarian Food"
                     android:textColor="#000000"
@@ -292,8 +299,9 @@
                                         android:indeterminate="false"
                                         android:indeterminateBehavior="repeat"
                                         android:max="100"
+                                        android:maxWidth="150dip"
                                         android:maxHeight="8dip"
-                                        android:minWidth="150dp"
+                                        android:minWidth="140dip"
                                         android:minHeight="8dip"
                                         android:progress="61"
                                         android:scaleY="2"
@@ -338,8 +346,9 @@
                                         android:indeterminate="false"
                                         android:indeterminateBehavior="repeat"
                                         android:max="100"
+                                        android:maxWidth="150dip"
                                         android:maxHeight="8dip"
-                                        android:minWidth="150dp"
+                                        android:minWidth="140dip"
                                         android:minHeight="8dip"
                                         android:progress="9"
                                         android:scaleY="2"
@@ -384,8 +393,9 @@
                                         android:indeterminate="false"
                                         android:indeterminateBehavior="repeat"
                                         android:max="100"
+                                        android:maxWidth="150dip"
                                         android:maxHeight="8dip"
-                                        android:minWidth="150dp"
+                                        android:minWidth="140dip"
                                         android:minHeight="8dip"
                                         android:progress="5"
                                         android:scaleY="2"
@@ -430,8 +440,9 @@
                                         android:indeterminate="false"
                                         android:indeterminateBehavior="repeat"
                                         android:max="100"
+                                        android:maxWidth="150dip"
                                         android:maxHeight="8dip"
-                                        android:minWidth="150dp"
+                                        android:minWidth="140dip"
                                         android:minHeight="8dip"
                                         android:progress="5"
                                         android:scaleY="2"
@@ -476,8 +487,9 @@
                                         android:indeterminate="false"
                                         android:indeterminateBehavior="repeat"
                                         android:max="100"
+                                        android:maxWidth="150dip"
                                         android:maxHeight="8dip"
-                                        android:minWidth="150dp"
+                                        android:minWidth="140dip"
                                         android:minHeight="8dip"
                                         android:progress="20"
                                         android:scaleY="2"
