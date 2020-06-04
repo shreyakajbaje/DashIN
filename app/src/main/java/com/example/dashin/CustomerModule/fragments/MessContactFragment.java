@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -43,6 +44,7 @@ public class MessContactFragment extends Fragment {
     private TextView rating,rating5,rating4,rating3,rating2,rating1,totalReviews,writeReview;
     private ProgressBar progressBar5,progressBar4,progressBar3,progressBar2,progressBar1;
     private ImageView vegNonVegIcon,ownerImage,contactMess,reportMess;
+    private Toolbar toolbar;
     public MessContactFragment() {
         // Required empty public constructor
     }
@@ -53,6 +55,13 @@ public class MessContactFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mess_contact, container, false);
+        toolbar=view.findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
         db= FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("VENDORS").document("QPH1dEgzgljulg1kOs6C");
 

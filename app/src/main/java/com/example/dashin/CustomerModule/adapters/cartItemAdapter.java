@@ -35,7 +35,7 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull cartItemHolder holder, final int position, @NonNull final cartItem model) {
+    protected void onBindViewHolder(@NonNull final cartItemHolder holder, final int position, @NonNull final cartItem model) {
 //        if(position==0)
 //        {
 //            itemTotalPrice=0;
@@ -54,13 +54,13 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
             public void onClick(View view) {
                 is1stTime=false;
                 //Toast.makeText(context,"+"+position,Toast.LENGTH_SHORT).show();
-                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(position).getId()).update("Quantity",(model.getQuantity()+1))
+                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).update("Quantity",(model.getQuantity()+1))
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 itemTotalPrice+=model.getPrice();
 
-                                setBill.setBillAmounts(itemTotalPrice);
+                                setBill.setBillAmounts(itemTotalPrice,getItemCount());
                             }
                         });
 
@@ -75,13 +75,13 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
                     return;
                 }
                 //Toast.makeText(context,"-"+position,Toast.LENGTH_SHORT).show();
-                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(position).getId()).update("Quantity",(model.getQuantity()-1))
+                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).update("Quantity",(model.getQuantity()-1))
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             itemTotalPrice-=model.getPrice();
 
-                            setBill.setBillAmounts(itemTotalPrice);
+                            setBill.setBillAmounts(itemTotalPrice,getItemCount());
 
                         }
                     });
@@ -92,21 +92,21 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(position).getId()).delete()
+                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         is1stTime=false;
                         itemTotalPrice-=(model.getPrice()*model.getQuantity());
 
-                        setBill.setBillAmounts(itemTotalPrice);
+                        setBill.setBillAmounts(itemTotalPrice,getItemCount());
                         Toast.makeText(context,"Item deleted !",Toast.LENGTH_SHORT).show();
 
                     }
                 });
             }
         });
-            setBill.setBillAmounts(itemTotalPrice);
+        setBill.setBillAmounts(itemTotalPrice,getItemCount());
 
        // Toast.makeText(context,"in",Toast.LENGTH_SHORT).show();
     }
@@ -135,7 +135,7 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
     }
     public interface setBill
     {
-         void setBillAmounts(int totalItemPrice);
+         void setBillAmounts(int totalItemPrice,int size);
     }
     public void setBillListner(setBill setBill)
     {
@@ -145,5 +145,8 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
     public int getItemCount() {
         return mSnapshots.isListening(this) ? mSnapshots.size() : 0;
     }
-
+    @Override
+    public void onDataChanged() {
+        setBill.setBillAmounts(itemTotalPrice,getItemCount());
+    }
 }

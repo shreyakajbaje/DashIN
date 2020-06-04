@@ -247,10 +247,11 @@ public class HomeFragment extends Fragment {
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
+
                 if (location != null) {
                     currentLocation = location;
                     //Toast.makeText(getActivity(), "" + currentLocation, Toast.LENGTH_SHORT).show();
-                    Log.e("loc", currentLocation.toString());
+                    Log.e("loc", currentLocation.toString()+" "+location.getAccuracy());
                     DecimalFormat df = new DecimalFormat();
                     df.setMaximumFractionDigits(5);
                     double latitude = Double.parseDouble(df.format(currentLocation.getLatitude()));

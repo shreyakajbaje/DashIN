@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CustomerModule.activities.MessCart">
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar2"
@@ -34,242 +34,251 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.core.widget.NestedScrollView
-
+    <LinearLayout
+        android:id="@+id/mainCartLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
-        android:layout_marginBottom="60dp">
+        android:layout_marginBottom="60dp"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+
+            android:id="@+id/mainCartPage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_weight="0.7"
-                    android:fontFamily="@font/helveticaneuemedium500"
-                    android:text="Kulkarni's Snacks"
-                    android:textColor="@color/grey"
-                    android:textSize="17sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:layout_weight="0.3"
-                    android:src="@drawable/add_more_txt" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-
-                android:id="@+id/cartListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginRight="10dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/coupon_icon" />
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="60dp"
-                    android:background="@null"
-                    android:fontFamily="@font/helveticaneuemedium500"
-                    android:hint="Enter coupon code"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:id="@+id/alertbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp" />
-            </RelativeLayout>
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/instruction_icon" />
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:inputType="textCapSentences|textMultiLine"
-                    android:maxLength="2000"
-                    android:maxLines="4"
-                    android:layout_marginTop="3dp"
-                    android:background="@null"
-                    android:fontFamily="@font/helveticaneuemedium500"
-                    android:hint="Any instructions?Eg: Don't make the food spicy"
-                    android:src="@drawable/instruction_txt"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="30dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/payment_txt" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    android:src="@drawable/item_txt" />
-
-                <TextView
-                    android:id="@+id/itemTotalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="35dp"
-                    android:text="₹450" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="65dp"
-                    android:src="@drawable/tax_txt" />
-
-                <TextView
-                    android:id="@+id/taxAmount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="65dp"
-                    android:text="₹18.7" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="95dp"
-                    android:src="@drawable/partner_txt" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="115dp"
-                    android:layout_marginTop="98dp"
-                    android:src="@drawable/partner_info_icon" />
-
-                <TextView
-                    android:id="@+id/deliveryFees"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="95dp"
-                    android:text="₹75" />
-
-                <View
-                    android:layout_width="350dp"
-                    android:layout_height="0.5dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="120dp"
-                    android:background="@android:color/darker_gray" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="125dp"
-                    android:src="@drawable/total_txt" />
-
-                <TextView
-                    android:id="@+id/totalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="125dp"
-                    android:fontFamily="@font/robotocondensedbold"
-                    android:text="₹500"
-                    android:textColor="@color/black" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/prefer_icon" />
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_weight="0.7"
+                        android:fontFamily="@font/helveticaneuemedium500"
+                        android:text="Kulkarni's Snacks"
+                        android:textColor="@color/grey"
+                        android:textSize="17sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/prefer_txt" />
+                        android:layout_marginTop="18dp"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/add_more_txt" />
                 </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+
+                    android:id="@+id/cartListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/coupon_icon" />
+
+                    <EditText
+                        android:id="@+id/couponCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="60dp"
+                        android:background="@null"
+                        android:fontFamily="@font/helveticaneuemedium500"
+                        android:hint="Enter coupon code"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/alertbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:layout_margin="10dp">
 
                     <ImageView
-                        android:id="@+id/imageView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/home_btn" />
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/instruction_icon" />
 
-                    <ImageView
-                        android:id="@+id/imageView"
+                    <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/dine_btn" />
+                        android:layout_marginTop="3dp"
+                        android:background="@null"
+                        android:fontFamily="@font/helveticaneuemedium500"
+                        android:hint="Any instructions?Eg: Don't make the food spicy"
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:maxLength="2000"
+                        android:maxLines="4"
+                        android:src="@drawable/instruction_txt"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="30dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/payment_txt" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="35dp"
+                        android:src="@drawable/item_txt" />
+
+                    <TextView
+                        android:id="@+id/itemTotalPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="35dp"
+                        android:text="₹450" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="65dp"
+                        android:src="@drawable/tax_txt" />
+
+                    <TextView
+                        android:id="@+id/taxAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="65dp"
+                        android:text="₹18.7" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="95dp"
+                        android:src="@drawable/partner_txt" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="115dp"
+                        android:layout_marginTop="98dp"
+                        android:src="@drawable/partner_info_icon" />
+
+                    <TextView
+                        android:id="@+id/deliveryFees"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="95dp"
+                        android:text="₹75" />
+
+                    <View
+                        android:layout_width="350dp"
+                        android:layout_height="0.5dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="120dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="125dp"
+                        android:src="@drawable/total_txt" />
+
+                    <TextView
+                        android:id="@+id/totalPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="125dp"
+                        android:fontFamily="@font/robotocondensedbold"
+                        android:text="₹500"
+                        android:textColor="@color/black" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/prefer_icon" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/prefer_txt" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/home_btn" />
+
+                        <ImageView
+                            android:id="@+id/dineIn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/dine_btn" />
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

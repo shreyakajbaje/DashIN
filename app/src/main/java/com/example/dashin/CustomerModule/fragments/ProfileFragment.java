@@ -46,7 +46,15 @@ public class ProfileFragment extends Fragment {
         View view =  inflater.inflate(R.layout.profile_layout, container, false);
         cName = view.findViewById(R.id.profile_name);
         cEmail = view.findViewById(R.id.profile_email);
-        userId = Constants.mAuth.getCurrentUser().getUid();
+        try {
+            userId = Constants.mAuth.getCurrentUser().getUid();
+        }
+        catch (NullPointerException e)
+        {
+            userId="123456";
+            e.printStackTrace();
+        }
+
 
 
         Log.d("TAG","ID: "+userId);
