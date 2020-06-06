@@ -320,14 +320,12 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
-
+                                <!-- this textview was dupilcately named as textview20 -->
                                 <TextView
-                                    android:id="@+id/textView20"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="4 Star"
-                                    android:textColor="#000000" />
-
+                                    android:textColor="#000000"/>
                                 <androidx.cardview.widget.CardView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -367,9 +365,8 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
-
+                                <!-- this textview was dupilcately named as textview20 -->
                                 <TextView
-                                    android:id="@+id/textView20"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="3 Star"
@@ -414,9 +411,8 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
-
+                                <!-- this textview was dupilcately named as textview20 -->
                                 <TextView
-                                    android:id="@+id/textView20"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="2 Star"
@@ -461,9 +457,8 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
-
+                                <!-- this textview was dupilcately named as textview20 -->
                                 <TextView
-                                    android:id="@+id/textView20"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="1 Star"

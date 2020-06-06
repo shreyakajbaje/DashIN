@@ -26,8 +26,7 @@ public class EnterNumberFragment extends Fragment {
     private Drawable hanim;
     EditText phno;
     String st;
-
-
+    public static String phone;
     public EnterNumberFragment() {
         // Required empty public constructor
     }
@@ -60,7 +59,6 @@ public class EnterNumberFragment extends Fragment {
         });
 
         phno = view.findViewById(R.id.phone);
-
         signup = view.findViewById(R.id.signuphere);
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +74,6 @@ public class EnterNumberFragment extends Fragment {
                 if (retval == 1){
                     Bundle bundle = new Bundle();
                     bundle.putString("Number", "+91" + phno.getText().toString());
-
                     VerifyOPTFragment v1 = new VerifyOPTFragment();
                     v1.setArguments(bundle);
                     FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();

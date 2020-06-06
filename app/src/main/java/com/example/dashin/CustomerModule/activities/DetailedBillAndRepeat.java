@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.dashin.utils.Constants;
 import com.example.dashin.utils.DatabaseLogActivity;
 import com.example.dashin.CustomerModule.adapters.DetailsAdapter;
 import com.example.dashin.CustomerModule.adapters.OrdersAdapter;
@@ -33,7 +34,7 @@ Button ReSubmit;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_bill_and_repeat);
         //                                                                  Here must go the customer's number and unique order number
-        detailsAdapter=new DetailsAdapter(DatabaseLogActivity.makeRecyclerView("7218149193",OrdersAdapter.pos));
+        detailsAdapter=new DetailsAdapter(DatabaseLogActivity.makeRecyclerView(Constants.mAuth.getCurrentUser().getPhoneNumber(),OrdersAdapter.pos));
         RecyclerView recyclerView= findViewById(R.id.ItemList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

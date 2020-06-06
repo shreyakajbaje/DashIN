@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dashin">
 
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -19,29 +20,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAuMK7p26Wq1BQ7JBVr3cIP2G_NZpDAP5M" />
+            android:value="AIzaSyAuMK7p26Wq1BQ7JBVr3cIP2G_NZpDAP5M"/>
+
 
         <activity
             android:name=".CustomerModule.activities.MainActivity"
             android:screenOrientation="portrait">
-
+        <intent-filter>
+            <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
         <activity
             android:name=".LoginModule.activities.IntroActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginModule.activities.LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".CustomerModule.activities.DetailedBillAndRepeat" />
-        <activity android:name=".CustomerModule.activities.MyOrdersActivity" />
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".CustomerModule.activities.DetailedBillAndRepeat"></activity>
+        <activity android:name=".CustomerModule.activities.MyOrdersActivity"></activity>
         <activity android:name=".utils.DatabaseLogActivity" />
-        <activity android:name=".CustomerModule.activities.MessActivity"></activity>
+
+        <activity android:name=".CustomerModule.activities.MessActivity">
+
+        </activity>
+
         <activity
             android:name=".LoginModule.activities.SplashActivity"
             android:screenOrientation="portrait">
@@ -57,19 +68,29 @@
         <activity
             android:name=".CustomerModule.activities.BookingScreen"
             android:screenOrientation="portrait" />
+
+
         <activity
             android:name=".PaymentModule.PaymentScreen"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".PaymentModule.checksum" />
+            android:screenOrientation="portrait">
 
+        </activity>
+        <activity android:name=".PaymentModule.checksum" />
         <service
             android:name=".services.AppLocationService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"></service>
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
     </application>
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+
+
 
 </manifest>

@@ -70,12 +70,13 @@
         android:inputType="textAutoComplete|textAutoCorrect"
         />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="150dp"
-        android:layout_marginLeft="20dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dip">
 
         <TextView
             android:layout_width="wrap_content"
@@ -90,52 +91,68 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/helveticaneuemedium500"
             android:text="Clear"
+            android:textSize="17sp"
             android:textColor="@color/pink_layout"
-            android:layout_marginLeft="200dp"/>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_marginTop="190dp"
-        android:layout_marginLeft="20dp"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rectangle52">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/clock"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="23dp"
-            android:fontFamily="@font/helveticaneuemedium500"
-            android:text="Kulkarni mess"/>
+            android:id="@+id/clear"
+            android:layout_marginRight="30dp"
+            android:gravity="right|end"
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_marginTop="190dp"
-        android:layout_marginLeft="180dp"
-        android:layout_width="130dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/firstText"
+        android:background="@drawable/rectangle52">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/clock"/>
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="23dp"
+            android:fontFamily="@font/helveticaneuemedium500"
+            android:singleLine="true"
+            android:textSize="15dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="1"
+            android:id="@+id/search1"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="190dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="160dp"
+        android:layout_toRightOf="@+id/firstText"
         android:layout_height="wrap_content"
         android:background="@drawable/rectangle52">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="6dp"
             android:layout_marginLeft="5dp"
             android:src="@drawable/clock"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="16dp"
             android:fontFamily="@font/helveticaneuemedium500"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="23dp"
-            android:text="Relax Veg"/>
+            android:singleLine="true"
+            android:textSize="15dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="1"
+            android:id="@+id/search2"
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -148,16 +165,48 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="6dp"
             android:layout_marginLeft="5dp"
             android:src="@drawable/clock"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="16dp"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="23dp"
             android:fontFamily="@font/helveticaneuemedium500"
-            android:text="Annapurna Mess"/>
+            android:singleLine="true"
+            android:textSize="15dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="1"
+            android:id="@+id/search3"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="230dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="160dp"
+        android:layout_toRightOf="@+id/firstText"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle52">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/clock"/>
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="16dp"
+            android:fontFamily="@font/helveticaneuemedium500"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="23dp"
+            android:textSize="15dp"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="1"
+            android:id="@+id/search4"
+            />
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="380dip"

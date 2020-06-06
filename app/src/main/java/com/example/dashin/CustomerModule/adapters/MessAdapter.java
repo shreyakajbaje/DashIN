@@ -2,6 +2,7 @@ package com.example.dashin.CustomerModule.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Outline;
 import android.net.Uri;
 import android.os.Build;
@@ -10,36 +11,49 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dashin.CustomerModule.activities.MessActivity;
 import com.example.dashin.R;
 import com.example.dashin.CustomerModule.models.ModelMess;
 import com.example.dashin.utils.Constants;
+import com.firebase.ui.firestore.ChangeEventListener;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.firebase.ui.firestore.ObservableSnapshotArray;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class MessAdapter extends FirestoreRecyclerAdapter<ModelMess, MessAdapter.MessHolder> {
 
 
     private MessAdapter.ClickListener listener;
 
-
     public MessAdapter(@NonNull FirestoreRecyclerOptions<ModelMess> options, MessAdapter.ClickListener listener ) {
         super(options);
         this.listener = listener;
-
         Log.e("Mess", "adapter constr");
+    }
 
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
     }
 
     @Override
@@ -60,7 +74,7 @@ public class MessAdapter extends FirestoreRecyclerAdapter<ModelMess, MessAdapter
 
         //set front pic here
         if(model.getFRONT_PIC()!=null) {
-            Constants.mStorage.getReference().child(model.getOWNER()).child(model.getFRONT_PIC()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            Constants.mStorage.getReference().child(model.getOWNER_CONTACT()).child(model.getFRONT_PIC()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     if(uri!=null) {
@@ -78,11 +92,6 @@ public class MessAdapter extends FirestoreRecyclerAdapter<ModelMess, MessAdapter
     }
 
 
-    @Override
-    public int getItemCount() {
-        return super.getItemCount() ;
-    }
-
     @NonNull
     @Override
     public MessAdapter.MessHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
@@ -91,7 +100,9 @@ public class MessAdapter extends FirestoreRecyclerAdapter<ModelMess, MessAdapter
         return new MessAdapter.MessHolder(v, listener);
     }
 
-    class MessHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
+
+
+    public class MessHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
 
         TextView name, description, costing, open_from, open_till, open_status, rating;
         ImageView front_pic;
@@ -155,11 +166,12 @@ public class MessAdapter extends FirestoreRecyclerAdapter<ModelMess, MessAdapter
 
     }
 
-
     public interface ClickListener {
         void onPositionClicked(int position);
     }
 
-
-
+    @Override
+    public void onDataChanged() {
+        super.onDataChanged();
+    }
 }

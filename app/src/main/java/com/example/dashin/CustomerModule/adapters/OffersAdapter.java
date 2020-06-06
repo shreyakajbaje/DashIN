@@ -52,7 +52,7 @@ public class OffersAdapter extends FirestoreRecyclerAdapter<ModelMess, OffersAda
         holder.offer.setText(String.valueOf(model.getDISCOUNT() + "% OFF"));
         //set front pic here
         if(model.getFRONT_PIC()!=null) {
-            Constants.mStorage.getReference().child(model.getOWNER()).child(model.getFRONT_PIC()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            Constants.mStorage.getReference().child(model.getOWNER_CONTACT()).child(model.getFRONT_PIC()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     if(uri!=null) {

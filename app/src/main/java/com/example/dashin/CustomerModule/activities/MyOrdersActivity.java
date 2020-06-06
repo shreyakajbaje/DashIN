@@ -14,7 +14,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import com.example.dashin.utils.Constants;
 import com.example.dashin.utils.DatabaseLogActivity;
 import com.example.dashin.CustomerModule.adapters.OrdersAdapter;
 import com.example.dashin.R;
@@ -28,15 +30,18 @@ public class MyOrdersActivity extends AppCompatActivity {
         }
     };
     OrdersAdapter ordersAdapter;
+    public static TextView noResults;
+    public static RecyclerView recyclerView;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        noResults=findViewById(R.id.result);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
         DatabaseLogActivity.startSession();
         //                                                                  Here must go the customer's number
-        ordersAdapter=new OrdersAdapter(DatabaseLogActivity.makeRecyclerView("7218149193"));
-        RecyclerView recyclerView= findViewById(R.id.ListMyOrders);
+        ordersAdapter=new OrdersAdapter(DatabaseLogActivity.makeRecyclerView(Constants.mAuth.getCurrentUser().getPhoneNumber()));
+        recyclerView= findViewById(R.id.ListMyOrders);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(ordersAdapter);

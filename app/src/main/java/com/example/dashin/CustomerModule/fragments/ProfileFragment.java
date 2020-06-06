@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.dashin.CustomerModule.activities.MyOrdersActivity;
 import com.example.dashin.LoginModule.activities.FirstPage;
 import com.example.dashin.CustomerModule.activities.MainActivity;
+import com.example.dashin.VendorAddDataModule.MenuCaller;
 import com.example.dashin.R;
 import com.example.dashin.utils.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -129,10 +130,9 @@ public class ProfileFragment extends Fragment {
         my_orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), MyOrdersActivity.class));
+                startActivity(new Intent(getActivity(), MenuCaller.class));
             }
         });
-
         return view;
     }
 }
