@@ -20,3 +20,9 @@ Mess or Restaurant Management System
   3. Navigate to checked out repository.                                        
   4. Inside 'DashIN' folder select 'settings.gradle' file.                       
   5. Run the application.                                      
+  
+## Sample Pictures
+
+<img src="https://user-images.githubusercontent.com/51292172/84167817-4f449d80-aa94-11ea-893e-518c41c68861.jpeg" width="13%"></img> 
+<img src="https://user-images.githubusercontent.com/51292172/84167820-510e6100-aa94-11ea-8cd0-e2297b6ee5e3.jpeg" width="13%"></img> 
+<img src="https://user-images.githubusercontent.com/51292172/84167821-51a6f780-aa94-11ea-8133-4b2f96ea67bc.jpeg" width="13%"></img> 
