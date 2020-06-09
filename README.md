@@ -27,4 +27,7 @@ Mess or Restaurant Management System
 
 ![text](https://github.com/shreyakajbaje/DashIN/blob/master/Sample%20Pictures/Image%202.jpeg)                                
 
-![text](https://github.com/shreyakajbaje/DashIN/blob/master/Sample%20Pictures/Image%203.jpeg)                                              
+![text](https://github.com/shreyakajbaje/DashIN/blob/master/Sample%20Pictures/Image%203.jpeg)                                           
+
+## License
+Copyrights reserved 
