@@ -59,8 +59,8 @@ public class MessAdapter extends FirestoreRecyclerAdapter<ModelMess, MessAdapter
         holder.rating.setText(Double.toString(model.getRATING()));
 
         //set front pic here
-        if(model.getFRONT_PIC()!=null) {
-            Constants.mStorage.getReference().child(model.getOWNER()).child(model.getFRONT_PIC()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        if(model.getFront_PIC()!=null) {
+            Constants.mStorage.getReference().child(model.getOwner_CONTACT()).child(model.getFront_PIC()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     if(uri!=null) {

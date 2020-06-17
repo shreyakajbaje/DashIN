@@ -1,6 +1,8 @@
 package com.example.dashin.CustomerModule.fragments;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -9,33 +11,50 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.dashin.CustomerModule.models.ModelMess;
+import com.example.dashin.CustomerModule.adapters.SliderAdapter;
 import com.example.dashin.R;
 import com.example.dashin.utils.CircleTransform;
+import com.example.dashin.utils.Constants;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MessContactFragment extends Fragment {
@@ -43,8 +62,11 @@ public class MessContactFragment extends Fragment {
     private TextView messName,ownerName,ownerAtMess,priceOpeningHours,vegNonVegText;
     private TextView rating,rating5,rating4,rating3,rating2,rating1,totalReviews,writeReview;
     private ProgressBar progressBar5,progressBar4,progressBar3,progressBar2,progressBar1;
-    private ImageView vegNonVegIcon,ownerImage,contactMess,reportMess;
+    private ImageView vegNonVegIcon,ownerImage,contactMess,reportMess,appBarImage;
     private Toolbar toolbar;
+    SliderAdapter sliderAdapter;
+    SliderView sliderView;
+
     public MessContactFragment() {
         // Required empty public constructor
     }
@@ -54,7 +76,7 @@ public class MessContactFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_mess_contact, container, false);
+        final View view = inflater.inflate(R.layout.fragment_mess_contact, container, false);
         toolbar=view.findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,14 +84,39 @@ public class MessContactFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+//        DatabaseReference dbi=FirebaseDatabase.getInstance().getReference().child("HomeImages");
+//        dbi.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                imageModelArrayList.clear();
+//                currentPage=0;
+//                NUM_PAGES=0;
+//                for (DataSnapshot ds:dataSnapshot.getChildren())
+//                {
+//                    ImageModel imageModel=ds.getValue(ImageModel.class);
+//                    imageModelArrayList.add(imageModel);
+//                }
+//                init();
+//                slidingImage_adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
         db= FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("VENDORS").document("QPH1dEgzgljulg1kOs6C");
+        DocumentReference docRef = db.collection("VENDORS").document("+919422552855");
 
         messName=view.findViewById(R.id.messName);
         ownerName=view.findViewById(R.id.ownerName);
         ownerAtMess=view.findViewById(R.id.ownerAtMess);
         priceOpeningHours=view.findViewById(R.id.priceOpeningHours);
         vegNonVegText=view.findViewById(R.id.vegNonVegText);
+
+        appBarImage=view.findViewById(R.id.app_bar_image);
 
         rating=view.findViewById(R.id.rating);
         rating1=view.findViewById(R.id.textView1);
@@ -80,6 +127,7 @@ public class MessContactFragment extends Fragment {
         totalReviews=view.findViewById(R.id.totalReviews);
         writeReview=view.findViewById(R.id.writeReview);
 
+        sliderView = view.findViewById(R.id.imageSlider);
 
         progressBar1=view.findViewById(R.id.progressBar1);
         progressBar2=view.findViewById(R.id.progressBar2);
@@ -91,7 +139,44 @@ public class MessContactFragment extends Fragment {
         ownerImage=view.findViewById(R.id.ownerImage);
         contactMess=view.findViewById(R.id.contactMess);
         reportMess=view.findViewById(R.id.reportMess);
+        docRef.collection("mess_IMAGES")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
 
+                            sliderView.setVisibility(View.VISIBLE);
+                            appBarImage.setVisibility(View.GONE);
+                            ArrayList<String> ImageList = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                //Log.d(TAG, document.getId() + " => " + document.getData());
+
+                                ImageList.add((String) document.get("ImageUri"));
+                            }
+
+                            sliderAdapter = new SliderAdapter(getContext(), ImageList);
+                            sliderView.setSliderAdapter(sliderAdapter);
+                            sliderView.setSliderTransformAnimation(SliderAnimations.FADETRANSFORMATION);
+                            sliderView.setIndicatorSelectedColor(Color.parseColor("#00000000"));
+                            sliderView.setIndicatorUnselectedColor(Color.parseColor("#00000000"));
+                            sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+                            sliderView.setScrollTimeInSec(4);
+                            sliderView.startAutoCycle();
+                            sliderView.getSliderPager().setOnTouchListener(new View.OnTouchListener() {
+                                @Override
+                                public boolean onTouch(View view, MotionEvent motionEvent) {
+                                    return true;
+                                }
+                            });
+
+                        } else {
+                           // Log.w(TAG, "Error getting documents.", task.getException());
+                            sliderView.setVisibility(View.GONE);
+                            appBarImage.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
@@ -105,7 +190,24 @@ public class MessContactFragment extends Fragment {
                     //System.out.println("Current data: " + snapshot.getData());
                     JSONObject mess= new JSONObject(snapshot.getData()) ;
                     try {
-                        Picasso.get().load(mess.getString("OWNER_IMAGE")).transform(new CircleTransform()).into(ownerImage);
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference storageRef = storage.getReference();
+
+                            storageRef.child(mess.getString("owner_CONTACT")+"/"+mess.getString("owner_IMAGE")).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(final Uri uri) {
+                                    // Got the download URL for 'users/me/profile.png'
+                                    //Picasso.get().load(uri).transform(new CircleTransform()).into(profilepic);
+                                    Picasso.get().load(uri).transform(new CircleTransform()).into(ownerImage);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle any errors
+                                }
+                            });
+
+
                         messName.setText(mess.getString("BUSI_NAME"));
                         priceOpeningHours.setText(mess.getString("OPEN_FROM")+"-"+mess.get("OPEN_TILL"));
                         rating.setText(mess.getString("RATING"));
@@ -186,4 +288,5 @@ public class MessContactFragment extends Fragment {
         });
         return view;
     }
+
 }

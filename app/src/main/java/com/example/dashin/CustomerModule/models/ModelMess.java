@@ -6,19 +6,19 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class ModelMess {
-    String BUSI_NAME, BUSI_DESCRIPTION, OWNER, ADDRESS, FRONT_PIC, OPEN_FROM, OPEN_TILL;
+    String BUSI_NAME, BUSI_DESCRIPTION, owner_CONTACT, ADDRESS, front_PIC, OPEN_FROM, OPEN_TILL;
     Timestamp TimeStamp;
     GeoPoint LOCATION;
     int COSTING, DISCOUNT;
     double RATING;
 
-    public ModelMess(String BUSI_NAME, String BUSI_DESCRIPTION, String OWNER, String ADDRESS, int COSTING, String FRONT_PIC, String OPEN_FROM, String OPEN_TILL, Timestamp timeStamp, GeoPoint LOCATION, double RATING) {
+    public ModelMess(String BUSI_NAME, String BUSI_DESCRIPTION, String owner_CONTACT, String ADDRESS, int COSTING, String front_PIC, String OPEN_FROM, String OPEN_TILL, Timestamp timeStamp, GeoPoint LOCATION, double RATING) {
         this.BUSI_NAME = BUSI_NAME;
         this.BUSI_DESCRIPTION = BUSI_DESCRIPTION;
-        this.OWNER = OWNER;
+        this.owner_CONTACT = owner_CONTACT;
         this.ADDRESS = ADDRESS;
         this.COSTING = COSTING;
-        this.FRONT_PIC = FRONT_PIC;
+        this.front_PIC = front_PIC;
         this.OPEN_FROM = OPEN_FROM;
         this.OPEN_TILL = OPEN_TILL;
         this.LOCATION = LOCATION;
@@ -33,10 +33,10 @@ public class ModelMess {
         return "ModelMess{" +
                 "BUSI_NAME='" + BUSI_NAME + '\'' +
                 ", BUSI_DESCRIPTION='" + BUSI_DESCRIPTION + '\'' +
-                ", OWNER='" + OWNER + '\'' +
+                ", owner_CONTACT='" + owner_CONTACT + '\'' +
                 ", ADDRESS='" + ADDRESS + '\'' +
                 ", COSTING='" + COSTING + '\'' +
-                ", FRONT_PIC='" + FRONT_PIC + '\'' +
+                ", front_PIC='" + front_PIC + '\'' +
                 ", OPEN_FROM='" + OPEN_FROM + '\'' +
                 ", OPEN_TILL='" + OPEN_TILL + '\'' +
                 ", TimeStamp=" + TimeStamp +
@@ -69,13 +69,7 @@ public class ModelMess {
         this.BUSI_DESCRIPTION = BUSI_DESCRIPTION;
     }
 
-    public String getOWNER() {
-        return OWNER;
-    }
 
-    public void setOWNER(String OWNER) {
-        this.OWNER = OWNER;
-    }
 
     public String getADDRESS() {
         return ADDRESS;
@@ -93,12 +87,20 @@ public class ModelMess {
         this.COSTING = COSTING;
     }
 
-    public String getFRONT_PIC() {
-        return FRONT_PIC;
+    public String getOwner_CONTACT() {
+        return owner_CONTACT;
     }
 
-    public void setFRONT_PIC(String FRONT_PIC) {
-        this.FRONT_PIC = FRONT_PIC;
+    public void setOwner_CONTACT(String owner_CONTACT) {
+        this.owner_CONTACT = owner_CONTACT;
+    }
+
+    public String getFront_PIC() {
+        return front_PIC;
+    }
+
+    public void setFront_PIC(String front_PIC) {
+        this.front_PIC = front_PIC;
     }
 
     public String getOPEN_FROM() {

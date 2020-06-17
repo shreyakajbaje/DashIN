@@ -21,16 +21,33 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="false"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-
             app:toolbarId="@+id/toolbar">
+
+            <!--image slider-->
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:scrollIndicators="none"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:sliderAnimationDuration="500"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderScrollTimeInSec="1"
+                app:sliderStartAutoCycle="true"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax">
+
+            </com.smarteist.autoimageslider.SliderView>
 
             <ImageView
                 android:id="@+id/app_bar_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-
                 android:src="@drawable/food1"
+                android:visibility="visible"
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
@@ -130,19 +147,19 @@
                         android:id="@+id/ownerName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="Sandeep Kulkarni"
                         android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:ellipsize="end"
-                        android:maxLines="1"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/ownerAtMess"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Owner at Kulkarni Snacks"
                         android:ellipsize="end"
-                        android:maxLines="1"/>
+                        android:maxLines="1"
+                        android:text="Owner at Kulkarni Snacks" />
 
                     <TextView
                         android:id="@+id/priceOpeningHours"
