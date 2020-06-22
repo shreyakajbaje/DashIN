@@ -16,4 +16,5 @@
         <item>FIRSTXY%OFF</item>
         <item>X%OFF</item>
     </array>
+    <string name="title_activity_order_tracking">Map</string>
 </resources>
