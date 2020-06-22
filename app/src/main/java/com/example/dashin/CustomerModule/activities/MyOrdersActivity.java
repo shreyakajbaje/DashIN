@@ -35,9 +35,9 @@ public class MyOrdersActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        noResults=findViewById(R.id.result);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
+        noResults=findViewById(R.id.result);
         DatabaseLogActivity.startSession();
         //                                                                  Here must go the customer's number
         ordersAdapter=new OrdersAdapter(DatabaseLogActivity.makeRecyclerView(Constants.mAuth.getCurrentUser().getPhoneNumber()));
@@ -52,7 +52,7 @@ public class MyOrdersActivity extends AppCompatActivity {
         myToolbar.setBackgroundColor(getResources().getColor(R.color.pink));
         Drawable drawable= getResources().getDrawable(R.mipmap.back_button_foreground);
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-        Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 160, 160, true));
+        Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(newdrawable);
     }

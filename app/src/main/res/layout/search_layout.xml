@@ -37,17 +37,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="Sahakarnagar"
+            android:text=""
             android:fontFamily="sans-serif-medium"
             android:textSize="15sp"
+            android:id="@+id/live_loc_text"
             android:textColor="@color/black"/>
-
+<!--
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="7dp"
             android:src="@drawable/ioc_down_arrow_icon"/>
+            -->
 
     </androidx.appcompat.widget.Toolbar>
 

@@ -52,7 +52,7 @@ Button ReSubmit;
         myToolbar.setBackgroundColor(getResources().getColor(R.color.pink));
         Drawable drawable= getResources().getDrawable(R.mipmap.back_button_foreground);
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-        Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 180, 180, true));
+        Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 120, 120, true));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(newdrawable);
         ReSubmit.setOnClickListener(new View.OnClickListener() {

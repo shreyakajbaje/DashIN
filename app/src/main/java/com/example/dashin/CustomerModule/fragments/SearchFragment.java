@@ -1,7 +1,6 @@
 package com.example.dashin.CustomerModule.fragments;
 
 import android.content.Intent;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,16 +15,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.dashin.CustomerModule.activities.MainActivity;
 import com.example.dashin.CustomerModule.activities.MessActivity;
 import com.example.dashin.CustomerModule.adapters.MessAdapter;
 import com.example.dashin.CustomerModule.adapters.SmartSearch;
+import com.example.dashin.CustomerModule.adapters.TagsAdapter;
 import com.example.dashin.CustomerModule.models.ModelMess;
 import com.example.dashin.CustomerModule.models.SmartSearchModel;
 import com.example.dashin.utils.Constants;
@@ -50,10 +50,11 @@ public class SearchFragment extends Fragment {
     RelativeLayout relativeLayout;
     AutoCompleteTextView searchView;
     SmartSearch adapter;
-    static MessAdapter messAdapter;
-    static RecyclerView recyclerView;
+    MessAdapter messAdapter;
+    RecyclerView recyclerView;
     TextView t1,t2,t3,t4,clear_text;
     public static Query query;
+    boolean created=false;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -66,8 +67,18 @@ public class SearchFragment extends Fragment {
         relativeLayout = view.findViewById(R.id.restaurant_after_search);
         searchView = view.findViewById(R.id.search);
         recyclerView=view.findViewById(R.id.searchResults);
-        recyclerView.setVisibility(View.INVISIBLE);
-        setUpMessRecyclerView();
+            if (TagsAdapter.caller != null) {
+                if (TagsAdapter.caller.equals("Called from HomeActivity")) {
+                    setUpMessRecyclerView(TagsAdapter.tagName, 0);
+                    System.out.println("Called from Home");
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+            } else {
+                setUpMessRecyclerView();
+                recyclerView.setVisibility(View.INVISIBLE);
+            }
+        TextView t=view.findViewById(R.id.live_loc_text);
+            t.setText(HomeFragment.locationAddress);
         setSearchBarResults();
         t1=view.findViewById(R.id.search1);
         t2=view.findViewById(R.id.search2);
@@ -91,9 +102,9 @@ public class SearchFragment extends Fragment {
 
     void setSearchBarResults()
     {
+        SmartSearch.messValues=new ArrayList<>();
         DatabaseLogActivity.startSession();
-        adapter=new SmartSearch(getContext(),R.id.search);
-        searchView.setAdapter(adapter);
+        adapter=new SmartSearch(getContext(),R.layout.smart_search_layout,SmartSearch.messValues);
         DatabaseLogActivity.firebasePointer.collection("MESS-LIST").orderBy("IS_TITLE").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -110,34 +121,40 @@ public class SearchFragment extends Fragment {
                         adapter.notifyDataSetChanged();
                 }
                 adapter.notifyDataSetChanged();
+                adapter.getFilter().filter(null);
+                searchView.setAdapter(adapter);
             }
         });
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                addToRecentlySearched(SmartSearch.messValues.get(position).getTITLE());
-                setUpMessRecyclerView(SmartSearch.messValues.get(position).getTITLE(),Integer.parseInt(SmartSearch.messValues.get(position).getIS_TITLE()));
-                recyclerView.setVisibility(View.VISIBLE);
-                adapter.getFilter().filter("#");
+                    if(SmartSearch.messList.get(position).getIS_TITLE().equals("1"))
+                    addToRecentlySearched(SmartSearch.messList.get(position).getTITLE());
+                    setUpMessRecyclerView(SmartSearch.messList.get(position).getTITLE(), Integer.parseInt(SmartSearch.messList.get(position).getIS_TITLE()));
+                    searchView.setText(SmartSearch.messList.get(position).getTITLE());
+                    recyclerView.setVisibility(View.VISIBLE);
+                    adapter.getFilter().filter("#");
             }
         });
         searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId== EditorInfo.IME_ACTION_SEARCH)
+                if(actionId==EditorInfo.IME_ACTION_SEARCH)
                 {
                     if(!(v.getText().toString().equals(null)||v.getText().toString().equals(""))) {
-                        System.out.println(v.getText().toString());
                         ArrayList<String> filterValues = new ArrayList<String>();
-                        for(int i=0;i<adapter.getCount();i++)
-                        filterValues.add(adapter.getItem(i).getTITLE().toLowerCase());
-                        setUpMessRecyclerView(filterValues);
-                        recyclerView.setVisibility(View.VISIBLE);
-                        adapter.getFilter().filter("#");
+                        for(int i=0;i<SmartSearch.messList.size();i++)
+                        filterValues.addAll(getVariations(SmartSearch.messList.get(i).getTITLE()));
+                        System.out.println(filterValues);
+                        if(!filterValues.isEmpty()) {
+                            setUpMessRecyclerView(filterValues);
+                            recyclerView.setVisibility(View.VISIBLE);
+                            adapter.getFilter().filter("#");
+                        }
                     }
                 }
-                    return false;
+                return false;
             }
         });
 
@@ -148,17 +165,23 @@ public class SearchFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().isEmpty()) recyclerView.setVisibility(View.INVISIBLE);
+
             }
             @Override
             public void afterTextChanged(Editable s) { }
         });
 
     }
+
+
+
     private void setUpMessRecyclerView(ArrayList<String> list) {
         Log.e("ModelBooks", "setting up recycler view");
         if(list.size()>10)
         list.subList(10,list.size()-1).clear();
-        query = Constants.mFirestore.collection("VENDORS").whereArrayContainsAny("TAGS",list);    // .orderBy("VIEWS"); can be added to query
+        list.trimToSize();
+        System.out.println(list);
+        query = Constants.mFirestore.collection("VENDORS").whereArrayContainsAny("facilities",list);    // .orderBy("VIEWS"); can be added to query
                                                                                                                     // in each case. once field is generated.
 
         FirestoreRecyclerOptions<ModelMess> options = new FirestoreRecyclerOptions.Builder<ModelMess>()
@@ -169,10 +192,15 @@ public class SearchFragment extends Fragment {
                 // callback performed on click
             }
         });
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(messAdapter);
         messAdapter.startListening();
     }
-    public static void setUpMessRecyclerView(String smart,int state) {
+
+
+
+    public void setUpMessRecyclerView(String smart,int state) {
         Log.e("ModelBooks", "setting up recycler view");
         if(state==0)
         query = Constants.mFirestore.collection("VENDORS").whereArrayContainsAny("facilities",Arrays.asList(smart));
@@ -189,10 +217,15 @@ public class SearchFragment extends Fragment {
                 // callback performed on click
             }
         });
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(messAdapter);
         messAdapter.startListening();
-
+        TagsAdapter.caller="";
     }
+
+
+
     private void setUpMessRecyclerView() {
         Log.e("ModelBooks", "setting up recycler view");
         query = Constants.mFirestore.collection("VENDORS");
@@ -210,22 +243,24 @@ public class SearchFragment extends Fragment {
 
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(messAdapter);
-
+        messAdapter.startListening();
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        if(messAdapter!=null)
         messAdapter.startListening();
-
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        messAdapter.stopListening();
+        if(messAdapter!=null)
+            messAdapter.stopListening();
     }
     void addToRecentlySearched(String newString)
     {
@@ -288,19 +323,15 @@ public class SearchFragment extends Fragment {
         });
     }
     void addToSearchList(String text){
-        ArrayList<String> m=new ArrayList<String>();
-        m.add(text.toLowerCase());
-        setUpMessRecyclerView(m);
+        setUpMessRecyclerView(text,1);
         recyclerView.setVisibility(View.VISIBLE);
         adapter.getFilter().filter("#");
     }
 
-    void smartSearch(String item){
-    }
     static List<String> getVariations(String smart)
     {
-        String smart1="",smart2="",arr[];
-        smart=smart.toLowerCase();
+        String smart1="",smart2="",arr[],smart3;
+        smart3=smart.toLowerCase();
         arr=smart.split("\\s");
         for(String s:arr)
         {
@@ -308,7 +339,7 @@ public class SearchFragment extends Fragment {
             smart1=smart1+s+" ";
         }
         smart2=smart.toUpperCase();
-        return Arrays.asList(smart,smart1,smart2);
+        return Arrays.asList(smart,smart1,smart2,smart3,arr[0]);
     }
 
 }

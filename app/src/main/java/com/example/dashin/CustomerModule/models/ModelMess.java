@@ -5,6 +5,8 @@ import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.PropertyName;
 
+import java.util.ArrayList;
+
 @IgnoreExtraProperties
 public class ModelMess {
     String BUSI_NAME, BUSI_DESCRIPTION, owner_CONTACT, ADDRESS, front_PIC, OPEN_FROM, OPEN_TILL;
@@ -12,6 +14,8 @@ public class ModelMess {
     GeoPoint LOCATION;
     int COSTING, DISCOUNT;
     double RATING;
+    ArrayList<String> FACILITIES = new ArrayList<>();
+    ArrayList<String> Mess_IMAGES = new ArrayList<>();
 
     public ModelMess(String BUSI_NAME, String BUSI_DESCRIPTION, String owner_CONTACT, String ADDRESS, int COSTING, String front_PIC, String OPEN_FROM, String OPEN_TILL, Timestamp timeStamp, GeoPoint LOCATION, double RATING) {
         this.BUSI_NAME = BUSI_NAME;
@@ -144,4 +148,22 @@ public class ModelMess {
     public void setRATING(double RATING) {
         this.RATING = RATING;
     }
+/*
+    public ArrayList<String> getFACILITIES() {
+        return FACILITIES;
+    }
+
+    public void setFACILITIES(ArrayList<String> FACILITIES) {
+        this.FACILITIES = FACILITIES;
+    }
+
+    public ArrayList<String> getMess_IMAGES() {
+        return Mess_IMAGES;
+    }
+
+    public void setMess_IMAGES(ArrayList<String> mess_IMAGES) {
+        Mess_IMAGES = mess_IMAGES;
+    }
+*/
+
 }

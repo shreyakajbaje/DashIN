@@ -13,8 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dashin.CustomerModule.activities.MainActivity;
+import com.example.dashin.CustomerModule.fragments.SearchFragment;
 import com.example.dashin.R;
 import com.example.dashin.CustomerModule.models.ModelTag;
 import com.example.dashin.utils.Constants;
@@ -23,7 +27,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
-
+import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.FragmentManager;
 import java.lang.ref.WeakReference;
 
 public class TagsAdapter extends FirestoreRecyclerAdapter<ModelTag, TagsAdapter.TagsHolder> {
@@ -31,6 +36,8 @@ public class TagsAdapter extends FirestoreRecyclerAdapter<ModelTag, TagsAdapter.
 
     private TagsAdapter.ClickListener listener;
 
+    public static String caller;
+    public static String tagName;
 
     public TagsAdapter(@NonNull FirestoreRecyclerOptions<ModelTag> options, TagsAdapter.ClickListener listener ) {
         super(options);
@@ -64,7 +71,15 @@ public class TagsAdapter extends FirestoreRecyclerAdapter<ModelTag, TagsAdapter.
             });
         }
         //calculate open status here
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Clicked"+model.getTag());
+                caller="Called from HomeActivity";
+                tagName=model.getTag();
+                setFragment(new SearchFragment(),holder);
+            }
+        });
 
         Log.e("Tags", "bindviewholder");
     }
@@ -144,7 +159,13 @@ public class TagsAdapter extends FirestoreRecyclerAdapter<ModelTag, TagsAdapter.
     public interface ClickListener {
         void onPositionClicked(int position);
     }
-
+    private void setFragment(Fragment f,TagsAdapter.TagsHolder holder)
+    {
+        Log.e("Fragment", "home");
+        FragmentTransaction ft1 = MainActivity.f.beginTransaction();
+        ft1.replace(R.id.main_frame, f, "");
+        ft1.commit();
+    }
 
 
 }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.NotificationChannel;
@@ -31,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
     public static BottomNavigationView botnavview;
     HomeFragment home_fragment;
     SearchFragment search_fragment;
+    public static SearchFragment forReference_searchFragment;
     ProfileFragment profile_fragment;
     CartFragment cart_fragment;
-
-
+    public static FragmentManager f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.e("fragments", "oncreate");
         ActionBar ab = getSupportActionBar();
-
-
+        f=getSupportFragmentManager();
         botnavview=findViewById(R.id.bottom_nav);
         home_fragment=new HomeFragment();
         search_fragment=new SearchFragment();
+        forReference_searchFragment=search_fragment;
         cart_fragment=new CartFragment();
         profile_fragment=new ProfileFragment();
 
