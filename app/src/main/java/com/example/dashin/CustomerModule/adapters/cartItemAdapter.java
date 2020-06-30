@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dashin.R;
 import com.example.dashin.CustomerModule.models.cartItem;
+import com.example.dashin.utils.Constants;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.ObservableSnapshotArray;
@@ -54,7 +55,7 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
             public void onClick(View view) {
                 is1stTime=false;
                 //Toast.makeText(context,"+"+position,Toast.LENGTH_SHORT).show();
-                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).update("Quantity",(model.getQuantity()+1))
+                db.collection("customer/"+ Constants.CurrentUser.getContact() +"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).update("Quantity",(model.getQuantity()+1))
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -75,7 +76,7 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
                     return;
                 }
                 //Toast.makeText(context,"-"+position,Toast.LENGTH_SHORT).show();
-                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).update("Quantity",(model.getQuantity()-1))
+                db.collection("customer/"+ Constants.CurrentUser.getContact() +"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).update("Quantity",(model.getQuantity()-1))
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -92,7 +93,7 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).delete()
+                db.collection("customer/"+ Constants.CurrentUser.getContact() +"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -101,7 +102,8 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
 
                         setBill.setBillAmounts(itemTotalPrice,getItemCount());
                         Toast.makeText(context,"Item deleted !",Toast.LENGTH_SHORT).show();
-
+                db.collection("customer").document(Constants.CurrentUser.getContact()).update("cart_mess_name","");
+                Constants.CurrentUser.setCart_mess_name("");
                     }
                 });
             }

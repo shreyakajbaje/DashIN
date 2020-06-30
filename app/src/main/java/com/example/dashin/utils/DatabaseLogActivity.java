@@ -55,9 +55,9 @@ public class DatabaseLogActivity extends AppCompatActivity {
         firebasePointer = FirebaseFirestore.getInstance();
     }
 
-    public static void setOrdersPreviewString(String number, final int b, final TextView textView) {
+    public static void setOrdersPreviewString(String number, final int b, final TextView textView,String id) {
         final String[] m = {""};
-        firebasePointer.collection("CUSTOMER/" + number + "/MY-ORDERS/ORDER-" + b + "/DETAILS").get()
+        firebasePointer.collection("customer/" + number + "/my-orders/"+id+"/details").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot documentSnapshots) {
@@ -67,7 +67,7 @@ public class DatabaseLogActivity extends AppCompatActivity {
                             int count = 0;
                             List<DocumentSnapshot> list = documentSnapshots.getDocuments();
                             for (int j = 0; j < documentSnapshots.size(); j++) {
-                                m[0] = m[0] + (list.get(j).getString("ITEM_NAME")+" x "+list.get(j).getLong("N").toString()+ ", ");
+                                m[0] = m[0] + (list.get(j).getString("item_name")+" x "+list.get(j).getLong("n").toString()+ ", ");
                             }
                             m[0] = m[0].substring(0, m[0].length() - 2);
                             textView.setText(m[0]);
@@ -80,7 +80,7 @@ public class DatabaseLogActivity extends AppCompatActivity {
     {
         ordersPreview=new ArrayList<>();
         count=0;
-        Query query = firebasePointer.collection("CUSTOMER/"+number+"/MY-ORDERS").orderBy("TIME",Query.Direction.DESCENDING) ;
+        Query query = firebasePointer.collection("customer/"+number+"/my-orders").orderBy("time",Query.Direction.DESCENDING) ;
                 query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
@@ -94,7 +94,7 @@ public class DatabaseLogActivity extends AppCompatActivity {
     }
     public static FirestoreRecyclerOptions<Details> makeRecyclerView(String number,String orderID)
     {
-        Query query = firebasePointer.collection("CUSTOMER/"+number+"/MY-ORDERS/"+orderID+"/DETAILS").orderBy("ITEM_NUM",Query.Direction.ASCENDING) ;
+        Query query = firebasePointer.collection("customer/"+number+"/my-orders/"+orderID+"/details").orderBy("n",Query.Direction.ASCENDING) ;
 
         FirestoreRecyclerOptions<Details> options = new FirestoreRecyclerOptions
                 .Builder<Details>()

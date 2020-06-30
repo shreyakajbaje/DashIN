@@ -35,32 +35,34 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="70dp">
+        android:layout_gravity="start|center_horizontal|top"
+        android:layout_marginTop="70dp"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="380dp"
             android:layout_height="70dp"
-            android:layout_marginTop="0dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="0dp"
             android:layout_marginRight="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pop Up Notifications"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/helveticaneuemedium500"
+                android:text="Pop Up Notifications"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <Switch
                 android:id="@+id/switch1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:layout_marginLeft="310dp"/>
+                android:layout_marginLeft="310dp"
+                android:layout_marginTop="18dp" />
 
             <View
                 android:layout_width="330dp"
@@ -70,32 +72,31 @@
                 android:background="@android:color/darker_gray" />
 
 
-
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="380dp"
             android:layout_height="70dp"
-            android:layout_marginTop="0dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="0dp"
             android:layout_marginRight="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/helveticaneuemedium500"
                 android:text="FAQ's"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="35dp"
-                android:fontFamily="@font/helveticaneuemedium500"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/next_arrow"
+                android:layout_marginLeft="330dp"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="330dp"/>
+                android:src="@drawable/next_arrow" />
 
             <View
                 android:layout_width="330dp"
@@ -105,29 +106,30 @@
                 android:background="@android:color/darker_gray" />
 
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="380dp"
             android:layout_height="70dp"
-            android:layout_marginTop="0dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="0dp"
             android:layout_marginRight="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/helveticaneuemedium500"
                 android:text="Terms and Conditions"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="35dp"
-                android:fontFamily="@font/helveticaneuemedium500"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/next_arrow"
+                android:layout_marginLeft="330dp"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="330dp"/>
+                android:src="@drawable/next_arrow" />
 
             <View
                 android:layout_width="330dp"
@@ -137,29 +139,30 @@
                 android:background="@android:color/darker_gray" />
 
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="380dp"
             android:layout_height="70dp"
-            android:layout_marginTop="0dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="0dp"
             android:layout_marginRight="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/helveticaneuemedium500"
                 android:text="About Us"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="35dp"
-                android:fontFamily="@font/helveticaneuemedium500"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/next_arrow"
+                android:layout_marginLeft="330dp"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="330dp"/>
+                android:src="@drawable/next_arrow" />
 
             <View
                 android:layout_width="330dp"
@@ -173,26 +176,26 @@
         <RelativeLayout
             android:layout_width="380dp"
             android:layout_height="70dp"
-            android:layout_marginTop="0dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="0dp"
             android:layout_marginRight="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/helveticaneuemedium500"
                 android:text="Rate Us"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="35dp"
-                android:fontFamily="@font/helveticaneuemedium500"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/next_arrow"
+                android:layout_marginLeft="330dp"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="330dp"/>
+                android:src="@drawable/next_arrow" />
 
             <View
                 android:layout_width="330dp"
@@ -202,29 +205,30 @@
                 android:background="@android:color/darker_gray" />
 
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="380dp"
             android:layout_height="70dp"
-            android:layout_marginTop="0dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="0dp"
             android:layout_marginRight="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Check Software Update"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/helveticaneuemedium500"
+                android:text="Check Software Update"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/next_arrow"
+                android:layout_marginLeft="330dp"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="330dp"/>
+                android:src="@drawable/next_arrow" />
 
             <View
                 android:layout_width="330dp"

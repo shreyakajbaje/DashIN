@@ -100,46 +100,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:layout_marginTop="4dp"
-            android:focusableInTouchMode="true">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" City"
-                android:fontFamily="@font/helveticaneuemedium500"
-                android:textColor="@color/grey"
-                android:ems="10"
-                android:inputType="text"
-                android:textSize="20sp"
-                android:id="@+id/city" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:layout_marginTop="4dp"
-            android:focusableInTouchMode="true">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" College Name"
-                android:fontFamily="@font/helveticaneuemedium500"
-                android:textColor="@color/grey"
-                android:ems="10"
-                android:inputType="text"
-                android:textSize="20sp"
-                android:id="@+id/college_name" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
             android:focusableInTouchMode="true"
             android:layout_marginTop="4dp"
             app:passwordToggleEnabled="true">

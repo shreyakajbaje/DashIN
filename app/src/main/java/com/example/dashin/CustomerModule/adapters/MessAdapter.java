@@ -58,8 +58,8 @@ public class MessAdapter extends FirestoreRecyclerAdapter<ModelMess, MessAdapter
         holder.open_till.setText(model.getOPEN_TILL());
         holder.rating.setText(Double.toString(model.getRATING()));
         //set front pic here
-        if(model.getFront_PIC()!=null) {
-            Constants.mStorage.getReference().child(model.getOwner_CONTACT()).child(model.getFront_PIC()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        if(model.getFRONT_PIC()!=null) {
+            Constants.mStorage.getReference().child(model.getOWNER_CONTACT()).child(model.getFRONT_PIC()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     if(uri!=null) {
@@ -138,6 +138,7 @@ public class MessAdapter extends FirestoreRecyclerAdapter<ModelMess, MessAdapter
            // Log.e("hihih", model.getTitle());
             final Intent intent;
             intent =  new Intent(context, MessActivity.class);
+            intent.putExtra("phone",model.getOWNER_CONTACT());
 //            intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
 //            intent.putExtra("Mess", model.getTitle());
 //            intent.putExtra("by", model.getOwner());

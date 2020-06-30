@@ -3,6 +3,7 @@ package com.example.dashin.PaymentModule;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -21,20 +22,36 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dashin.CustomerModule.activities.MainActivity;
+import com.example.dashin.CustomerModule.models.Details;
+import com.example.dashin.CustomerModule.models.SingleEntityOfOrders;
 import com.example.dashin.R;
+import com.example.dashin.utils.Constants;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class PaymentScreen extends AppCompatActivity {
 
@@ -48,6 +65,16 @@ public class PaymentScreen extends AppCompatActivity {
     AppAdapter adapter=null;
     LinearLayout cardsAndNetBanking;
     private Toolbar toolbar;
+    TextView totalAmount;
+
+    private FirebaseFirestore db;
+    private CollectionReference messRef;
+
+    TextView cards,upi;
+    RelativeLayout cardsLayout;
+    ListView upiMethods;
+    String MID="",MKEY="",UPI_ID="",ordID="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,58 +87,126 @@ public class PaymentScreen extends AppCompatActivity {
                finish();
             }
         });
+        totalAmount=findViewById(R.id.totalAmount);
+        totalAmount.setText("Item total ₹"+Constants.order.getAMOUNT());
+        cards=findViewById(R.id.cards);
+        cardsLayout=findViewById(R.id.cardLayout);
+        upi=findViewById(R.id.upi);
+        upiMethods=findViewById(R.id.PaymentAppsList);
+        ordID= genOrderId();
+        db= FirebaseFirestore.getInstance();
 
-        cardsAndNetBanking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(PaymentScreen.this, checksum.class);
-                intent.putExtra("name","pkj");
-                intent.putExtra("seller","pkj");
-                intent.putExtra("image","abc");
-                intent.putExtra("catagory","cat");
-                intent.putExtra("price","1");
-                startActivity(intent);
-            }
-        });
-        final ListView lv=findViewById(R.id.PaymentAppsList);
-        boolean isAppInstalled = appInstalledOrNot(GOOGLE_PAY_PACKAGE_NAME);
-        if(isAppInstalled) {
-            Log.i("i","Application is already installed.");
-        } else {
-            Log.i("i","Application is not currently installed.");
-        }
-                Uri uri =
-                        new Uri.Builder()
-                                .scheme("upi")
-                                .authority("pay")
-                                .appendQueryParameter("pa", "prajadhav1243@okaxis")
-                                .appendQueryParameter("pn", "Prathmesh Jadhav")
-                                .appendQueryParameter("tn", "Test payment")
-                                .appendQueryParameter("am", "1")
-                                .appendQueryParameter("cu", "INR")
-                                .build();
-                final Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(uri);
-                Intent chooser = Intent.createChooser(intent,"Pay With");
-                PackageManager pm=getPackageManager();
-                List<ResolveInfo> launchables=pm.queryIntentActivities(intent, 0);
-                Collections.sort(launchables,new ResolveInfo.DisplayNameComparator(pm));
-                adapter=new AppAdapter(pm, launchables);
-                lv.setAdapter(adapter);
-                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-                                            long arg3) {
-                        // TODO Auto-generated method stub
-                        ResolveInfo launchable=adapter.getItem(position);
-                        ActivityInfo activity=launchable.activityInfo;
-                        ComponentName name=new ComponentName(activity.applicationInfo.packageName,
-                                activity.name);
-                        intent.setPackage(activity.applicationInfo.packageName);
-                        startActivityForResult(intent,UPI_PAYMENT);
+            db.collection("vendors").document(Constants.order.getFROM()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()) {
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        if (documentSnapshot.getString("merchant_key")==null || documentSnapshot.getString("merchant_id")==null)
+                        {
+//                        Toast.makeText(PaymentScreen.this,"Mess does not have enabled Cards method",Toast.LENGTH_SHORT).show();
+//                        finish();
+                            cards.setVisibility(View.GONE);
+                            cardsLayout.setVisibility(View.GONE);
+                        }
+                        else
+                        {
+                            MID=documentSnapshot.getString("merchant_id");
+                            MKEY=documentSnapshot.getString("merchant_key");
+                            cardsAndNetBanking.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent=new Intent(PaymentScreen.this, checksum.class);
+                                    intent.putExtra("name",Constants.order.getBUSI_NAME());
+                                    intent.putExtra("seller",Constants.order.getFROM());
+                                    intent.putExtra("image","abc");
+                                    intent.putExtra("catagory","cat");
+                                    intent.putExtra("MID",MID);
+                                    intent.putExtra("MKEY",MKEY);
+                                    intent.putExtra("price",(int)Constants.order.getAMOUNT());
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                        if (documentSnapshot.getString("upi_id")==null)
+                        {
+                            upi.setVisibility(View.GONE);
+                            upiMethods.setVisibility(View.GONE);
+                        }
+                        else
+                        {
+                            // UPI_ID=documentSnapshot.getString("upi_id");
+                            UPI_ID="prajadhav1243@okaxis";
+                            final ListView lv=findViewById(R.id.PaymentAppsList);
+                            Uri uri =
+                                    new Uri.Builder()
+                                            .scheme("upi")
+                                            .authority("pay")
+                                            .appendQueryParameter("pa", UPI_ID)
+                                            .appendQueryParameter("pn", Constants.order.getBUSI_NAME())
+                                            .appendQueryParameter("tn", "Mess Payment")
+                                            .appendQueryParameter("am", ""+Constants.order.getAMOUNT())
+                                            .appendQueryParameter("cu", "INR")
+                                            .build();
+                            final Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(uri);
+                            Intent chooser = Intent.createChooser(intent,"Pay With");
+                            PackageManager pm=getPackageManager();
+                            List<ResolveInfo> launchables=pm.queryIntentActivities(intent, 0);
+                            Collections.sort(launchables,new ResolveInfo.DisplayNameComparator(pm));
+                            adapter=new AppAdapter(pm, launchables);
+                            lv.setAdapter(adapter);
+                            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+                                                        long arg3) {
+                                    // TODO Auto-generated method stub
+                                    ResolveInfo launchable=adapter.getItem(position);
+                                    ActivityInfo activity=launchable.activityInfo;
+                                    ComponentName name=new ComponentName(activity.applicationInfo.packageName,
+                                            activity.name);
+                                    intent.setPackage(activity.applicationInfo.packageName);
+                                    startActivityForResult(intent,UPI_PAYMENT);
+                                }
+
+                            });
+                        }
+                        if(documentSnapshot.get("busi_loc")==null)
+                        {
+
+                        }
+                        else
+                        {
+                            ArrayList<String> loc = (ArrayList<String>) documentSnapshot.get("busi_loc");
+                            Constants.order.setBUSI_LOC(loc);
+                        }
+                        if(documentSnapshot.get("front_pic")==null)
+                        {
+
+                        }
+                        else
+                        {
+                            Constants.order.setFRONT_PIC(documentSnapshot.getString("front_pic"));
+                        }
                     }
-                });
+                }
+            });
+
+
+
+
+
+//        boolean isAppInstalled = appInstalledOrNot(GOOGLE_PAY_PACKAGE_NAME);
+//        if(isAppInstalled) {
+//            Log.i("i","Application is already installed.");
+//        } else {
+//            Log.i("i","Application is not currently installed.");
+//        }
+
             }
+    public String genOrderId() {
+        Random r = new Random(System.currentTimeMillis());
+        return "ORDER" + (1 + r.nextInt(2)) * 10000 + r.nextInt(10000);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -172,8 +267,57 @@ public class PaymentScreen extends AppCompatActivity {
             }
             if (status.equals("success")) {
                 //Code to handle successful transaction here.
-                Toast.makeText(PaymentScreen.this, "Transaction successful.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentScreen.this, "Transaction successful. Order Placed!", Toast.LENGTH_SHORT).show();
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String date = df.format(Calendar.getInstance().getTime());
+                Constants.order.setTIME(date);
+                //order placement
+                db.collection("customer/"+Constants.order.getTO()+"/my-orders").document(ordID).set(Constants.order);
+                db.collection("vendors/"+Constants.order.getFROM()+"/my-orders").document(ordID).set(Constants.order);
+                HashMap<String,String> loc = new HashMap();
+                loc.put("lat",Constants.order.getBUSI_LOC().get(0));
+                loc.put("long",Constants.order.getBUSI_LOC().get(1));
+                db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+ordID+"/order-loc").document("loc").set(loc);
+                db.collection("vendors/"+Constants.order.getFROM()+"/my-orders/"+ordID+"/order-loc").document("loc").set(loc);
+                HashMap<String ,String > stages = new HashMap<>();
+                stages.put("status","IA");
+                db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+ordID+"/order-loc").document("stage1").set(stages);
+                db.collection("vendors/"+Constants.order.getFROM()+"/my-orders/"+ordID+"/order-loc").document("stage1").set(stages);
+                db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+ordID+"/order-loc").document("stage2").set(stages);
+                db.collection("vendors/"+Constants.order.getFROM()+"/my-orders/"+ordID+"/order-loc").document("stage2").set(stages);
+                db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+ordID+"/order-loc").document("stage3").set(stages);
+                db.collection("vendors/"+Constants.order.getFROM()+"/my-orders/"+ordID+"/order-loc").document("stage3").set(stages);
+                db.collection("customer/"+Constants.order.getTO()+"/cart")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        Details item = new Details();
+                                        item.setITEM_CAT(document.getString("type"));
+                                        item.setITEM_COST(document.getLong("price"));
+                                        item.setITEM_NAME(document.getString("name"));
+                                        item.setN(document.getLong("quantity"));
+                                        item.setSUB_TOT(document.getLong("price")*document.getLong("quantity"));
+                                        item.setITEM_ID(document.getId());
+                                        db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+ordID+"/details").document(document.getId()).set(item);
+                                        db.collection("vendors/"+Constants.order.getFROM()+"/my-orders/"+ordID+"/details").document(document.getId()).set(item);
+                                        db.collection("customer/"+Constants.order.getTO()+"/cart").document(document.getId()).delete();
+                                    }
+                                   Constants.order=new SingleEntityOfOrders();
+                                } else {
+
+                                }
+                            }
+                        });
+
+
+                Intent i = new Intent(PaymentScreen.this, MainActivity.class);
+                startActivity(i);
                 Log.e("UPI", "payment successfull: "+approvalRefNo);
+
             }
             else if("Payment cancelled by user.".equals(paymentCancel)) {
                 Toast.makeText(PaymentScreen.this, "Payment cancelled by user.", Toast.LENGTH_SHORT).show();

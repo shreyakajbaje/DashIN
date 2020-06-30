@@ -246,10 +246,17 @@ public class MessNavigateFragment extends Fragment implements PermissionsListene
                 }
                 else
                 {
-                    navigationMapRoute = new NavigationMapRoute(navigation,mapView,mapboxMap);
-                    Log.e("error","in");
+                    try {
+                        navigationMapRoute = new NavigationMapRoute(navigation,mapView,mapboxMap);
+                        navigationMapRoute.addRoute(currentRoute);
+                    }
+                    catch (NullPointerException e)
+                    {
+
+                    }
+
                 }
-                navigationMapRoute.addRoute(currentRoute);
+
 
             }
 

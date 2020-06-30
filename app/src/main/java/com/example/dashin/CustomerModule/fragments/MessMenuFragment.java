@@ -63,6 +63,7 @@ public class MessMenuFragment extends Fragment {
     private menuItemAdapter menuItemAdapter;
     SliderAdapter sliderAdapter;
     SliderView sliderView;
+    String phone="";
     public MessMenuFragment() {
         // Required empty public constructor
     }
@@ -81,16 +82,19 @@ public class MessMenuFragment extends Fragment {
         rating=view.findViewById(R.id.rating);
         db= FirebaseFirestore.getInstance();
         sliderView = view.findViewById(R.id.imageSlider);
-        menuRef=db.collection("VENDORS/+919422552855/MENU");
-        Query query = menuRef.orderBy("Name",Query.Direction.ASCENDING);
+        Intent intent = getActivity().getIntent();
+        phone = intent.getStringExtra("phone");
+
+        menuRef=db.collection("vendors/"+phone+"/menu");
+        Query query = menuRef.orderBy("name",Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<menuItem> options=new FirestoreRecyclerOptions.Builder<menuItem>()
                 .setQuery(query,menuItem.class)
                 .build();
-        menuItemAdapter = new menuItemAdapter(options,getContext());
+        menuItemAdapter = new menuItemAdapter(options,getContext(),phone);
 
-        DocumentReference docRef = db.collection("VENDORS").document("+919422552855");
-        docRef.collection("mess_IMAGES")
+        DocumentReference docRef = db.collection("vendors").document(phone);
+        docRef.collection("mess_images")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -103,7 +107,7 @@ public class MessMenuFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //Log.d(TAG, document.getId() + " => " + document.getData());
 
-                                ImageList.add((String) document.get("ImageUri"));
+                                ImageList.add((String) document.get("imageuri"));
                             }
 
                             sliderAdapter = new SliderAdapter(getContext(), ImageList);
@@ -143,12 +147,12 @@ public class MessMenuFragment extends Fragment {
 
                     try {
 
-                        messName.setText(mess.getString("BUSI_NAME"));
-                        description.setText(mess.getString("MESS_DESCRIPTION"));
-                        priceOPeningHours.setText(mess.getString("OPEN_FROM")+"-"+mess.get("OPEN_TILL"));
-                        rating.setText(mess.getString("RATING"));
-                        String[] opentime=mess.getString("OPEN_FROM").split(" ");
-                        String[] closetime=mess.getString("OPEN_TILL").split(" ");
+                        messName.setText(mess.getString("busi_name"));
+                        description.setText(mess.getString("mess_description"));
+                        priceOPeningHours.setText(mess.getString("open_from")+"-"+mess.get("open_till"));
+                        rating.setText(mess.getString("rating"));
+                        String[] opentime=mess.getString("open_from").split(" ");
+                        String[] closetime=mess.getString("open_till").split(" ");
                         String delegate = "aa hh:mm";
                         String time=(String) DateFormat.format(delegate, Calendar.getInstance().getTime());
                         if((opentime[1]+" "+opentime[0]).compareTo(time)<0&&0>time.compareTo(closetime[1]+" "+closetime[0]))

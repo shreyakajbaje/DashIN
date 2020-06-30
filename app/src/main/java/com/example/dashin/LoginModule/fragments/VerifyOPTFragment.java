@@ -16,9 +16,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.chaos.view.PinView;
 import com.example.dashin.CustomerModule.activities.MainActivity;
+import com.example.dashin.CustomerModule.models.Customer;
+import com.example.dashin.LoginModule.activities.SignupActivity;
 import com.example.dashin.R;
 import com.example.dashin.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +32,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.concurrent.TimeUnit;
 
@@ -220,26 +224,28 @@ public class VerifyOPTFragment extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             thread.interrupt();
 
-                                            getActivity().finish();
-                                            Intent intent = new Intent(getActivity(), MainActivity.class);
-                                            startActivity(intent);
-                                            Log.d(TAG, "signInWithCredential:success");
-//                                        DocumentSnapshot ds=task.getResult();
-//                                        if(ds.exists())
-//                                        {
-//                                            getActivity().finish();
-//                                            Intent intent = new Intent(getActivity(), MainActivity.class);
-//                                            startActivity(intent);
-//                                            Log.d(TAG, "signInWithCredential:success");
-//                                        }
-//                                        else
-//                                        {
-//                                            getActivity().finish();
-//                                            Intent intent = new Intent(getActivity(), UserDetails.class);
-//                                            intent.putExtra("NUM", phonenumber);
-//                                            startActivity(intent);
-//                                            Log.d(TAG, "signInWithCredential:success");
-//                                        }
+                            Constants.mFirestore.collection("customer").document(phonenumber)
+                                    .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    DocumentSnapshot ds=task.getResult();
+                                    Constants.CurrentUser.setContact(phonenumber);
+                                    if(ds.exists())
+                                    {
+                                        Constants.CurrentUser = ds.toObject(Customer.class);
+                                        getActivity().finish();
+                                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                    else
+                                    {
+                                        getActivity().finish();
+                                        Intent intent = new Intent(getActivity(), SignupActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
+
                         }
                         else {
                             // Sign in failed, display a message and update the UI

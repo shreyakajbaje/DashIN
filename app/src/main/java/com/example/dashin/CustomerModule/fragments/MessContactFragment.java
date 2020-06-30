@@ -1,7 +1,6 @@
 package com.example.dashin.CustomerModule.fragments;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,19 +14,24 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.dashin.CustomerModule.adapters.SliderAdapter;
+import com.example.dashin.CustomerModule.models.ModelMess;
 import com.example.dashin.R;
 import com.example.dashin.utils.CircleTransform;
 import com.example.dashin.utils.Constants;
@@ -56,6 +60,8 @@ import org.w3c.dom.Text;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MessContactFragment extends Fragment {
     private FirebaseFirestore db;
@@ -66,7 +72,7 @@ public class MessContactFragment extends Fragment {
     private Toolbar toolbar;
     SliderAdapter sliderAdapter;
     SliderView sliderView;
-
+    String phone;
     public MessContactFragment() {
         // Required empty public constructor
     }
@@ -84,7 +90,8 @@ public class MessContactFragment extends Fragment {
                 getActivity().finish();
             }
         });
-
+        Intent intent = getActivity().getIntent();
+        phone = intent.getStringExtra("phone");
 //        DatabaseReference dbi=FirebaseDatabase.getInstance().getReference().child("HomeImages");
 //        dbi.addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -108,7 +115,7 @@ public class MessContactFragment extends Fragment {
 //        });
 
         db= FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("VENDORS").document("+919422552855");
+        final DocumentReference docRef = db.collection("VENDORS").document(phone);
 
         messName=view.findViewById(R.id.messName);
         ownerName=view.findViewById(R.id.ownerName);
@@ -139,7 +146,7 @@ public class MessContactFragment extends Fragment {
         ownerImage=view.findViewById(R.id.ownerImage);
         contactMess=view.findViewById(R.id.contactMess);
         reportMess=view.findViewById(R.id.reportMess);
-        docRef.collection("mess_IMAGES")
+        docRef.collection("mess_images")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -152,7 +159,7 @@ public class MessContactFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //Log.d(TAG, document.getId() + " => " + document.getData());
 
-                                ImageList.add((String) document.get("ImageUri"));
+                                ImageList.add((String) document.get("imageuri"));
                             }
 
                             sliderAdapter = new SliderAdapter(getContext(), ImageList);
@@ -189,11 +196,13 @@ public class MessContactFragment extends Fragment {
                 if (snapshot != null && snapshot.exists()) {
                     //System.out.println("Current data: " + snapshot.getData());
                     JSONObject mess= new JSONObject(snapshot.getData()) ;
-                    try {
+                    ModelMess vendor = snapshot.toObject(ModelMess.class);
+                    messName.setText(vendor.getBUSI_NAME());
+
                         FirebaseStorage storage = FirebaseStorage.getInstance();
                         StorageReference storageRef = storage.getReference();
 
-                            storageRef.child(mess.getString("owner_CONTACT")+"/"+mess.getString("owner_IMAGE")).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            storageRef.child(vendor.getOWNER_CONTACT()+"/"+vendor.getOWNER_IMAGE()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(final Uri uri) {
                                     // Got the download URL for 'users/me/profile.png'
@@ -208,13 +217,13 @@ public class MessContactFragment extends Fragment {
                             });
 
 
-                        messName.setText(mess.getString("BUSI_NAME"));
-                        priceOpeningHours.setText(mess.getString("OPEN_FROM")+"-"+mess.get("OPEN_TILL"));
-                        rating.setText(mess.getString("RATING"));
-                        ownerName.setText(mess.getString("OWNER_NAME"));
-                        ownerAtMess.setText("Owner at "+mess.getString("BUSI_NAME"));
+                        messName.setText(vendor.getBUSI_NAME());
+                        priceOpeningHours.setText(vendor.getOPEN_FROM()+"-"+vendor.getOPEN_TILL());
+                        rating.setText(""+vendor.getRATING());
+                        ownerName.setText(vendor.getOWNER_NAME());
+                        ownerAtMess.setText("Owner at "+vendor.getBUSI_NAME());
 
-                        if (mess.getString("VEG").equals("true"))
+                        if (vendor.getVEG().equals(true))
                         {
                             vegNonVegIcon.setImageResource(R.drawable.vegeterian_logo);
                             vegNonVegText.setText("The Restaurant Serves Vegetarian Food");
@@ -225,29 +234,29 @@ public class MessContactFragment extends Fragment {
                             vegNonVegText.setText("The Restaurant Serves Vegetarian and Non Vegetarian Food");
                         }
 
-                        totalReviews.setText(mess.getString("TOTAL_REVIEWS")+" reviews");
-                        rating.setText(mess.getString("RATING"));
+                        totalReviews.setText(vendor.getTOTAL_REVIEWS()+" reviews");
+                        rating.setText(vendor.getRATING()+"");
                         int rat5=0;
-                        rat5 =(int) ((Double.parseDouble(mess.getString("5STAR_REVIEW_COUNT"))/Double.parseDouble(mess.getString("TOTAL_REVIEWS")))*100);
+                        rat5 =(int) ((vendor.getSTAR_REVIEW_COUNT5()/vendor.getTOTAL_REVIEWS())*100);
                         rating5.setText(rat5+"%");
                         progressBar5.setProgress(rat5);
                         int rat4=0;
-                        rat4 =(int) ((Double.parseDouble(mess.getString("4STAR_REVIEW_COUNT"))/Double.parseDouble(mess.getString("TOTAL_REVIEWS")))*100);
+                        rat4 =(int) ((vendor.getSTAR_REVIEW_COUNT4()/vendor.getTOTAL_REVIEWS())*100);
                         rating4.setText(rat4+"%");
                         progressBar4.setProgress(rat4);
                         int rat3=0;
-                        rat3 = (int) ((Double.parseDouble(mess.getString("3STAR_REVIEW_COUNT"))/Double.parseDouble(mess.getString("TOTAL_REVIEWS")))*100);
+                        rat3 = (int) ((vendor.getSTAR_REVIEW_COUNT3()/vendor.getTOTAL_REVIEWS())*100);
                         rating3.setText(rat3+"%");
                         progressBar3.setProgress(rat3);
                         int rat2=0;
-                        rat2 = (int) ((Double.parseDouble(mess.getString("2STAR_REVIEW_COUNT"))/Double.parseDouble(mess.getString("TOTAL_REVIEWS")))*100);
+                        rat2 = (int) ((vendor.getSTAR_REVIEW_COUNT2()/vendor.getTOTAL_REVIEWS())*100);
                         rating2.setText(rat2+"%");
                         progressBar2.setProgress(rat2);
                         int rat1=0;
-                        rat1 =(int)  ((Double.parseDouble(mess.getString("1STAR_REVIEW_COUNT"))/Double.parseDouble(mess.getString("TOTAL_REVIEWS")))*100);
+                        rat1 =(int) ((vendor.getSTAR_REVIEW_COUNT1()/vendor.getTOTAL_REVIEWS())*100);
                         rating1.setText(rat1+"%");
                         progressBar1.setProgress(rat1);
-                        final long contactNumber=Long.parseLong(mess.getString("OWNER_CONTACT"));
+                        final long contactNumber=Long.parseLong(vendor.getOWNER_CONTACT());
                         contactMess.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -263,30 +272,111 @@ public class MessContactFragment extends Fragment {
                             }
                         });
 
-
-                    } catch (JSONException p) {
-                        p.printStackTrace();
-                    }
                 } else {
                     System.out.print("Current data: null");
                 }
             }
         });
 
+        db.collection("vendors/"+phone+"/reviews").document(phone)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        if(documentSnapshot != null && documentSnapshot.exists()) {
+                            writeReview.setVisibility(View.INVISIBLE);
+                        }else{
+                            writeReview.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+
+
+
         writeReview.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(),"Review form",Toast.LENGTH_SHORT).show();
-            }
-        });
+            public void onClick(final View view) {
+                Toast.makeText(getContext(), "Review form", Toast.LENGTH_SHORT).show();
+                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+                ViewGroup viewGroup = getView().findViewById(android.R.id.content);
+                View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.review_form, viewGroup, false);
+                builder.setView(dialogView);
+                final AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                ImageView close = dialogView.findViewById(R.id.close);
+                final EditText review = dialogView.findViewById(R.id.review);
+                final RatingBar ratingBar = dialogView.findViewById(R.id.ratingBar);
+                ImageView submit = dialogView.findViewById(R.id.submitReview);
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                    }
+                });
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-        reportMess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(),"Report Mess",Toast.LENGTH_SHORT).show();
-            }
-        });
-        return view;
-    }
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot snapshot = task.getResult();
+                                    if (snapshot != null && snapshot.exists()) {
+                                        JSONObject mess = new JSONObject(snapshot.getData());
 
-}
+                                        try {
+                                            int rating = 0, reviews = 0, finalRating = 0,myrating=0;
+                                            rating = Integer.parseInt(mess.getString("rating"));
+                                            reviews = Integer.parseInt(mess.getString("total_reviews"));
+                                            myrating=Math.round(ratingBar.getRating());
+                                            if (myrating==0)
+                                            {
+                                                myrating=1;
+                                            }
+                                            finalRating = (int) (((rating * reviews) + myrating) / (reviews + 1));
+                                            Toast.makeText(getContext(), "" + finalRating, Toast.LENGTH_LONG).show();
+                                            docRef.update("rating",finalRating);
+                                            HashMap <String,Object> tmp = new HashMap<>();
+                                            tmp.put("rating",myrating);
+                                            tmp.put("review",review);
+                                            docRef.update(myrating+"star_review_count",Integer.parseInt(mess.getString(myrating+"star_review_count"))+1);
+                                            docRef.collection("reviews").document(phone).set(tmp);
+                                            docRef.update("total_reviews",reviews+1);
+                                            alertDialog.dismiss();
+                                        } catch (JSONException ex) {
+                                            ex.printStackTrace();
+                                            alertDialog.dismiss();
+                                        }
+
+
+                                    }
+                                }
+                            }
+                        });
+//                                (new EventListener<DocumentSnapshot>() {
+//                            @Override
+//                            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+//
+//                                if (e != null) {
+//                                    System.err.println("Listen failed: " + e);
+//                                    return;
+//                                }
+//
+//
+//
+//                            }
+//                        });
+                    }
+                });
+            }
+            });
+                reportMess.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getContext(), "Report Mess", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return view;
+            }
+
+        }

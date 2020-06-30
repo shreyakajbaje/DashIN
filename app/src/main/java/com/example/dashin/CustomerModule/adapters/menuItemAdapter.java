@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dashin.R;
 import com.example.dashin.CustomerModule.models.menuItem;
+import com.example.dashin.utils.Constants;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,9 +32,11 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
     private StorageReference mStorageRef;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Context context;
-    public menuItemAdapter(@NonNull FirestoreRecyclerOptions<menuItem> options,Context context) {
+    private String mess;
+    public menuItemAdapter(@NonNull FirestoreRecyclerOptions<menuItem> options,Context context,String mess) {
         super(options);
         this.context=context;
+        this.mess=mess;
     }
 
 
@@ -48,27 +51,72 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
         holder.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).get()
-                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if(task.isSuccessful()){
-                                    DocumentSnapshot documentSnapshot = task.getResult();
-                                    if(documentSnapshot != null && documentSnapshot.exists()) {
-                                        Toast.makeText(context,"Item already added in cart",Toast.LENGTH_SHORT).show();
-                                    }else{
-                                        Map<String, Object> docData = new HashMap<>();
-                                        docData.put("Name", model.getName());
-                                        docData.put("Quantity",1);
-                                        docData.put("Price",model.getPrice());
-                                        docData.put("VEG",model.isVEG());
-                                        db.collection("CUSTOMER/8682259087/Cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).set(docData);
-                                        Toast.makeText(context,"Item added in cart",Toast.LENGTH_SHORT).show();
-                                    }
+                db.collection("customer").document(Constants.CurrentUser.getContact()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task1) {
+                        if (task1.isSuccessful())
+                        {
+                            DocumentSnapshot documentSnapshot1 = task1.getResult();
+                            if (documentSnapshot1.get("cart_mess_name")==null||documentSnapshot1.get("cart_mess_name")=="")
+                            {
+                                db.collection("customer/"+ Constants.CurrentUser.getContact()+"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if(task.isSuccessful()){
+                                                    DocumentSnapshot documentSnapshot = task.getResult();
+                                                    if(documentSnapshot != null && documentSnapshot.exists()) {
+                                                        Toast.makeText(context,"Item already added in cart",Toast.LENGTH_SHORT).show();
+                                                    }else{
+                                                        Map<String, Object> docData = new HashMap<>();
+                                                        docData.put("Name", model.getName());
+                                                        docData.put("Quantity",1);
+                                                        docData.put("Price",model.getPrice());
+                                                        docData.put("VEG",model.isVEG());
+                                                        docData.put("Type",model.getType());
+                                                        db.collection("customer/"+ Constants.CurrentUser.getContact()+"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).set(docData);
+                                                        db.collection("customer").document(Constants.CurrentUser.getContact()).update("cart_mess_name",mess);
+                                                        Toast.makeText(context,"Item added in cart",Toast.LENGTH_SHORT).show();
+                                                    }
 
-                                }
+                                                }
+                                            }
+                                        });
                             }
-                        });
+                            else if (documentSnapshot1.get("cart_mess_name").equals(mess))
+                            {
+                                db.collection("customer/"+ Constants.CurrentUser.getContact()+"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if(task.isSuccessful()){
+                                                    DocumentSnapshot documentSnapshot = task.getResult();
+                                                    if(documentSnapshot != null && documentSnapshot.exists()) {
+                                                        Toast.makeText(context,"Item already added in cart",Toast.LENGTH_SHORT).show();
+                                                    }else{
+                                                        Map<String, Object> docData = new HashMap<>();
+                                                        docData.put("Name", model.getName());
+                                                        docData.put("Quantity",1);
+                                                        docData.put("Price",model.getPrice());
+                                                        docData.put("VEG",model.isVEG());
+                                                        docData.put("Type",model.getType());
+                                                        db.collection("customer/"+ Constants.CurrentUser.getContact()+"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).set(docData);
+                                                        //db.collection("customer").document(Constants.CurrentUser.getContact()).update("cart_mess_name",mess);
+                                                        Toast.makeText(context,"Item added in cart",Toast.LENGTH_SHORT).show();
+                                                    }
+
+                                                }
+                                            }
+                                        });
+                            }
+                            else
+                            {
+                                Toast.makeText(context,"You cant add items from different mess",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+
 
             }
         });
