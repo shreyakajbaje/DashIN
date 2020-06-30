@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,11 +22,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dashin.CustomerModule.activities.BookingScreen;
 import com.example.dashin.CustomerModule.adapters.RecyclerViewAdapter;
+import com.example.dashin.CustomerModule.adapters.SliderAdapter;
 import com.example.dashin.CustomerModule.adapters.menuItemAdapter;
 import com.example.dashin.CustomerModule.models.menuItem;
 import com.example.dashin.R;
 
+import com.example.dashin.utils.Constants;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,15 +38,20 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MessMenuFragment extends Fragment {
     TextView messName,rating,description,priceOPeningHours,openClose;
-    ImageView btn1,btn2,btn3,btn4,btn5,bookseat;
+    ImageView btn1,btn2,btn3,btn4,btn5,bookseat,appBarImage;
     RecyclerView thaliView,rotiChapatiView,ricePulavView,sweetsView,beveragesView;
     boolean isUpBtn1=false,isUpBtn2=false,isUpBtn3=false,isUpBtn4=false,isUpBtn5=false;
     RecyclerView.LayoutManager layoutManager;
@@ -50,6 +61,8 @@ public class MessMenuFragment extends Fragment {
     private FirebaseFirestore db;
     private CollectionReference menuRef;
     private menuItemAdapter menuItemAdapter;
+    SliderAdapter sliderAdapter;
+    SliderView sliderView;
     public MessMenuFragment() {
         // Required empty public constructor
     }
@@ -59,16 +72,16 @@ public class MessMenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_mess_menu, container, false);
-
+        final View view=inflater.inflate(R.layout.fragment_mess_menu, container, false);
+        appBarImage=view.findViewById(R.id.app_bar_image);
         messName=view.findViewById(R.id.messName);
         description=view.findViewById(R.id.description);
         priceOPeningHours=view.findViewById(R.id.priceOpeningHours);
         openClose=view.findViewById(R.id.openClose);
         rating=view.findViewById(R.id.rating);
         db= FirebaseFirestore.getInstance();
-
-        menuRef=db.collection("VENDORS/QPH1dEgzgljulg1kOs6C/Menu");
+        sliderView = view.findViewById(R.id.imageSlider);
+        menuRef=db.collection("VENDORS/+919422552855/MENU");
         Query query = menuRef.orderBy("Name",Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<menuItem> options=new FirestoreRecyclerOptions.Builder<menuItem>()
@@ -76,7 +89,45 @@ public class MessMenuFragment extends Fragment {
                 .build();
         menuItemAdapter = new menuItemAdapter(options,getContext());
 
-        DocumentReference docRef = db.collection("VENDORS").document("QPH1dEgzgljulg1kOs6C");
+        DocumentReference docRef = db.collection("VENDORS").document("+919422552855");
+        docRef.collection("mess_IMAGES")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
+
+                            sliderView.setVisibility(View.VISIBLE);
+                            appBarImage.setVisibility(View.GONE);
+                            ArrayList<String> ImageList = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                //Log.d(TAG, document.getId() + " => " + document.getData());
+
+                                ImageList.add((String) document.get("ImageUri"));
+                            }
+
+                            sliderAdapter = new SliderAdapter(getContext(), ImageList);
+                            sliderView.setSliderAdapter(sliderAdapter);
+                            sliderView.setSliderTransformAnimation(SliderAnimations.FADETRANSFORMATION);
+                            sliderView.setIndicatorSelectedColor(Color.parseColor("#00000000"));
+                            sliderView.setIndicatorUnselectedColor(Color.parseColor("#00000000"));
+                            sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+                            sliderView.setScrollTimeInSec(4);
+                            sliderView.startAutoCycle();
+                            sliderView.getSliderPager().setOnTouchListener(new View.OnTouchListener() {
+                                @Override
+                                public boolean onTouch(View view, MotionEvent motionEvent) {
+                                    return true;
+                                }
+                            });
+
+                        } else {
+                            // Log.w(TAG, "Error getting documents.", task.getException());
+                            sliderView.setVisibility(View.GONE);
+                            appBarImage.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {

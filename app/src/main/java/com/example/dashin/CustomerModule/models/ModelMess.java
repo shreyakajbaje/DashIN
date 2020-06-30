@@ -5,25 +5,25 @@ import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.PropertyName;
 
+import java.util.ArrayList;
+
 @IgnoreExtraProperties
 public class ModelMess {
-    String BUSI_NAME, OWNER, FRONT_PIC, OPEN_FROM, OPEN_TILL;
-    @PropertyName("MESS_DESCRIPTION")
-    public String BUSI_DESCRIPTION;
-    @PropertyName("MESS_ADDRESS")
-    public String ADDRESS;
+    String BUSI_NAME, BUSI_DESCRIPTION, owner_CONTACT, ADDRESS, front_PIC, OPEN_FROM, OPEN_TILL;
     Timestamp TimeStamp;
     GeoPoint LOCATION;
     int COSTING, DISCOUNT;
     double RATING;
+    ArrayList<String> FACILITIES = new ArrayList<>();
+    ArrayList<String> Mess_IMAGES = new ArrayList<>();
 
-    public ModelMess(String BUSI_NAME, String BUSI_DESCRIPTION, String OWNER, String ADDRESS, int COSTING, String FRONT_PIC, String OPEN_FROM, String OPEN_TILL, Timestamp timeStamp, GeoPoint LOCATION, double RATING) {
+    public ModelMess(String BUSI_NAME, String BUSI_DESCRIPTION, String owner_CONTACT, String ADDRESS, int COSTING, String front_PIC, String OPEN_FROM, String OPEN_TILL, Timestamp timeStamp, GeoPoint LOCATION, double RATING) {
         this.BUSI_NAME = BUSI_NAME;
         this.BUSI_DESCRIPTION = BUSI_DESCRIPTION;
-        this.OWNER = OWNER;
+        this.owner_CONTACT = owner_CONTACT;
         this.ADDRESS = ADDRESS;
         this.COSTING = COSTING;
-        this.FRONT_PIC = FRONT_PIC;
+        this.front_PIC = front_PIC;
         this.OPEN_FROM = OPEN_FROM;
         this.OPEN_TILL = OPEN_TILL;
         this.LOCATION = LOCATION;
@@ -38,10 +38,10 @@ public class ModelMess {
         return "ModelMess{" +
                 "BUSI_NAME='" + BUSI_NAME + '\'' +
                 ", BUSI_DESCRIPTION='" + BUSI_DESCRIPTION + '\'' +
-                ", OWNER='" + OWNER + '\'' +
+                ", owner_CONTACT='" + owner_CONTACT + '\'' +
                 ", ADDRESS='" + ADDRESS + '\'' +
                 ", COSTING='" + COSTING + '\'' +
-                ", FRONT_PIC='" + FRONT_PIC + '\'' +
+                ", front_PIC='" + front_PIC + '\'' +
                 ", OPEN_FROM='" + OPEN_FROM + '\'' +
                 ", OPEN_TILL='" + OPEN_TILL + '\'' +
                 ", TimeStamp=" + TimeStamp +
@@ -62,31 +62,20 @@ public class ModelMess {
         return BUSI_NAME;
     }
 
-
     public void setBUSI_NAME(String BUSI_NAME) {
         this.BUSI_NAME = BUSI_NAME;
     }
 
-
-    @PropertyName("MESS_DESCRIPTION")
     public String getBUSI_DESCRIPTION() {
         return BUSI_DESCRIPTION;
     }
 
-    @PropertyName("MESS_DESCRIPTION")
     public void setBUSI_DESCRIPTION(String BUSI_DESCRIPTION) {
         this.BUSI_DESCRIPTION = BUSI_DESCRIPTION;
     }
 
-    public String getOWNER() {
-        return OWNER;
-    }
 
-    public void setOWNER(String OWNER) {
-        this.OWNER = OWNER;
-    }
 
-    @PropertyName("MESS_ADDRESS")
     public String getADDRESS() {
         return ADDRESS;
     }
@@ -104,12 +93,20 @@ public class ModelMess {
         this.COSTING = COSTING;
     }
 
-    public String getFRONT_PIC() {
-        return FRONT_PIC;
+    public String getOwner_CONTACT() {
+        return owner_CONTACT;
     }
 
-    public void setFRONT_PIC(String FRONT_PIC) {
-        this.FRONT_PIC = FRONT_PIC;
+    public void setOwner_CONTACT(String owner_CONTACT) {
+        this.owner_CONTACT = owner_CONTACT;
+    }
+
+    public String getFront_PIC() {
+        return front_PIC;
+    }
+
+    public void setFront_PIC(String front_PIC) {
+        this.front_PIC = front_PIC;
     }
 
     public String getOPEN_FROM() {
@@ -151,4 +148,22 @@ public class ModelMess {
     public void setRATING(double RATING) {
         this.RATING = RATING;
     }
+/*
+    public ArrayList<String> getFACILITIES() {
+        return FACILITIES;
+    }
+
+    public void setFACILITIES(ArrayList<String> FACILITIES) {
+        this.FACILITIES = FACILITIES;
+    }
+
+    public ArrayList<String> getMess_IMAGES() {
+        return Mess_IMAGES;
+    }
+
+    public void setMess_IMAGES(ArrayList<String> mess_IMAGES) {
+        Mess_IMAGES = mess_IMAGES;
+    }
+*/
+
 }

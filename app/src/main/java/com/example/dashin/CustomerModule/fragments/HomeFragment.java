@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView, recyclerView2, recyclerView3;
     Location currentLocation;
     TextView locality;
-
+    public static String locationAddress;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -118,8 +118,6 @@ public class HomeFragment extends Fragment {
 
         recyclerView2.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.HORIZONTAL, false));
         recyclerView2.setAdapter(tagsAdapter);
-
-
 
     }
 
@@ -277,7 +275,7 @@ public class HomeFragment extends Fragment {
     private class GeocoderHandler extends Handler {
         @Override
         public void handleMessage(Message message) {
-            String locationAddress;
+
             switch (message.what) {
                 case 1:
                     Bundle bundle = message.getData();
@@ -287,6 +285,7 @@ public class HomeFragment extends Fragment {
                     locationAddress = "loading...";
             }
             locality.setText(locationAddress);
+
             Log.e("user address", locationAddress);
         }
     }

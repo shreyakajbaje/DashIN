@@ -17,8 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dashin.CustomerModule.activities.MyOrdersActivity;
+import com.example.dashin.LoginModule.activities.FirstPage;
 import com.example.dashin.CustomerModule.activities.MainActivity;
-import com.example.dashin.LoginModule.activities.LoginActivity;
+import com.example.dashin.VendorAddDataModule.MenuCaller;
 import com.example.dashin.R;
 import com.example.dashin.utils.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,6 +45,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view =  inflater.inflate(R.layout.profile_layout, container, false);
+
         cName = view.findViewById(R.id.profile_name);
         cEmail = view.findViewById(R.id.profile_email);
         try {
@@ -106,9 +108,21 @@ public class ProfileFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.mAuth.signOut();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
 
+                FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        if (firebaseAuth.getCurrentUser() == null){
+                            //Do anything here which needs to be done after signout is complete
+                            startActivity(new Intent(getActivity(), FirstPage.class));
+                        }
+                        else {
+                        }
+                    }
+                };
+
+                Constants.mAuth.addAuthStateListener(authStateListener);
+                Constants.mAuth.signOut();
             }
         });
 
@@ -119,7 +133,6 @@ public class ProfileFragment extends Fragment {
                 startActivity(new Intent(getActivity(), MyOrdersActivity.class));
             }
         });
-
         return view;
     }
 }

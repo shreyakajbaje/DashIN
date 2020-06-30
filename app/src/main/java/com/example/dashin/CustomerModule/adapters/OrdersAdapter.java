@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dashin.CustomerModule.activities.DetailedBillAndRepeat;
+import com.example.dashin.CustomerModule.activities.MyOrdersActivity;
 import com.example.dashin.CustomerModule.models.Details;
 import com.example.dashin.CustomerModule.models.SingleEntityOfOrders;
 import com.example.dashin.utils.DatabaseLogActivity;
@@ -109,5 +110,21 @@ int m;
         System.out.println("I'm here");
     }
 
+    @Override
+    public void onDataChanged() {
+        super.onDataChanged();
+        TextView t = MyOrdersActivity.noResults;
+        RecyclerView r = MyOrdersActivity.recyclerView;
+        if(getItemCount()==0)
+        {
+            t.setVisibility(View.VISIBLE);
+            r.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            t.setVisibility(View.INVISIBLE);
+            r.setVisibility(View.VISIBLE);
+        }
+    }
 }
 

@@ -21,16 +21,33 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="false"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-
             app:toolbarId="@+id/toolbar">
+
+            <!--image slider-->
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:scrollIndicators="none"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:sliderAnimationDuration="500"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderScrollTimeInSec="1"
+                app:sliderStartAutoCycle="true"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax">
+
+            </com.smarteist.autoimageslider.SliderView>
 
             <ImageView
                 android:id="@+id/app_bar_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-
                 android:src="@drawable/food1"
+                android:visibility="visible"
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
@@ -130,19 +147,19 @@
                         android:id="@+id/ownerName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="Sandeep Kulkarni"
                         android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:ellipsize="end"
-                        android:maxLines="1"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/ownerAtMess"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Owner at Kulkarni Snacks"
                         android:ellipsize="end"
-                        android:maxLines="1"/>
+                        android:maxLines="1"
+                        android:text="Owner at Kulkarni Snacks" />
 
                     <TextView
                         android:id="@+id/priceOpeningHours"
@@ -275,7 +292,7 @@
                                 android:layout_height="wrap_content">
 
                                 <TextView
-                                    android:id="@+id/textView19"
+                                    android:id="@+id/textView20"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="5 Star"
@@ -320,14 +337,12 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
-
+                                <!-- this textview was dupilcately named as textview20 -->
                                 <TextView
-                                    android:id="@+id/textView21"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="4 Star"
-                                    android:textColor="#000000" />
-
+                                    android:textColor="#000000"/>
                                 <androidx.cardview.widget.CardView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -367,9 +382,8 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
-
+                                <!-- this textview was dupilcately named as textview20 -->
                                 <TextView
-                                    android:id="@+id/textView22"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="3 Star"
@@ -414,9 +428,8 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
-
+                                <!-- this textview was dupilcately named as textview20 -->
                                 <TextView
-                                    android:id="@+id/textView23"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="2 Star"
@@ -461,9 +474,8 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
-
+                                <!-- this textview was dupilcately named as textview20 -->
                                 <TextView
-                                    android:id="@+id/textView20"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="1 Star"
