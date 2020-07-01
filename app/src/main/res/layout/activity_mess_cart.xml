@@ -60,6 +60,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/messName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -71,6 +72,7 @@
                         android:textSize="17sp" />
 
                     <ImageView
+                        android:id="@+id/addMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="18dp"
@@ -130,6 +132,7 @@
                         android:src="@drawable/instruction_icon" />
 
                     <EditText
+                        android:id="@+id/instructions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -260,7 +263,7 @@
                         android:padding="10dp">
 
                         <ImageView
-                            android:id="@+id/imageView4"
+                            android:id="@+id/homeDel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

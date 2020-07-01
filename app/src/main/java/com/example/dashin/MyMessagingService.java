@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.dashin.utils.Constants;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -50,7 +51,7 @@ public class MyMessagingService extends FirebaseMessagingService {
     private void sendRegistrationToServer(String token) {
         //  Implement this method to send token to your app server.
         FirebaseFirestore db= FirebaseFirestore.getInstance();
-        DocumentReference Ref=db.collection("CUSTOMER").document("8682259087");
-        Ref.update("FCM-TOKEN",token);
+        DocumentReference Ref=db.collection("customer").document(Constants.CurrentUser.getContact());
+        Ref.update("fcm-token",token);
     }
 }

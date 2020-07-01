@@ -48,18 +48,19 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/totalAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="40dp"
-                android:text="Item total ₹100"
+                android:text="Item total ₹"
                 android:textColor="@color/grey"
                 android:textSize="15dp" />
 
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/cards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
@@ -70,6 +71,7 @@
             android:textSize="15sp" />
 
         <RelativeLayout
+            android:id="@+id/cardLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -104,7 +106,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/upi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"

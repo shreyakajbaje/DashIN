@@ -9,8 +9,22 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.dashin.CustomerModule.activities.MainActivity;
+import com.example.dashin.CustomerModule.activities.selectAddress;
+import com.example.dashin.CustomerModule.models.Details;
+import com.example.dashin.CustomerModule.models.SingleEntityOfOrders;
+import com.example.dashin.Discount;
+import com.example.dashin.utils.Constants;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
@@ -21,7 +35,10 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -29,6 +46,8 @@ import java.util.Random;
 public class checksum extends AppCompatActivity implements PaytmPaymentTransactionCallback {
     String custid="", orderId="", mid="",MerchantKey="";
     SharedPreferences pref;
+    private FirebaseFirestore db;
+    private CollectionReference messRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,13 +57,22 @@ public class checksum extends AppCompatActivity implements PaytmPaymentTransacti
         //Intent intent = getIntent();
         pref = getSharedPreferences("user_details",MODE_PRIVATE);
         orderId = genOrderId();
-        custid = "pkj";
-        MerchantKey="S@IoR&bs#nOCsY2G";
-        mid = "lpsvEw59219385907682"; /// your marchant ID
+        custid = "CUST"+Constants.order.getTO().replace("+","");
+        db= FirebaseFirestore.getInstance();
+        //Toast.makeText(checksum.this,getIntent().getStringExtra("MID")+getIntent().getStringExtra("MKEY"),Toast.LENGTH_SHORT).show();
+
+        //MerchantKey=getIntent().getStringExtra("MKEY");
+        //mid=getIntent().getStringExtra("MID");
+
+        //MerchantKey="S@IoR&bs#nOCsY2G";
+        MerchantKey=getIntent().getStringExtra("MKEY");
+        mid=getIntent().getStringExtra("MID");
+      //  mid = "lpsvEw59219385907682"; /// your marchant ID
 
         sendUserDetailTOServerdd dl = new sendUserDetailTOServerdd();
         dl.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-// vollye , retrofit, asynch
+        // vollye , retrofit, asynch
+
     }
     public class sendUserDetailTOServerdd extends AsyncTask<ArrayList<String>, Void, String> {
         private ProgressDialog dialog = new ProgressDialog(checksum.this);
@@ -123,9 +151,57 @@ public class checksum extends AppCompatActivity implements PaytmPaymentTransacti
     public void onTransactionResponse(Bundle bundle) {
         Log.e("checksum ", " respon true " + bundle.toString());
         if(!bundle.get("STATUS").equals("TXN_FAILURE")) {
+            Constants.order.setTRAN_ID(bundle.getString("TXNID"));
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String date = df.format(Calendar.getInstance().getTime());
+            Constants.order.setTIME(date);
 
-            Toast.makeText(checksum.this,"Payment Success !!",Toast.LENGTH_LONG).show();
-            Intent i = new Intent(checksum.this, PaymentScreen.class);
+            //order placement
+            db.collection("customer/"+Constants.order.getTO()+"/my-orders").document(orderId).set(Constants.order);
+            db.collection("vendors/"+Constants.order.getFROM()+"/orders").document(orderId).set(Constants.order);
+            HashMap<String,String> loc = new HashMap();
+            loc.put("lat",Constants.order.getBUSI_LOC().get(0));
+            loc.put("long",Constants.order.getBUSI_LOC().get(1));
+            db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+orderId+"/order-loc").document("loc").set(loc);
+            db.collection("vendors/"+Constants.order.getFROM()+"/orders/"+orderId+"/order-loc").document("loc").set(loc);
+            HashMap<String ,String > stages = new HashMap<>();
+            stages.put("status","IA");
+            db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+orderId+"/order-loc").document("stage1").set(stages);
+            db.collection("vendors/"+Constants.order.getFROM()+"/orders/"+orderId+"/order-loc").document("stage1").set(stages);
+            db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+orderId+"/order-loc").document("stage2").set(stages);
+            db.collection("vendors/"+Constants.order.getFROM()+"/orders/"+orderId+"/order-loc").document("stage2").set(stages);
+            db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+orderId+"/order-loc").document("stage3").set(stages);
+            db.collection("vendors/"+Constants.order.getFROM()+"/orders/"+orderId+"/order-loc").document("stage3").set(stages);
+            db.collection("customer/"+Constants.order.getTO()+"/cart")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                 for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Details item = new Details();
+                                    item.setITEM_CAT(document.getString("type"));
+                                    item.setITEM_COST(document.getLong("price"));
+                                    item.setITEM_NAME(document.getString("name"));
+                                    item.setN(document.getLong("quantity"));
+                                    item.setSUB_TOT(document.getLong("price")*document.getLong("quantity"));
+                                    item.setITEM_ID(document.getId());
+                                    db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+orderId+"/details").document(document.getId()).set(item);
+                                    db.collection("vendors/"+Constants.order.getFROM()+"/orders/"+orderId+"/details").document(document.getId()).set(item);
+                                    db.collection("customer/"+Constants.order.getTO()+"/cart").document(document.getId()).delete();
+                                }
+
+                                Constants.order=new SingleEntityOfOrders();
+                            } else {
+
+                            }
+                        }
+                    });
+
+
+
+            Toast.makeText(checksum.this,"Transaction successful. Order Placed!",Toast.LENGTH_LONG).show();
+            Intent i = new Intent(checksum.this, MainActivity.class);
             startActivity(i);
         }
         else {

@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment {
         recyclerView3 = view.findViewById(R.id.rv_offers);
         Log.e("ModelBooks", "setting up recycler view");
         Query query =
-                Constants.mFirestore.collection("VENDORS").whereGreaterThanOrEqualTo("DISCOUNT", 5);
+                Constants.mFirestore.collection("vendors").whereGreaterThanOrEqualTo("discount", 5);
 
         FirestoreRecyclerOptions<ModelMess> options = new FirestoreRecyclerOptions.Builder<ModelMess>()
                 .setQuery(query, ModelMess.class)
@@ -145,7 +145,7 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rv);
         Log.e("ModelBooks", "setting up recycler view");
         Query query =
-                Constants.mFirestore.collection("VENDORS");
+                Constants.mFirestore.collection("vendors");
 
         FirestoreRecyclerOptions<ModelMess> options = new FirestoreRecyclerOptions.Builder<ModelMess>()
                 .setQuery(query, ModelMess.class)
@@ -289,4 +289,5 @@ public class HomeFragment extends Fragment {
             Log.e("user address", locationAddress);
         }
     }
+
 }

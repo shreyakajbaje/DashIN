@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,13 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.dashin.CustomerModule.activities.BookingScreen;
-import com.example.dashin.CustomerModule.adapters.RecyclerViewAdapter;
 import com.example.dashin.CustomerModule.adapters.SliderAdapter;
 import com.example.dashin.CustomerModule.adapters.menuItemAdapter;
 import com.example.dashin.CustomerModule.models.menuItem;
 import com.example.dashin.R;
 
-import com.example.dashin.utils.Constants;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -51,18 +49,16 @@ import java.util.Calendar;
 
 public class MessMenuFragment extends Fragment {
     TextView messName,rating,description,priceOPeningHours,openClose;
-    ImageView btn1,btn2,btn3,btn4,btn5,bookseat,appBarImage;
-    RecyclerView thaliView,rotiChapatiView,ricePulavView,sweetsView,beveragesView;
-    boolean isUpBtn1=false,isUpBtn2=false,isUpBtn3=false,isUpBtn4=false,isUpBtn5=false;
-    RecyclerView.LayoutManager layoutManager;
-    RecyclerViewAdapter recyclerViewAdapter;
-    int []arr={R.drawable.food4,R.drawable.food5};
-    RelativeLayout l1,l2,l3,l4,l5;
+    ImageView btn1,btn2,btn3,btn4,btn5,btn6,bookseat,appBarImage;
+    RecyclerView thaliView,rotiChapatiView,ricePulavView,sweetsView,beveragesView,sabziView;
+    boolean isUpBtn1=false,isUpBtn2=false,isUpBtn3=false,isUpBtn4=false,isUpBtn5=false,isUpBtn6=false;
+    RelativeLayout l1,l2,l3,l4,l5,l6;
     private FirebaseFirestore db;
     private CollectionReference menuRef;
-    private menuItemAdapter menuItemAdapter;
+    private menuItemAdapter menuItemAdapter,menuItemAdapter2,menuItemAdapter3,menuItemAdapter4,menuItemAdapter5,menuItemAdapter6;
     SliderAdapter sliderAdapter;
     SliderView sliderView;
+    String phone="";
     public MessMenuFragment() {
         // Required empty public constructor
     }
@@ -81,16 +77,13 @@ public class MessMenuFragment extends Fragment {
         rating=view.findViewById(R.id.rating);
         db= FirebaseFirestore.getInstance();
         sliderView = view.findViewById(R.id.imageSlider);
-        menuRef=db.collection("VENDORS/+919422552855/MENU");
-        Query query = menuRef.orderBy("Name",Query.Direction.ASCENDING);
+        Intent intent = getActivity().getIntent();
+        phone = intent.getStringExtra("phone");
 
-        FirestoreRecyclerOptions<menuItem> options=new FirestoreRecyclerOptions.Builder<menuItem>()
-                .setQuery(query,menuItem.class)
-                .build();
-        menuItemAdapter = new menuItemAdapter(options,getContext());
 
-        DocumentReference docRef = db.collection("VENDORS").document("+919422552855");
-        docRef.collection("mess_IMAGES")
+
+        DocumentReference docRef = db.collection("vendors").document(phone);
+        docRef.collection("mess_images")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -103,7 +96,7 @@ public class MessMenuFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //Log.d(TAG, document.getId() + " => " + document.getData());
 
-                                ImageList.add((String) document.get("ImageUri"));
+                                ImageList.add((String) document.get("imageuri"));
                             }
 
                             sliderAdapter = new SliderAdapter(getContext(), ImageList);
@@ -143,14 +136,23 @@ public class MessMenuFragment extends Fragment {
 
                     try {
 
-                        messName.setText(mess.getString("BUSI_NAME"));
-                        description.setText(mess.getString("MESS_DESCRIPTION"));
-                        priceOPeningHours.setText(mess.getString("OPEN_FROM")+"-"+mess.get("OPEN_TILL"));
-                        rating.setText(mess.getString("RATING"));
-                        String[] opentime=mess.getString("OPEN_FROM").split(" ");
-                        String[] closetime=mess.getString("OPEN_TILL").split(" ");
-                        String delegate = "aa hh:mm";
+                        messName.setText(mess.getString("busi_name"));
+                        description.setText(mess.getString("mess_description"));
+                        priceOPeningHours.setText(mess.getString("open_from")+"-"+mess.get("open_till"));
+                        rating.setText(mess.getString("rating"));
+                        String[] opentime=mess.getString("open_from").split(" ");
+                        String[] closetime=mess.getString("open_till").split(" ");
+                        String delegate = "a hh:mm";
                         String time=(String) DateFormat.format(delegate, Calendar.getInstance().getTime());
+                        if (time.contains("am"))
+                        {
+                            time=time.replace("am","AM");
+                        }
+                        else if(time.contains("pm"))
+                        {
+                            time=time.replace("pm","PM");
+                        }
+                        Log.e("time",time+" "+mess.getString("open_from"));
                         if((opentime[1]+" "+opentime[0]).compareTo(time)<0&&0>time.compareTo(closetime[1]+" "+closetime[0]))
                         {
                             openClose.setTextColor(Color.parseColor("#4CAF50"));
@@ -175,6 +177,7 @@ public class MessMenuFragment extends Fragment {
         l3=view.findViewById(R.id.rotiChapatiLayout);
         l4=view.findViewById(R.id.sweetsLayout);
         l5=view.findViewById(R.id.beveragesLayout);
+        l6=view.findViewById(R.id.sabziLayout);
 
         thaliView=view.findViewById(R.id.thaliView);
         // thaliView.setNestedScrollingEnabled(false);
@@ -186,19 +189,21 @@ public class MessMenuFragment extends Fragment {
         // sweetsView.setNestedScrollingEnabled(false);
         beveragesView=view.findViewById(R.id.beveragesView);
         //  beveragesView.setNestedScrollingEnabled(false);
-
+        sabziView=view.findViewById(R.id.sabziView);
 
         thaliView.setVisibility(View.GONE);
         rotiChapatiView.setVisibility(View.GONE);
         ricePulavView.setVisibility(View.GONE);
         sweetsView.setVisibility(View.GONE);
         beveragesView.setVisibility(View.GONE);
+        sabziView.setVisibility(View.GONE);
 
         btn1=view.findViewById(R.id.btn1);
         btn2=view.findViewById(R.id.btn2);
         btn3=view.findViewById(R.id.btn3);
         btn4=view.findViewById(R.id.btn4);
         btn5=view.findViewById(R.id.btn5);
+        btn6=view.findViewById(R.id.btn6);
 
         l1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -302,27 +307,112 @@ public class MessMenuFragment extends Fragment {
                 }
             }
         });
+        l6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isUpBtn6)
+                {
+                    // slideUp(thaliView);
+                    sabziView.setVisibility(View.GONE);
+                    btn6.setImageResource(R.drawable.down_arrow_icon);
+                    isUpBtn6=false;
 
+                }
+                else
+                {
+                    // slideDown(thaliView);
+                    sabziView.setVisibility(View.VISIBLE);
+                    btn6.setImageResource(R.drawable.up_arrow_icon);
+                    isUpBtn6=true;
+                }
+            }
+        });
+        menuRef=db.collection("vendors/"+phone+"/menu-templates");
+        menuRef.whereEqualTo("live",true).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
 
-        //thaliView.setHasFixedSize(true);
-        thaliView.setLayoutManager(new LinearLayoutManager(getContext()));
-        thaliView.setAdapter(menuItemAdapter);
+                                menuRef=db.collection("vendors/"+phone+"/menu-templates/"+document.getId()+"/item-list");
+                                Query query = menuRef.whereEqualTo("type","thali");
 
-        //rotiChapatiView.setHasFixedSize(true);
-        rotiChapatiView.setLayoutManager(new LinearLayoutManager(getContext()));
-        rotiChapatiView.setAdapter(menuItemAdapter);
+                                FirestoreRecyclerOptions<menuItem> options=new FirestoreRecyclerOptions.Builder<menuItem>()
+                                        .setQuery(query,menuItem.class)
+                                        .build();
+                                menuItemAdapter = new menuItemAdapter(options,getContext(),phone);
 
-        //ricePulavView.setHasFixedSize(true);
-        ricePulavView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ricePulavView.setAdapter(menuItemAdapter);
+                                //thaliView.setHasFixedSize(true);
+                                thaliView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                thaliView.setAdapter(menuItemAdapter);
 
-        //sweetsView.setHasFixedSize(true);
-        sweetsView.setLayoutManager(new LinearLayoutManager(getContext()));
-        sweetsView.setAdapter(menuItemAdapter);
+                                Query query2 = menuRef.whereEqualTo("type","roti");
 
-        //beveragesView.setHasFixedSize(true);
-        beveragesView.setLayoutManager(new LinearLayoutManager(getContext()));
-        beveragesView.setAdapter(menuItemAdapter);
+                                FirestoreRecyclerOptions<menuItem> options2=new FirestoreRecyclerOptions.Builder<menuItem>()
+                                        .setQuery(query2,menuItem.class)
+                                        .build();
+                                menuItemAdapter2 = new menuItemAdapter(options2,getContext(),phone);
+                                //rotiChapatiView.setHasFixedSize(true);
+                                rotiChapatiView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                rotiChapatiView.setAdapter(menuItemAdapter2);
+
+                                Query query3 = menuRef.whereEqualTo("type","rice");
+
+                                FirestoreRecyclerOptions<menuItem> options3=new FirestoreRecyclerOptions.Builder<menuItem>()
+                                        .setQuery(query3,menuItem.class)
+                                        .build();
+                                menuItemAdapter3 = new menuItemAdapter(options3,getContext(),phone);
+
+                                //ricePulavView.setHasFixedSize(true);
+                                ricePulavView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                ricePulavView.setAdapter(menuItemAdapter3);
+
+                                Query query4 = menuRef.whereEqualTo("type","sweets");
+
+                                FirestoreRecyclerOptions<menuItem> options4=new FirestoreRecyclerOptions.Builder<menuItem>()
+                                        .setQuery(query4,menuItem.class)
+                                        .build();
+                                menuItemAdapter4 = new menuItemAdapter(options4,getContext(),phone);
+
+                                //sweetsView.setHasFixedSize(true);
+                                sweetsView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                sweetsView.setAdapter(menuItemAdapter4);
+
+                                Query query5 = menuRef.whereEqualTo("type","beverages");
+
+                                FirestoreRecyclerOptions<menuItem> options5=new FirestoreRecyclerOptions.Builder<menuItem>()
+                                        .setQuery(query5,menuItem.class)
+                                        .build();
+                                menuItemAdapter5 = new menuItemAdapter(options5,getContext(),phone);
+
+                                //beveragesView.setHasFixedSize(true);
+                                beveragesView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                beveragesView.setAdapter(menuItemAdapter5);
+
+                                Query query6 = menuRef.whereEqualTo("type","sabji");
+
+                                FirestoreRecyclerOptions<menuItem> options6=new FirestoreRecyclerOptions.Builder<menuItem>()
+                                        .setQuery(query6,menuItem.class)
+                                        .build();
+                                menuItemAdapter6 = new menuItemAdapter(options6,getContext(),phone);
+
+                                sabziView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                sabziView.setAdapter(menuItemAdapter6);
+                                menuItemAdapter.startListening();
+                                menuItemAdapter2.startListening();
+                                menuItemAdapter3.startListening();
+                                menuItemAdapter4.startListening();
+                                menuItemAdapter5.startListening();
+                                menuItemAdapter6.startListening();
+
+                            }
+                        } else {
+
+                        }
+                    }
+                });
+
 
         bookseat = view.findViewById(R.id.book_a_seat);
         bookseat.setOnClickListener(new View.OnClickListener() {
@@ -339,12 +429,23 @@ public class MessMenuFragment extends Fragment {
     public void onStart()
     {
         super.onStart();
-        menuItemAdapter.startListening();
+
     }
     @Override
     public void onStop()
     {
         super.onStop();
-        menuItemAdapter.stopListening();
+        if (menuItemAdapter!=null)
+            menuItemAdapter.stopListening();
+        if (menuItemAdapter2!=null)
+             menuItemAdapter2.stopListening();
+        if (menuItemAdapter3!=null)
+            menuItemAdapter3.stopListening();
+        if (menuItemAdapter4!=null)
+            menuItemAdapter4.stopListening();
+        if (menuItemAdapter5!=null)
+            menuItemAdapter5.stopListening();
+        if (menuItemAdapter6!=null)
+            menuItemAdapter6.stopListening();
     }
 }

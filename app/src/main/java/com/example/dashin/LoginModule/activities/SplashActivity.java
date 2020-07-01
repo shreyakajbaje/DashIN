@@ -7,39 +7,27 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dashin.CustomerModule.activities.MainActivity;
+import com.example.dashin.CustomerModule.models.Customer;
 import com.example.dashin.R;
 import com.example.dashin.utils.Constants;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class SplashActivity extends AppCompatActivity {
    private ImageView name;
     private static int splashTimeOut=4000;
-
     Thread objectthread;
-
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-
         startSplash();
-
-
-        /*name = findViewById(R.id.logo);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent i = new Intent(SplashActivity.this,IntroActivity.class);
-                startActivity(i);
-                finish();
-            }
-        },splashTimeOut);
-        Animation myanim = AnimationUtils.loadAnimation(this, R.anim.splashanimation);
-        name.startAnimation(myanim);*/
     }
-
     private void startSplash(){
         try {
 
@@ -64,12 +52,20 @@ public class SplashActivity extends AppCompatActivity {
                     }
 
                     if(Constants.mAuth.getCurrentUser() != null){
-                        //start prof
-                        finish();
+
+                        Constants.mFirestore.collection("customer")
+                                .document(Constants.mAuth.getCurrentUser().getPhoneNumber()).get()
+                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        Constants.CurrentUser = task.getResult().toObject(Customer.class);
+                                    }
+                                });
+
                         startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                    }else {
+                    }else
+                    {
                         startActivity(new Intent(SplashActivity.this, IntroActivity.class));
-                        SplashActivity.this.finish();
                     }
                 }
             };
@@ -80,15 +76,3 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 }
-
-/*public class SplashActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Intent intent = new Intent(this, IntroActivity.class);
-        startActivity(intent);
-        finish();
-    }
-}*/

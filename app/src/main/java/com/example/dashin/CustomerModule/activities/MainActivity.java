@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ProfileFragment profile_fragment;
     CartFragment cart_fragment;
     public static FragmentManager f;
-
+    boolean isHome=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,19 +60,23 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId())
                 {
                     case R.id.nav_search:
+                        isHome=false;
                         setFragment(search_fragment);
                         return true;
 
                     case R.id.nav_cart:
+                        isHome=false;
                         setFragment(cart_fragment);
                         return true;
 
                     case R.id.nav_profile:
+                        isHome=false;
                         setFragment(profile_fragment);
                         return true;
 
                     default:
                         Log.e("Fragment", "home");
+                        isHome=true;
                         setFragment(home_fragment);
                         return true;
                 }
@@ -133,4 +137,19 @@ public class MainActivity extends AppCompatActivity {
 //                });
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (!isHome)
+        {
+            isHome=true;
+            botnavview.setSelectedItemId(R.id.nav_home);
+            setFragment(home_fragment);
+        }
+        else
+        {
+            finishAffinity();
+            System.exit(0);
+        }
+    }
 }

@@ -20,4 +20,11 @@ public class LoginActivity extends AppCompatActivity {
         ft1.commit();
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+        System.exit(0);
+    }
 }

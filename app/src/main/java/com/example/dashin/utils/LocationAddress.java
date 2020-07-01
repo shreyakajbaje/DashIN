@@ -21,9 +21,11 @@ public class LocationAddress {
         Thread thread = new Thread() {
             @Override
             public void run() {
-                Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+                Geocoder geocoder;
                 String result = null;
                 try {
+                     geocoder= new Geocoder(context, Locale.getDefault());
+
                     List<Address> addressList = geocoder.getFromLocation(
                             latitude, longitude, 1);
 
@@ -43,7 +45,12 @@ public class LocationAddress {
 
 
                     }
-                } catch (IOException e) {
+                }
+                catch (NullPointerException e)
+                {
+
+                }
+                catch (IOException e) {
                     Log.e(TAG, "Unable connect to Geocoder", e);
                 } finally {
                     Message message = Message.obtain();

@@ -10,11 +10,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.dashin.CustomerModule.models.Customer;
 import com.example.dashin.R;
 import com.example.dashin.CustomerModule.fragments.MessContactFragment;
 import com.example.dashin.CustomerModule.fragments.MessMenuFragment;
 import com.example.dashin.CustomerModule.fragments.MessNavigateFragment;
+import com.example.dashin.utils.Constants;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class MessActivity extends AppCompatActivity {
 
@@ -26,7 +31,17 @@ public class MessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mess);
+        if(Constants.mAuth.getCurrentUser() != null && Constants.CurrentUser.getContact()==null){
 
+            Constants.mFirestore.collection("customer")
+                    .document(Constants.mAuth.getCurrentUser().getPhoneNumber()).get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            Constants.CurrentUser = task.getResult().toObject(Customer.class);
+                        }
+                    });
+        }
         messMenuFragment = new MessMenuFragment();
         messNavigateFragment = new MessNavigateFragment();
         messContactFragment = new MessContactFragment();
