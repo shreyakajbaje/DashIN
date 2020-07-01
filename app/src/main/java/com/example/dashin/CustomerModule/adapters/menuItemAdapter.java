@@ -76,6 +76,7 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
                                                         docData.put("type",model.getType());
                                                         db.collection("customer/"+ Constants.CurrentUser.getContact()+"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).set(docData);
                                                         db.collection("customer").document(Constants.CurrentUser.getContact()).update("cart_mess_name",mess);
+                                                        Constants.CurrentUser.setCart_mess_name(mess);
                                                         Toast.makeText(context,"Item added in cart",Toast.LENGTH_SHORT).show();
                                                     }
 

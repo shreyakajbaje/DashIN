@@ -246,28 +246,29 @@ public class MessContactFragment extends Fragment {
                         totalReviews.setText(vendor.getTOTAL_REVIEWS()+" reviews");
                         rating.setText(vendor.getRATING()+"");
                         int rat5=0;
+                        Log.e("errrrr",vendor.getSTAR_REVIEW_COUNT5()+"");
                         if(vendor.getTOTAL_REVIEWS()!=0)
-                            rat5 =(int) ((vendor.getSTAR_REVIEW_COUNT5()/vendor.getTOTAL_REVIEWS())*100);
+                            rat5 =(int) (((double)vendor.getSTAR_REVIEW_COUNT5()/vendor.getTOTAL_REVIEWS())*100);
                         rating5.setText(rat5+"%");
                         progressBar5.setProgress(rat5);
                         int rat4=0;
                         if (vendor.getTOTAL_REVIEWS()!=0)
-                            rat4 =(int) ((vendor.getSTAR_REVIEW_COUNT4()/vendor.getTOTAL_REVIEWS())*100);
+                            rat4 =(int) (((double)vendor.getSTAR_REVIEW_COUNT4()/vendor.getTOTAL_REVIEWS())*100);
                         rating4.setText(rat4+"%");
                         progressBar4.setProgress(rat4);
                         int rat3=0;
                     if (vendor.getTOTAL_REVIEWS()!=0)
-                        rat3 = (int) ((vendor.getSTAR_REVIEW_COUNT3()/vendor.getTOTAL_REVIEWS())*100);
+                        rat3 = (int) (((double)vendor.getSTAR_REVIEW_COUNT3()/vendor.getTOTAL_REVIEWS())*100);
                         rating3.setText(rat3+"%");
                         progressBar3.setProgress(rat3);
                         int rat2=0;
                     if (vendor.getTOTAL_REVIEWS()!=0)
-                        rat2 = (int) ((vendor.getSTAR_REVIEW_COUNT2()/vendor.getTOTAL_REVIEWS())*100);
+                        rat2 = (int) (((double)vendor.getSTAR_REVIEW_COUNT2()/vendor.getTOTAL_REVIEWS())*100);
                         rating2.setText(rat2+"%");
                         progressBar2.setProgress(rat2);
                         int rat1=0;
                     if (vendor.getTOTAL_REVIEWS()!=0)
-                        rat1 =(int) ((vendor.getSTAR_REVIEW_COUNT1()/vendor.getTOTAL_REVIEWS())*100);
+                        rat1 =(int) (((double)vendor.getSTAR_REVIEW_COUNT1()/vendor.getTOTAL_REVIEWS())*100);
                         rating1.setText(rat1+"%");
                         progressBar1.setProgress(rat1);
                         final long contactNumber=Long.parseLong(vendor.getOWNER_CONTACT());

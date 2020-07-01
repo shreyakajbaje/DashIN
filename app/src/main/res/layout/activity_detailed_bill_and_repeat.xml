@@ -16,30 +16,32 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         />
-        <TextView
-            android:layout_height="25dip"
-            android:layout_marginTop="25dp"
-            android:layout_width="350dip"
-            android:layout_gravity="center"
-            android:id="@+id/TitleHolder"
-            android:textColor="@color/black"
-            android:fontFamily="@font/helveticaneuemedium500"
-            android:paddingLeft="3dp"
-            android:text="Mess name"
-            android:textSize="25dp"
-            android:ellipsize="end"
-            />
-        <TextView
-        android:layout_height="50dip"
-        android:layout_marginTop="5dp"
+
+    <TextView
+        android:id="@+id/TitleHolder"
         android:layout_width="350dip"
+        android:layout_height="25dip"
         android:layout_gravity="center"
-            android:id="@+id/AddressHolder"
+        android:layout_marginLeft="25dip"
+        android:layout_marginTop="25dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/helveticaneuemedium500"
+        android:paddingLeft="3dp"
+        android:text="Mess name"
+        android:textColor="@color/black"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/AddressHolder"
+        android:layout_width="350dip"
+        android:layout_height="50dip"
+        android:layout_gravity="center"
+        android:layout_marginLeft="25dip"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
         android:paddingLeft="3dp"
         android:text="Address line\nAddress line\nAddress line"
-        android:textSize="14dp"
-        android:ellipsize="end"
-        />
+        android:textSize="14dp" />
     <View
         android:layout_width="370dip"
         android:layout_height="1dp"
@@ -90,44 +92,45 @@
             android:elevation="3dip"
 
             />
+
     <TextView
-        android:layout_height="25dp"
-        android:layout_marginTop="15dp"
         android:layout_width="150dip"
-        android:layout_margin="15dip"
-        android:textColor="@color/black"
+        android:layout_height="25dp"
+        android:layout_marginLeft="25dip"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dip"
+        android:layout_marginBottom="15dip"
+        android:ellipsize="end"
         android:fontFamily="@font/helveticaneuemedium500"
         android:paddingLeft="3dp"
         android:text="TOTAL"
-        android:textSize="20dp"
-        android:ellipsize="end"
-        />
-    <TextView
-        android:layout_height="25dp"
-        android:layout_marginTop="-40dip"
-        android:layout_width="130dip"
-        android:layout_marginLeft="240dip"
-        android:textAlignment="textEnd"
-        android:gravity="end"
-        android:id="@+id/SubTotalInDetail"
         android:textColor="@color/black"
-        android:fontFamily="@font/helveticaneuemedium500"
-        android:paddingLeft="3dp"
-        android:text="XXX"
-        android:textSize="20dp"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/SubTotalInDetail"
+        android:layout_width="130dip"
+        android:layout_height="25dp"
+        android:layout_marginLeft="150dip"
+        android:layout_marginTop="-40dip"
         android:ellipsize="end"
-        />
+        android:fontFamily="@font/helveticaneuemedium500"
+        android:gravity="left"
+        android:text="XXX"
+        android:textAlignment="textEnd"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
     <Button
-        android:layout_width="280dp"
-        android:layout_marginTop="15dip"
-        android:layout_height="60dip"
-        android:layout_gravity="center"
         android:id="@+id/ReSubmit"
+        android:layout_width="220dp"
+        android:layout_height="40dip"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dip"
         android:background="@drawable/button_in_orders"
-        android:textColor="#ff33aa"
         android:text="BUY AGAIN"
-        android:textSize="30dip"
-        />
+        android:textColor="#FFFFFF"
+        android:textSize="30dip" />
     <View
         android:layout_width="370dip"
         android:layout_height="1dp"

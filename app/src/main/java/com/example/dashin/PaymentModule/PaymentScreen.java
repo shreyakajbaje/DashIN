@@ -95,101 +95,106 @@ public class PaymentScreen extends AppCompatActivity {
         upiMethods=findViewById(R.id.PaymentAppsList);
         ordID= genOrderId();
         db= FirebaseFirestore.getInstance();
-
-            db.collection("vendors").document(Constants.order.getFROM()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if(task.isSuccessful()) {
-                        DocumentSnapshot documentSnapshot = task.getResult();
-                        if (documentSnapshot.getString("merchant_key")==null || documentSnapshot.getString("merchant_id")==null)
-                        {
+try {
+    db.collection("vendors").document(Constants.order.getFROM()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        @Override
+        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            if(task.isSuccessful()) {
+                DocumentSnapshot documentSnapshot = task.getResult();
+                if (documentSnapshot.getString("merchant_key")==null || documentSnapshot.getString("merchant_id")==null)
+                {
 //                        Toast.makeText(PaymentScreen.this,"Mess does not have enabled Cards method",Toast.LENGTH_SHORT).show();
 //                        finish();
-                            cards.setVisibility(View.GONE);
-                            cardsLayout.setVisibility(View.GONE);
-                        }
-                        else
-                        {
-                            MID=documentSnapshot.getString("merchant_id");
-                            MKEY=documentSnapshot.getString("merchant_key");
-                            cardsAndNetBanking.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    Intent intent=new Intent(PaymentScreen.this, checksum.class);
-                                    intent.putExtra("name",Constants.order.getBUSI_NAME());
-                                    intent.putExtra("seller",Constants.order.getFROM());
-                                    intent.putExtra("image","abc");
-                                    intent.putExtra("catagory","cat");
-                                    intent.putExtra("MID",MID);
-                                    intent.putExtra("MKEY",MKEY);
-                                    intent.putExtra("price",(int)Constants.order.getAMOUNT());
-                                    startActivity(intent);
-                                }
-                            });
-                        }
-                        if (documentSnapshot.getString("upi_id")==null)
-                        {
-                            upi.setVisibility(View.GONE);
-                            upiMethods.setVisibility(View.GONE);
-                        }
-                        else
-                        {
-                            // UPI_ID=documentSnapshot.getString("upi_id");
-                            UPI_ID="prajadhav1243@okaxis";
-                            final ListView lv=findViewById(R.id.PaymentAppsList);
-                            Uri uri =
-                                    new Uri.Builder()
-                                            .scheme("upi")
-                                            .authority("pay")
-                                            .appendQueryParameter("pa", UPI_ID)
-                                            .appendQueryParameter("pn", Constants.order.getBUSI_NAME())
-                                            .appendQueryParameter("tn", "Mess Payment")
-                                            .appendQueryParameter("am", ""+Constants.order.getAMOUNT())
-                                            .appendQueryParameter("cu", "INR")
-                                            .build();
-                            final Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setData(uri);
-                            Intent chooser = Intent.createChooser(intent,"Pay With");
-                            PackageManager pm=getPackageManager();
-                            List<ResolveInfo> launchables=pm.queryIntentActivities(intent, 0);
-                            Collections.sort(launchables,new ResolveInfo.DisplayNameComparator(pm));
-                            adapter=new AppAdapter(pm, launchables);
-                            lv.setAdapter(adapter);
-                            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-                                                        long arg3) {
-                                    // TODO Auto-generated method stub
-                                    ResolveInfo launchable=adapter.getItem(position);
-                                    ActivityInfo activity=launchable.activityInfo;
-                                    ComponentName name=new ComponentName(activity.applicationInfo.packageName,
-                                            activity.name);
-                                    intent.setPackage(activity.applicationInfo.packageName);
-                                    startActivityForResult(intent,UPI_PAYMENT);
-                                }
-
-                            });
-                        }
-                        if(documentSnapshot.get("busi_loc")==null)
-                        {
-
-                        }
-                        else
-                        {
-                            ArrayList<String> loc = (ArrayList<String>) documentSnapshot.get("busi_loc");
-                            Constants.order.setBUSI_LOC(loc);
-                        }
-                        if(documentSnapshot.get("front_pic")==null)
-                        {
-
-                        }
-                        else
-                        {
-                            Constants.order.setFRONT_PIC(documentSnapshot.getString("front_pic"));
-                        }
-                    }
+                    cards.setVisibility(View.GONE);
+                    cardsLayout.setVisibility(View.GONE);
                 }
-            });
+                else
+                {
+                    MID=documentSnapshot.getString("merchant_id");
+                    MKEY=documentSnapshot.getString("merchant_key");
+                    cardsAndNetBanking.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent=new Intent(PaymentScreen.this, checksum.class);
+                            intent.putExtra("name",Constants.order.getBUSI_NAME());
+                            intent.putExtra("seller",Constants.order.getFROM());
+                            intent.putExtra("image","abc");
+                            intent.putExtra("catagory","cat");
+                            intent.putExtra("MID",MID);
+                            intent.putExtra("MKEY",MKEY);
+                            intent.putExtra("price",(int)Constants.order.getAMOUNT());
+                            startActivity(intent);
+                        }
+                    });
+                }
+                if (documentSnapshot.getString("upi_id")==null)
+                {
+                    upi.setVisibility(View.GONE);
+                    upiMethods.setVisibility(View.GONE);
+                }
+                else
+                {
+                    // UPI_ID=documentSnapshot.getString("upi_id");
+                    UPI_ID="prajadhav1243@okaxis";
+                    final ListView lv=findViewById(R.id.PaymentAppsList);
+                    Uri uri =
+                            new Uri.Builder()
+                                    .scheme("upi")
+                                    .authority("pay")
+                                    .appendQueryParameter("pa", UPI_ID)
+                                    .appendQueryParameter("pn", Constants.order.getBUSI_NAME())
+                                    .appendQueryParameter("tn", "Mess Payment")
+                                    .appendQueryParameter("am", ""+Constants.order.getAMOUNT())
+                                    .appendQueryParameter("cu", "INR")
+                                    .build();
+                    final Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(uri);
+                    Intent chooser = Intent.createChooser(intent,"Pay With");
+                    PackageManager pm=getPackageManager();
+                    List<ResolveInfo> launchables=pm.queryIntentActivities(intent, 0);
+                    Collections.sort(launchables,new ResolveInfo.DisplayNameComparator(pm));
+                    adapter=new AppAdapter(pm, launchables);
+                    lv.setAdapter(adapter);
+                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+                                                long arg3) {
+                            // TODO Auto-generated method stub
+                            ResolveInfo launchable=adapter.getItem(position);
+                            ActivityInfo activity=launchable.activityInfo;
+                            ComponentName name=new ComponentName(activity.applicationInfo.packageName,
+                                    activity.name);
+                            intent.setPackage(activity.applicationInfo.packageName);
+                            startActivityForResult(intent,UPI_PAYMENT);
+                        }
+
+                    });
+                }
+                if(documentSnapshot.get("busi_loc")==null)
+                {
+
+                }
+                else
+                {
+                    ArrayList<String> loc = (ArrayList<String>) documentSnapshot.get("busi_loc");
+                    Constants.order.setBUSI_LOC(loc);
+                }
+                if(documentSnapshot.get("front_pic")==null)
+                {
+
+                }
+                else
+                {
+                    Constants.order.setFRONT_PIC(documentSnapshot.getString("front_pic"));
+                }
+            }
+        }
+    });
+
+}catch (NullPointerException e)
+{
+
+}
 
 
 

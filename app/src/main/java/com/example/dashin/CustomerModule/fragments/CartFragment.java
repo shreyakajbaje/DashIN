@@ -83,217 +83,233 @@ public class CartFragment extends Fragment  implements cartItemAdapter.setBill  
         nestedScrollView=view.findViewById(R.id.mainCartPage);
         linearLayout=view.findViewById(R.id.mainCartLayout);
         mess=view.findViewById(R.id.messName);
-        if(Constants.mAuth.getCurrentUser() != null && Constants.CurrentUser.getContact()==null){
-
-            Constants.mFirestore.collection("customer")
-                    .document(Constants.mAuth.getCurrentUser().getPhoneNumber()).get()
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            Constants.CurrentUser = task.getResult().toObject(Customer.class);
-                            db.collection("vendors").document(Constants.CurrentUser.getCart_mess_name()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        try {
+            if(Constants.mAuth.getCurrentUser() != null && Constants.CurrentUser.getContact()==null){
+                if (!Constants.CurrentUser.getCart_mess_name().equals("")) {
+                    Constants.mFirestore.collection("customer")
+                            .document(Constants.mAuth.getCurrentUser().getPhoneNumber()).get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
-                                public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-                                    if (e != null) {
-                                        System.err.println("Listen failed: " + e);
-                                        return;
-                                    }
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    Constants.CurrentUser = task.getResult().toObject(Customer.class);
+                                    db.collection("vendors").document(Constants.CurrentUser.getCart_mess_name()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                                            if (e != null) {
+                                                System.err.println("Listen failed: " + e);
+                                                return;
+                                            }
 
-                                    if (snapshot != null && snapshot.exists()) {
-                                        messName=snapshot.getString("busi_name");
-                                        mess.setText(messName);
-                                        messAddress=snapshot.getString("mess_description");
-                                        Constants.order.setBUSI_NAME(messName);
+                                            if (snapshot != null && snapshot.exists()) {
+                                                messName = snapshot.getString("busi_name");
+                                                mess.setText(messName);
+                                                messAddress = snapshot.getString("mess_description");
+                                                Constants.order.setBUSI_NAME(messName);
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                    Query query = cartRef.orderBy("name", Query.Direction.ASCENDING);
+
+                    FirestoreRecyclerOptions<cartItem> options = new FirestoreRecyclerOptions.Builder<cartItem>()
+                            .setQuery(query, cartItem.class)
+                            .build();
+                    cartItemAdapter = new cartItemAdapter(options, getContext());
+
+                    cartitems.setNestedScrollingEnabled(false);
+                    cartitems.setLayoutManager(new LinearLayoutManager(getContext()));
+                    cartitems.setAdapter(cartItemAdapter);
+                    //cartitems.setHasFixedSize(true);
+                    cartItemAdapter.notifyDataSetChanged();
+                }
+            }
+            else
+            {
+                if (!Constants.CurrentUser.getCart_mess_name().equals(""))
+                {
+                    db.collection("vendors").document(Constants.CurrentUser.getCart_mess_name()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                            if (e != null) {
+                                System.err.println("Listen failed: " + e);
+                                return;
+                            }
+
+                            if (snapshot != null && snapshot.exists()) {
+                                messName=snapshot.getString("busi_name");
+
+                                mess.setText(messName);
+                                messAddress=snapshot.getString("mess_description");
+                                Constants.order.setBUSI_NAME(messName);
+                            }
+                        }
+                    });
+                    Query query = cartRef.orderBy("name",Query.Direction.ASCENDING);
+
+                    FirestoreRecyclerOptions<cartItem> options=new FirestoreRecyclerOptions.Builder<cartItem>()
+                            .setQuery(query, cartItem.class)
+                            .build();
+                    cartItemAdapter = new cartItemAdapter(options,getContext());
+
+                    cartitems.setNestedScrollingEnabled(false);
+                    cartitems.setLayoutManager(new LinearLayoutManager(getContext()));
+                    cartitems.setAdapter(cartItemAdapter);
+                    //cartitems.setHasFixedSize(true);
+                    cartItemAdapter.notifyDataSetChanged();
+                }
+
+            }
+
+
+
+
+            addMore=view.findViewById(R.id.addMore);
+            addMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), MessActivity.class);
+                    intent.putExtra("phone",Constants.CurrentUser.getCart_mess_name());
+                    startActivity(intent);
+                }
+            });
+
+
+            itemTotalPrice=view.findViewById(R.id.itemTotalPrice);
+            tax=view.findViewById(R.id.taxAmount);
+            deliveryFees=view.findViewById(R.id.deliveryFees);
+            totalPrice=view.findViewById(R.id.totalPrice);
+            instructions=view.findViewById(R.id.instructions);
+            imageView = view.findViewById(R.id.alertbox);
+            imageView.setImageResource(R.drawable.cupon_popup_txt);
+
+            CountDownTimer timer = new CountDownTimer(5000, 1000) {
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                }
+
+                @Override
+                public void onFinish() {
+                    imageView.setVisibility(View.INVISIBLE); //(or GONE)
+                }
+            }.start();
+            cartItemAdapter.setBillListner(CartFragment.this);
+            dineIn=view.findViewById(R.id.dineIn);
+            dineIn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Constants.order.setAMOUNT(Long.parseLong(totalPrice.getText().toString().replace("₹","")));
+                    Constants.order.setFROM(Constants.CurrentUser.getCart_mess_name());
+                    Constants.order.setTO(Constants.CurrentUser.getContact());
+                    if(discount!=0)
+                    {
+                        Constants.order.setOFFER(true);
+                        Constants.order.setOFFER_CODE(dicsountCode);
+                    }
+                    if (!instructions.getText().toString().equals(""))
+                        Constants.order.setInstructions(instructions.getText().toString());
+                    Constants.order.setBUSI_ADD(messAddress);
+                    Constants.order.setParcel(false);
+                    Intent intent = new Intent(getContext(), selectAddress.class);
+                    getActivity().startActivity(intent);
+                }
+            });
+            homeDel=view.findViewById(R.id.homeDel);
+            homeDel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Constants.order.setAMOUNT(Long.parseLong(totalPrice.getText().toString().replace("₹","")));
+                    Constants.order.setFROM(Constants.CurrentUser.getCart_mess_name());
+                    Constants.order.setTO(Constants.CurrentUser.getContact());
+                    if(discount!=0)
+                    {
+                        Constants.order.setOFFER(true);
+                        Constants.order.setOFFER_CODE(dicsountCode);
+                    }
+                    if (!instructions.getText().toString().equals(""))
+                        Constants.order.setInstructions(instructions.getText().toString());
+                    Constants.order.setBUSI_ADD(messAddress);
+                    Constants.order.setParcel(true);
+                    Intent intent = new Intent(getContext(), selectAddress.class);
+                    getActivity().startActivity(intent);
+                }
+            });
+            nestedScrollView.setVisibility(View.INVISIBLE);
+            linearLayout.setBackgroundResource(R.drawable.empty_cart);
+
+            couponCode=view.findViewById(R.id.couponCode);
+            couponCode.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    Query query=db.collection("vendors/"+Constants.CurrentUser.getCart_mess_name()+"/discounts").whereEqualTo("Code",String.valueOf(charSequence) );
+                    query.get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if(task.isSuccessful()){
+                                        QuerySnapshot documentSnapshot = task.getResult();
+                                        if(documentSnapshot != null && !documentSnapshot.isEmpty()) {
+
+                                            Discount disc = documentSnapshot.getDocuments().get(0).toObject(Discount.class);
+                                            // Toast.makeText(getContext(),"Yes "+disc.getOFFP(),Toast.LENGTH_SHORT).show();
+                                            discount=disc.getOFFP();
+                                            discountName=disc.getType();
+                                            dicsountCode=disc.getCode();
+                                            setBillAmounts(itemTotalPriceAmount,sizehere);
+                                        }
+                                        else{
+                                            // Toast.makeText(getContext(),"no",Toast.LENGTH_SHORT).show();
+                                            discount=0;
+                                            setBillAmounts(itemTotalPriceAmount,sizehere);
+                                        }
+
                                     }
                                 }
                             });
-                        }
-                    });
-            Query query = cartRef.orderBy("name",Query.Direction.ASCENDING);
+                }
 
-            FirestoreRecyclerOptions<cartItem> options=new FirestoreRecyclerOptions.Builder<cartItem>()
-                    .setQuery(query, cartItem.class)
-                    .build();
-            cartItemAdapter = new cartItemAdapter(options,getContext());
-
-            cartitems.setNestedScrollingEnabled(false);
-            cartitems.setLayoutManager(new LinearLayoutManager(getContext()));
-            cartitems.setAdapter(cartItemAdapter);
-            //cartitems.setHasFixedSize(true);
-            cartItemAdapter.notifyDataSetChanged();
-        }
-        else
-        {
-            db.collection("vendors").document(Constants.CurrentUser.getCart_mess_name()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
-                public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-                    if (e != null) {
-                        System.err.println("Listen failed: " + e);
-                        return;
-                    }
+                public void afterTextChanged(Editable editable) {
 
-                    if (snapshot != null && snapshot.exists()) {
-                        messName=snapshot.getString("busi_name");
-
-                        mess.setText(messName);
-                        messAddress=snapshot.getString("mess_description");
-                        Constants.order.setBUSI_NAME(messName);
-                    }
                 }
             });
-            Query query = cartRef.orderBy("name",Query.Direction.ASCENDING);
-
-            FirestoreRecyclerOptions<cartItem> options=new FirestoreRecyclerOptions.Builder<cartItem>()
-                    .setQuery(query, cartItem.class)
-                    .build();
-            cartItemAdapter = new cartItemAdapter(options,getContext());
-
-            cartitems.setNestedScrollingEnabled(false);
-            cartitems.setLayoutManager(new LinearLayoutManager(getContext()));
-            cartitems.setAdapter(cartItemAdapter);
-            //cartitems.setHasFixedSize(true);
-            cartItemAdapter.notifyDataSetChanged();
+            ImageView back = view.findViewById(R.id.back_page);
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+        catch (NullPointerException e)
+        {
+            nestedScrollView.setVisibility(View.INVISIBLE);
+            linearLayout.setBackgroundResource(R.drawable.empty_cart);
         }
 
 
-
-
-        addMore=view.findViewById(R.id.addMore);
-        addMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), MessActivity.class);
-                intent.putExtra("phone",Constants.CurrentUser.getCart_mess_name());
-                startActivity(intent);
-            }
-        });
-
-
-        itemTotalPrice=view.findViewById(R.id.itemTotalPrice);
-        tax=view.findViewById(R.id.taxAmount);
-        deliveryFees=view.findViewById(R.id.deliveryFees);
-        totalPrice=view.findViewById(R.id.totalPrice);
-        instructions=view.findViewById(R.id.instructions);
-        imageView = view.findViewById(R.id.alertbox);
-        imageView.setImageResource(R.drawable.cupon_popup_txt);
-
-        CountDownTimer timer = new CountDownTimer(5000, 1000) {
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @Override
-            public void onFinish() {
-                imageView.setVisibility(View.INVISIBLE); //(or GONE)
-            }
-        }.start();
-        cartItemAdapter.setBillListner(CartFragment.this);
-        dineIn=view.findViewById(R.id.dineIn);
-        dineIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Constants.order.setAMOUNT(Long.parseLong(totalPrice.getText().toString().replace("₹","")));
-                Constants.order.setFROM(Constants.CurrentUser.getCart_mess_name());
-                Constants.order.setTO(Constants.CurrentUser.getContact());
-                if(discount!=0)
-                {
-                    Constants.order.setOFFER(true);
-                    Constants.order.setOFFER_CODE(dicsountCode);
-                }
-                if (!instructions.getText().toString().equals(""))
-                    Constants.order.setInstructions(instructions.getText().toString());
-                Constants.order.setBUSI_ADD(messAddress);
-                Constants.order.setParcel(false);
-                Intent intent = new Intent(getContext(), selectAddress.class);
-                getActivity().startActivity(intent);
-            }
-        });
-        homeDel=view.findViewById(R.id.homeDel);
-        homeDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Constants.order.setAMOUNT(Long.parseLong(totalPrice.getText().toString().replace("₹","")));
-                Constants.order.setFROM(Constants.CurrentUser.getCart_mess_name());
-                Constants.order.setTO(Constants.CurrentUser.getContact());
-                if(discount!=0)
-                {
-                    Constants.order.setOFFER(true);
-                    Constants.order.setOFFER_CODE(dicsountCode);
-                }
-                if (!instructions.getText().toString().equals(""))
-                    Constants.order.setInstructions(instructions.getText().toString());
-                Constants.order.setBUSI_ADD(messAddress);
-                Constants.order.setParcel(true);
-                Intent intent = new Intent(getContext(), selectAddress.class);
-                getActivity().startActivity(intent);
-            }
-        });
-        nestedScrollView.setVisibility(View.INVISIBLE);
-        linearLayout.setBackgroundResource(R.drawable.empty_cart);
-
-        couponCode=view.findViewById(R.id.couponCode);
-        couponCode.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Query query=db.collection("vendors/"+Constants.CurrentUser.getCart_mess_name()+"/discounts").whereEqualTo("Code",String.valueOf(charSequence) );
-                        query.get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    QuerySnapshot documentSnapshot = task.getResult();
-                                    if(documentSnapshot != null && !documentSnapshot.isEmpty()) {
-
-                                        Discount disc = documentSnapshot.getDocuments().get(0).toObject(Discount.class);
-                                       // Toast.makeText(getContext(),"Yes "+disc.getOFFP(),Toast.LENGTH_SHORT).show();
-                                        discount=disc.getOFFP();
-                                        discountName=disc.getType();
-                                        dicsountCode=disc.getCode();
-                                        setBillAmounts(itemTotalPriceAmount,sizehere);
-                                    }
-                                    else{
-                                       // Toast.makeText(getContext(),"no",Toast.LENGTH_SHORT).show();
-                                        discount=0;
-                                        setBillAmounts(itemTotalPriceAmount,sizehere);
-                                    }
-
-                                }
-                            }
-                        });
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        ImageView back = view.findViewById(R.id.back_page);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
         return view;
     }
     @Override
     public void onStart()
     {
         super.onStart();
-        cartItemAdapter.startListening();
+        if (cartItemAdapter!=null)
+            cartItemAdapter.startListening();
 
     }
     @Override
     public void onStop()
     {
         super.onStop();
+        if (cartItemAdapter!=null)
         cartItemAdapter.stopListening();
     }
 

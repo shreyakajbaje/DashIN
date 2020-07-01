@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.dashin.CustomerModule.adapters.OrdersAdapter;
@@ -70,6 +71,7 @@ public class DatabaseLogActivity extends AppCompatActivity {
                                 m[0] = m[0] + (list.get(j).getString("item_name")+" x "+list.get(j).getLong("n").toString()+ ", ");
                             }
                             m[0] = m[0].substring(0, m[0].length() - 2);
+
                             textView.setText(m[0]);
                         }
                     }

@@ -21,7 +21,7 @@ public class SingleEntityOfOrders {
     @PropertyName("method")
     String METHOD;
     @PropertyName("type")
-    String TYPE;
+    String TYPE="One Time Order";
     @PropertyName("from")
     String FROM;
     @PropertyName("to")

@@ -3,6 +3,7 @@ package com.example.dashin.CustomerModule.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ int m;
             DatabaseLogActivity.details.add(new ArrayList<Details>());
         }
         String date=model.getTIME();
-        DatabaseLogActivity.setOrdersPreviewString(model.getFROM(),m-position,holder.HoldMyValues,getSnapshots().getSnapshot(holder.getAdapterPosition()).getId());
+        DatabaseLogActivity.setOrdersPreviewString(model.getTO(),m-position,holder.HoldMyValues,getSnapshots().getSnapshot(holder.getAdapterPosition()).getId());
         holder.HoldMyDate.setText(date);
         holder.HoldMyTitle.setText(model.getBUSI_NAME());
         holder.HoldMyAmount.setText("₹"+String.valueOf(model.getAMOUNT()));

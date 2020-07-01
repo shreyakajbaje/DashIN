@@ -1,6 +1,7 @@
 package com.example.dashin.CustomerModule.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,11 @@ import com.example.dashin.utils.Constants;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.ObservableSnapshotArray;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemAdapter.cartItemHolder> {
 
@@ -102,8 +106,18 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
 
                         setBill.setBillAmounts(itemTotalPrice,getItemCount());
                         Toast.makeText(context,"Item deleted !",Toast.LENGTH_SHORT).show();
-                db.collection("customer").document(Constants.CurrentUser.getContact()).update("cart_mess_name","");
-                Constants.CurrentUser.setCart_mess_name("");
+                        db.collection("customer/"+ Constants.CurrentUser.getContact() +"/cart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                QuerySnapshot qs=task.getResult();
+                                if (qs.size()==0)
+                                {
+                                    db.collection("customer").document(Constants.CurrentUser.getContact()).update("cart_mess_name","");
+                                    Constants.CurrentUser.setCart_mess_name("");
+                                }
+                            }
+                        });
+
                     }
                 });
             }

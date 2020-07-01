@@ -147,6 +147,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right|end"
                                 android:layout_marginTop="15dp"
+                                android:minWidth="20dp"
                                 app:cardBackgroundColor="#027806"
                                 app:cardCornerRadius="5dp">
 
