@@ -132,6 +132,7 @@
                         android:src="@drawable/instruction_icon" />
 
                     <EditText
+                        android:id="@+id/instructions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -262,7 +263,7 @@
                         android:padding="10dp">
 
                         <ImageView
-                            android:id="@+id/imageView4"
+                            android:id="@+id/homeDel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

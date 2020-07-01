@@ -1,5 +1,6 @@
 package com.example.dashin.CustomerModule.adapters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dashin.CustomerModule.activities.DetailedBillAndRepeat;
 import com.example.dashin.CustomerModule.activities.MyOrdersActivity;
+import com.example.dashin.CustomerModule.activities.OrderTracking;
 import com.example.dashin.CustomerModule.models.Details;
 import com.example.dashin.CustomerModule.models.SingleEntityOfOrders;
 import com.example.dashin.CustomerModule.models.cartItem;
@@ -34,12 +36,15 @@ import java.util.ArrayList;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
+import static com.paytm.pgsdk.easypay.manager.PaytmAssist.getContext;
+
 
 public class OrdersAdapter extends FirestoreRecyclerAdapter<SingleEntityOfOrders, OrdersAdapter.OrdersHolder> {
 public static SingleEntityOfOrders current;
 public static String pos;
 public ObservableSnapshotArray<SingleEntityOfOrders> mSnapshots;
 int m;
+    Context context;
     @Override
     protected void onBindViewHolder(@NonNull final OrdersHolder holder, final int position, @NonNull final SingleEntityOfOrders model) {
         m=DatabaseLogActivity.OrderArraySize;
@@ -93,6 +98,14 @@ int m;
                 }
             });
         }
+        holder.liveTrack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context,OrderTracking.class);
+                intent.putExtra("orderId",getSnapshots().getSnapshot(holder.getAdapterPosition()).getId());
+                context.startActivity(intent);
+            }
+        });
        // Picasso.get().load("https://content3.jdmagicbox.com/comp/def_content/tiffin_services/default-tiffin-services-9.jpg?clr=254141").transform(transformation).resize(120, 120).centerCrop().into(holder.HoldMyPhoto);
     }
 
@@ -113,9 +126,11 @@ int m;
         TextView HoldMyAddress;
         ImageView HoldMyPhoto;
         LikeButton likeButton;
+        Button liveTrack;
 
         public OrdersHolder(@NonNull final View itemView) {
             super(itemView);
+            context = itemView.getContext();
             HoldMyAmount=(TextView)itemView.findViewById(R.id.HoldMyAmount);
             HoldMyTitle=(TextView)itemView.findViewById(R.id.HoldMyTitle);
             HoldMyType=(TextView)itemView.findViewById(R.id.HoldMyType);
@@ -124,7 +139,9 @@ int m;
             HoldMyPhoto=(ImageView)itemView.findViewById(R.id.MessPhoto);
             HoldMyAddress=(TextView)itemView.findViewById(R.id.HoldMyAddress);
             likeButton=itemView.findViewById(R.id.liked);
+            liveTrack=itemView.findViewById(R.id.liveTrack);
         }
+
     }
     public OrdersAdapter(@NonNull FirestoreRecyclerOptions options) {
         super(options);

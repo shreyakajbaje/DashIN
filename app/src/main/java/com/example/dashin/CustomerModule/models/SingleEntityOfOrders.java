@@ -66,6 +66,35 @@ public class SingleEntityOfOrders {
 
     @PropertyName("front_pic")
     String FRONT_PIC;
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    String instructions;
+
+    public boolean isParcel() {
+        return parcel;
+    }
+
+    public void setParcel(boolean parcel) {
+        this.parcel = parcel;
+    }
+
+    public boolean isServed() {
+        return served;
+    }
+
+    public void setServed(boolean served) {
+        this.served = served;
+    }
+
+    boolean parcel,served=false;
+
     public SingleEntityOfOrders(String BUSI_NAME, String BUSI_ADD, String d_R_INDEX, String OFFER_CODE, String TRAN_ID, String METHOD, String TYPE, String FROM, String TO, String TIME, ArrayList<String> BUSI_LOC, long AMOUNT, long STATUS, boolean OFFER, boolean LIKED, String DELIVERY_ADDRESS, String PERSON_NAME_ADDRESS,ArrayList<String> CUST_LOC,String front_pic) {
         this.BUSI_NAME = BUSI_NAME;
         this.BUSI_ADD = BUSI_ADD;

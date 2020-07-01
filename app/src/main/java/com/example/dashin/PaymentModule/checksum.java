@@ -64,8 +64,10 @@ public class checksum extends AppCompatActivity implements PaytmPaymentTransacti
         //MerchantKey=getIntent().getStringExtra("MKEY");
         //mid=getIntent().getStringExtra("MID");
 
-        MerchantKey="S@IoR&bs#nOCsY2G";
-        mid = "lpsvEw59219385907682"; /// your marchant ID
+        //MerchantKey="S@IoR&bs#nOCsY2G";
+        MerchantKey=getIntent().getStringExtra("MKEY");
+        mid=getIntent().getStringExtra("MID");
+      //  mid = "lpsvEw59219385907682"; /// your marchant ID
 
         sendUserDetailTOServerdd dl = new sendUserDetailTOServerdd();
         dl.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -156,20 +158,20 @@ public class checksum extends AppCompatActivity implements PaytmPaymentTransacti
 
             //order placement
             db.collection("customer/"+Constants.order.getTO()+"/my-orders").document(orderId).set(Constants.order);
-            db.collection("vendors/"+Constants.order.getFROM()+"/my-orders").document(orderId).set(Constants.order);
+            db.collection("vendors/"+Constants.order.getFROM()+"/orders").document(orderId).set(Constants.order);
             HashMap<String,String> loc = new HashMap();
             loc.put("lat",Constants.order.getBUSI_LOC().get(0));
             loc.put("long",Constants.order.getBUSI_LOC().get(1));
             db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+orderId+"/order-loc").document("loc").set(loc);
-            db.collection("vendors/"+Constants.order.getFROM()+"/my-orders/"+orderId+"/order-loc").document("loc").set(loc);
+            db.collection("vendors/"+Constants.order.getFROM()+"/orders/"+orderId+"/order-loc").document("loc").set(loc);
             HashMap<String ,String > stages = new HashMap<>();
             stages.put("status","IA");
             db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+orderId+"/order-loc").document("stage1").set(stages);
-            db.collection("vendors/"+Constants.order.getFROM()+"/my-orders/"+orderId+"/order-loc").document("stage1").set(stages);
+            db.collection("vendors/"+Constants.order.getFROM()+"/orders/"+orderId+"/order-loc").document("stage1").set(stages);
             db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+orderId+"/order-loc").document("stage2").set(stages);
-            db.collection("vendors/"+Constants.order.getFROM()+"/my-orders/"+orderId+"/order-loc").document("stage2").set(stages);
+            db.collection("vendors/"+Constants.order.getFROM()+"/orders/"+orderId+"/order-loc").document("stage2").set(stages);
             db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+orderId+"/order-loc").document("stage3").set(stages);
-            db.collection("vendors/"+Constants.order.getFROM()+"/my-orders/"+orderId+"/order-loc").document("stage3").set(stages);
+            db.collection("vendors/"+Constants.order.getFROM()+"/orders/"+orderId+"/order-loc").document("stage3").set(stages);
             db.collection("customer/"+Constants.order.getTO()+"/cart")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -185,7 +187,7 @@ public class checksum extends AppCompatActivity implements PaytmPaymentTransacti
                                     item.setSUB_TOT(document.getLong("price")*document.getLong("quantity"));
                                     item.setITEM_ID(document.getId());
                                     db.collection("customer/"+Constants.order.getTO()+"/my-orders/"+orderId+"/details").document(document.getId()).set(item);
-                                    db.collection("vendors/"+Constants.order.getFROM()+"/my-orders/"+orderId+"/details").document(document.getId()).set(item);
+                                    db.collection("vendors/"+Constants.order.getFROM()+"/orders/"+orderId+"/details").document(document.getId()).set(item);
                                     db.collection("customer/"+Constants.order.getTO()+"/cart").document(document.getId()).delete();
                                 }
 

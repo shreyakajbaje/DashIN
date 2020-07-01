@@ -181,7 +181,7 @@ public class SearchFragment extends Fragment {
         list.subList(10,list.size()-1).clear();
         list.trimToSize();
         System.out.println(list);
-        query = Constants.mFirestore.collection("VENDORS").whereArrayContainsAny("facilities",list);    // .orderBy("VIEWS"); can be added to query
+        query = Constants.mFirestore.collection("vendors").whereArrayContainsAny("facilities",list);    // .orderBy("VIEWS"); can be added to query
                                                                                                                     // in each case. once field is generated.
 
         FirestoreRecyclerOptions<ModelMess> options = new FirestoreRecyclerOptions.Builder<ModelMess>()
@@ -203,9 +203,9 @@ public class SearchFragment extends Fragment {
     public void setUpMessRecyclerView(String smart,int state) {
         Log.e("ModelBooks", "setting up recycler view");
         if(state==0)
-        query = Constants.mFirestore.collection("VENDORS").whereArrayContainsAny("facilities",Arrays.asList(smart));
+        query = Constants.mFirestore.collection("vendors").whereArrayContainsAny("facilities",Arrays.asList(smart));
         else {
-            query = Constants.mFirestore.collection("VENDORS").whereIn("busi_NAME", getVariations(smart));
+            query = Constants.mFirestore.collection("vendors").whereIn("busi_name", getVariations(smart));
         }
         // .orderBy("VIEWS"); can be added to query
         // in each case. once field is generated.

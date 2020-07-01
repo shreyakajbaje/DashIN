@@ -39,11 +39,7 @@
         <activity
             android:name=".CustomerModule.activities.OrderTracking"
             android:label="@string/title_activity_order_tracking">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".CustomerModule.activities.selectAddress" />
         <activity android:name=".CustomerModule.activities.AddressActivity" />
@@ -74,7 +70,11 @@
         <activity
             android:name=".LoginModule.activities.SplashActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".LoginModule.activities.OptionsActivity"

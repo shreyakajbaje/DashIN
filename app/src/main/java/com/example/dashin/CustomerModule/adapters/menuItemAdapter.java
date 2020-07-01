@@ -69,11 +69,11 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
                                                         Toast.makeText(context,"Item already added in cart",Toast.LENGTH_SHORT).show();
                                                     }else{
                                                         Map<String, Object> docData = new HashMap<>();
-                                                        docData.put("Name", model.getName());
-                                                        docData.put("Quantity",1);
-                                                        docData.put("Price",model.getPrice());
-                                                        docData.put("VEG",model.isVEG());
-                                                        docData.put("Type",model.getType());
+                                                        docData.put("name", model.getName());
+                                                        docData.put("quantity",1);
+                                                        docData.put("price",model.getPrice());
+                                                        docData.put("veg",model.isVEG());
+                                                        docData.put("type",model.getType());
                                                         db.collection("customer/"+ Constants.CurrentUser.getContact()+"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).set(docData);
                                                         db.collection("customer").document(Constants.CurrentUser.getContact()).update("cart_mess_name",mess);
                                                         Toast.makeText(context,"Item added in cart",Toast.LENGTH_SHORT).show();
@@ -95,11 +95,11 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
                                                         Toast.makeText(context,"Item already added in cart",Toast.LENGTH_SHORT).show();
                                                     }else{
                                                         Map<String, Object> docData = new HashMap<>();
-                                                        docData.put("Name", model.getName());
-                                                        docData.put("Quantity",1);
-                                                        docData.put("Price",model.getPrice());
-                                                        docData.put("VEG",model.isVEG());
-                                                        docData.put("Type",model.getType());
+                                                        docData.put("name", model.getName());
+                                                        docData.put("quantity",1);
+                                                        docData.put("price",model.getPrice());
+                                                        docData.put("veg",model.isVEG());
+                                                        docData.put("type",model.getType());
                                                         db.collection("customer/"+ Constants.CurrentUser.getContact()+"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).set(docData);
                                                         //db.collection("customer").document(Constants.CurrentUser.getContact()).update("cart_mess_name",mess);
                                                         Toast.makeText(context,"Item added in cart",Toast.LENGTH_SHORT).show();

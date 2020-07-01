@@ -50,16 +50,16 @@ public class MessAdapter extends FirestoreRecyclerAdapter<ModelMess, MessAdapter
     @Override
     protected void onBindViewHolder(@NonNull final MessAdapter.MessHolder holder, final int position, @NonNull final ModelMess model) {
 
-        Log.e("model", model.getBUSI_NAME());
+        //Log.e("model", model.getBUSI_NAME());
         holder.name.setText(model.getBUSI_NAME());
-        holder.description.setText(model.getBUSI_DESCRIPTION());
+        holder.description.setText(model.getMESS_DESCRIPTION());
         holder.costing.setText(String.valueOf(model.getCOSTING()));
         holder.open_from.setText(model.getOPEN_FROM());
         holder.open_till.setText(model.getOPEN_TILL());
         holder.rating.setText(Double.toString(model.getRATING()));
         //set front pic here
         if(model.getFRONT_PIC()!=null) {
-            Constants.mStorage.getReference().child(model.getOWNER_CONTACT()).child(model.getFRONT_PIC()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            Constants.mStorage.getReference().child(model.getOWNER_CONTACT()).child("mess_images").child(model.getFRONT_PIC()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     if(uri!=null) {

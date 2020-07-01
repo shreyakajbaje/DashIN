@@ -1,6 +1,7 @@
 package com.example.dashin.CustomerModule.fragments;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Path;
@@ -28,6 +29,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
@@ -106,21 +111,27 @@ public class MessNavigateFragment extends Fragment implements PermissionsListene
                 mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
-
+                        String phone;
+                        Intent intent = getActivity().getIntent();
+                        phone = intent.getStringExtra("phone");
                         // Map is set up and the style has loaded. Now you can add data or make other map adjustments
                         enableLocationComponent(style);
-                        Origin= Point.fromLngLat( 74.2070,19.5761);
-                        End=Point.fromLngLat(73.8567,18.5204);
-                        getRoute(Origin,End);
-                    }
-                });
-            }
-        });
-        Button startNavigation = view.findViewById(R.id.startNavigation);
-        startNavigation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Create a NavigationLauncherOptions object to package everything together
+                        FirebaseFirestore db=FirebaseFirestore.getInstance();
+                        db.collection("vendors").document(phone).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                                Origin= Point.fromLngLat( 74.2070,19.5761);
+                                DocumentSnapshot documentSnapshot=task.getResult();
+                                final ArrayList<String> end=(ArrayList<String>)documentSnapshot.get("busi_loc");
+                                End=Point.fromLngLat(Double.parseDouble(end.get(1)),Double.parseDouble(end.get(0)));
+                                //Log.e("pt",Double.parseDouble(end.get(0))+","+Double.parseDouble(end.get(1)));
+                                getRoute(Origin,End);
+                                Button startNavigation = view.findViewById(R.id.startNavigation);
+                                startNavigation.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        // Create a NavigationLauncherOptions object to package everything together
 //                NavigationLauncherOptions options = NavigationLauncherOptions.builder()
 //                        .directionsRoute(currentRoute)
 //                        .shouldSimulateRoute(true)
@@ -129,14 +140,22 @@ public class MessNavigateFragment extends Fragment implements PermissionsListene
 //// Call this method with Context from within an Activity
 //                NavigationLauncher.startNavigation(getActivity(), options);
 
-                MessActualNavigateFragment messActualNavigateFragment = new MessActualNavigateFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.NavRelativeLayout, messActualNavigateFragment);
-                fragmentTransaction.commit();
+                                        MessActualNavigateFragment messActualNavigateFragment = new MessActualNavigateFragment(74.2070,19.5761,Double.parseDouble(end.get(1)),Double.parseDouble(end.get(0)));
+                                        FragmentManager fragmentManager = getFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        fragmentTransaction.replace(R.id.NavRelativeLayout, messActualNavigateFragment);
+                                        fragmentTransaction.commit();
 
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                });
             }
         });
+
         return view;
     }
     @SuppressWarnings( {"MissingPermission"})

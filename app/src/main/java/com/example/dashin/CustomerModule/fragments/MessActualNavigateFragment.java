@@ -38,13 +38,16 @@ import retrofit2.Response;
 
 public class MessActualNavigateFragment extends Fragment implements OnNavigationReadyCallback, NavigationListener,
         ProgressChangeListener {
-    public MessActualNavigateFragment() {
-        // Required empty public constructor
+    public MessActualNavigateFragment(double lat1,double long1,double lat2,double long2) {
+        ORIGIN_LATITUDE=lat1;
+        ORIGIN_LONGITUDE=long1;
+        DESTINATION_LATITUDE=lat2;
+        DESTINATION_LONGITUDE=long2;
     }
-    private static final double ORIGIN_LONGITUDE = 74.2070;
-    private static final double ORIGIN_LATITUDE = 19.5761;
-    private static final double DESTINATION_LONGITUDE = 73.8567;
-    private static final double DESTINATION_LATITUDE = 18.5204;
+    private static double ORIGIN_LONGITUDE = 74.2070;
+    private static double ORIGIN_LATITUDE = 19.5761;
+    private static double DESTINATION_LONGITUDE = 73.8567;
+    private static double DESTINATION_LATITUDE = 18.5204;
 
     private NavigationView navigationView;
     private DirectionsRoute directionsRoute;

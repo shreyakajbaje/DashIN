@@ -55,7 +55,7 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
             public void onClick(View view) {
                 is1stTime=false;
                 //Toast.makeText(context,"+"+position,Toast.LENGTH_SHORT).show();
-                db.collection("customer/"+ Constants.CurrentUser.getContact() +"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).update("Quantity",(model.getQuantity()+1))
+                db.collection("customer/"+ Constants.CurrentUser.getContact() +"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).update("quantity",(model.getQuantity()+1))
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -76,7 +76,7 @@ public class cartItemAdapter extends FirestoreRecyclerAdapter<cartItem,cartItemA
                     return;
                 }
                 //Toast.makeText(context,"-"+position,Toast.LENGTH_SHORT).show();
-                db.collection("customer/"+ Constants.CurrentUser.getContact() +"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).update("Quantity",(model.getQuantity()-1))
+                db.collection("customer/"+ Constants.CurrentUser.getContact() +"/cart").document(getSnapshots().getSnapshot(holder.getAdapterPosition()).getId()).update("quantity",(model.getQuantity()-1))
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

@@ -60,8 +60,10 @@ public class OrderTracking extends FragmentActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        String orderId;
+        orderId=getIntent().getStringExtra("orderId");
 //getIntent().getStringExtra("orderId")
-        db.collection("customer/"+ "+919422224222"+"/my-orders/"+ "ORDER100007671"+"/order-loc").document("loc")
+        db.collection("customer/"+ Constants.CurrentUser.getContact()+"/my-orders/"+ orderId+"/order-loc").document("loc")
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {

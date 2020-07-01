@@ -52,7 +52,7 @@ import java.util.Map;
 
 public class CartFragment extends Fragment  implements cartItemAdapter.setBill  {
 
-    ImageView imageView,dineIn;
+    ImageView imageView,dineIn,homeDel;
     RecyclerView cartitems;
     private FirebaseFirestore db =FirebaseFirestore.getInstance();
     private LinearLayout linearLayout;
@@ -60,7 +60,7 @@ public class CartFragment extends Fragment  implements cartItemAdapter.setBill  
     private CollectionReference cartRef;
     private int taxAmt=25,deliverCharge=50,discount=0,itemTotalPriceAmount=0,sizehere=0;
     String discountName,dicsountCode;
-    private EditText couponCode;
+    private EditText couponCode,instructions;
     cartItemAdapter cartItemAdapter;
     TextView itemTotalPrice,tax,deliveryFees,totalPrice;
     TextView mess;
@@ -174,7 +174,7 @@ public class CartFragment extends Fragment  implements cartItemAdapter.setBill  
         tax=view.findViewById(R.id.taxAmount);
         deliveryFees=view.findViewById(R.id.deliveryFees);
         totalPrice=view.findViewById(R.id.totalPrice);
-
+        instructions=view.findViewById(R.id.instructions);
         imageView = view.findViewById(R.id.alertbox);
         imageView.setImageResource(R.drawable.cupon_popup_txt);
 
@@ -202,8 +202,30 @@ public class CartFragment extends Fragment  implements cartItemAdapter.setBill  
                     Constants.order.setOFFER(true);
                     Constants.order.setOFFER_CODE(dicsountCode);
                 }
+                if (!instructions.getText().toString().equals(""))
+                    Constants.order.setInstructions(instructions.getText().toString());
                 Constants.order.setBUSI_ADD(messAddress);
-
+                Constants.order.setParcel(false);
+                Intent intent = new Intent(getContext(), selectAddress.class);
+                getActivity().startActivity(intent);
+            }
+        });
+        homeDel=view.findViewById(R.id.homeDel);
+        homeDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Constants.order.setAMOUNT(Long.parseLong(totalPrice.getText().toString().replace("₹","")));
+                Constants.order.setFROM(Constants.CurrentUser.getCart_mess_name());
+                Constants.order.setTO(Constants.CurrentUser.getContact());
+                if(discount!=0)
+                {
+                    Constants.order.setOFFER(true);
+                    Constants.order.setOFFER_CODE(dicsountCode);
+                }
+                if (!instructions.getText().toString().equals(""))
+                    Constants.order.setInstructions(instructions.getText().toString());
+                Constants.order.setBUSI_ADD(messAddress);
+                Constants.order.setParcel(true);
                 Intent intent = new Intent(getContext(), selectAddress.class);
                 getActivity().startActivity(intent);
             }
