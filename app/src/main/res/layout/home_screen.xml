@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="?actionBarSize"
 
-    tools:context=".HomescreenActivity">
+    tools:context=".CustomerModule.fragments.HomeFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"

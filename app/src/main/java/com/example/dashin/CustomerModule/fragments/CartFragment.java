@@ -101,7 +101,6 @@ public class CartFragment extends Fragment  implements cartItemAdapter.setBill  
 
                                     if (snapshot != null && snapshot.exists()) {
                                         messName=snapshot.getString("busi_name");
-
                                         mess.setText(messName);
                                         messAddress=snapshot.getString("mess_description");
                                         Constants.order.setBUSI_NAME(messName);

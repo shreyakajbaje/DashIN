@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.dashin.CustomerModule.models.Discount;
 import com.example.dashin.R;
 import com.example.dashin.CustomerModule.adapters.MessAdapter;
 import com.example.dashin.CustomerModule.adapters.OffersAdapter;
@@ -125,14 +126,14 @@ public class HomeFragment extends Fragment {
         recyclerView3 = view.findViewById(R.id.rv_offers);
         Log.e("ModelBooks", "setting up recycler view");
         Query query =
-                Constants.mFirestore.collection("vendors").whereGreaterThanOrEqualTo("discount", 5);
+                Constants.mFirestore.collection("discounts");
 
-        FirestoreRecyclerOptions<ModelMess> options = new FirestoreRecyclerOptions.Builder<ModelMess>()
-                .setQuery(query, ModelMess.class)
+        FirestoreRecyclerOptions<Discount> options = new FirestoreRecyclerOptions.Builder<Discount>()
+                .setQuery(query, Discount.class)
                 .build();
 
 
-        offersAdapter = new OffersAdapter(options, new OffersAdapter.ClickListener() {
+        offersAdapter = new OffersAdapter(options, getActivity(), new OffersAdapter.ClickListener() {
             @Override public void onPositionClicked(int position) {
                 // callback performed on click
             }

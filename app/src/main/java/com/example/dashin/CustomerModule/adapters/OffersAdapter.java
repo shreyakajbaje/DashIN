@@ -1,6 +1,7 @@
 package com.example.dashin.CustomerModule.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,32 +9,43 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dashin.CustomerModule.models.Discount;
 import com.example.dashin.R;
-import com.example.dashin.CustomerModule.models.ModelMess;
 import com.example.dashin.utils.Constants;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.firebase.ui.firestore.ObservableSnapshotArray;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 
-public class OffersAdapter extends FirestoreRecyclerAdapter<ModelMess, OffersAdapter.OffersHolder> {
+public class OffersAdapter extends FirestoreRecyclerAdapter<Discount, OffersAdapter.OffersHolder> {
 
 
     private OffersAdapter.ClickListener listener;
+    private Context context;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private ObservableSnapshotArray<Discount> mSnapshots;
 
 
-    public OffersAdapter(@NonNull FirestoreRecyclerOptions<ModelMess> options, OffersAdapter.ClickListener listener ) {
+    public OffersAdapter(@NonNull FirestoreRecyclerOptions<Discount> options, Context context, OffersAdapter.ClickListener listener ) {
         super(options);
         this.listener = listener;
+        this.context=context;
+        mSnapshots=options.getSnapshots();
 
-        Log.e("Offers", "adapter constr");
+     //   Log.e("Offers", "adapter constr");
 
     }
 
@@ -43,28 +55,45 @@ public class OffersAdapter extends FirestoreRecyclerAdapter<ModelMess, OffersAda
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull final OffersAdapter.OffersHolder holder, final int position, @NonNull final ModelMess model) {
+    protected void onBindViewHolder(@NonNull final OffersAdapter.OffersHolder holder, final int position, @NonNull final Discount model) {
 
-        Log.e("offer", "" + model.getRATING());
 
-        holder.name.setText(model.getBUSI_NAME());
-        holder.rating.setText(String.valueOf(model.getRATING()));
-        holder.offer.setText(String.valueOf(model.getDISCOUNT() + "% OFF"));
-        //set front pic here
-        if(model.getFRONT_PIC()!=null) {
-            Constants.mStorage.getReference().child(model.getOWNER_CONTACT()).child(model.getFRONT_PIC()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    if(uri!=null) {
-                        Picasso.get()
-                                .load(uri)
-                                .into(holder.front_pic);
+        holder.food.setText("Food : "+model.getFoods());
+        holder.duration.setText("Duration : "+model.getDuration());
+        holder.expiry.setText("Expiry: "+model.getExpiry());
+        holder.code.setText(model.getCode());
+        holder.value.setText(model.getOffp()+ " %OFF");
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                db.collection("vendors/"+ Constants.mAuth.getCurrentUser().getPhoneNumber() +"/discounts")
+                                        .document(mSnapshots.getSnapshot(holder.getAdapterPosition()).getId())
+                                        .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(context,"Discount Deleted !",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
                     }
-                }
-            });
-        }
-        //calculate open status here
+                };
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            }
+        });
         Log.e("Offers", "bindviewholder");
     }
 
@@ -78,15 +107,14 @@ public class OffersAdapter extends FirestoreRecyclerAdapter<ModelMess, OffersAda
     @Override
     public OffersAdapter.OffersHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.swiggy_offer_item, parent, false);
-        Log.e("Offers", "createviewholder");
+        //Log.e("Offers", "createviewholder");
         return new OffersAdapter.OffersHolder(v, listener);
     }
 
     class OffersHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
 
-        TextView name, rating, offer;
-        ImageView front_pic;
-        Context context;
+        TextView food,code,value,expiry,duration;
+        ImageView delete;
 
         private WeakReference<ClickListener> listenerRef;
 
@@ -94,23 +122,12 @@ public class OffersAdapter extends FirestoreRecyclerAdapter<ModelMess, OffersAda
             super(v);
             listenerRef = new WeakReference<>(listener);
             v.setOnClickListener(this);
-            context = itemView.getContext();
-            name = v.findViewById(R.id.mess_name_tv);
-            offer = v.findViewById(R.id.mess_offer);
-            rating = v.findViewById(R.id.mess_rating_tv);
-            front_pic = v.findViewById(R.id.offer_iv);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//
-//                ViewOutlineProvider provider = new ViewOutlineProvider() {
-//                    @Override
-//                    public void getOutline(View view, Outline outline) {
-//                        int curveRadius = 15;
-//                        outline.setRoundRect(0, 0, view.getWidth(), (view.getHeight()), curveRadius);
-//                    }
-//                };
-//                front_pic.setOutlineProvider(provider);
-//                front_pic.setClipToOutline(true);
-//            }
+            food=itemView.findViewById(R.id.discountFood);
+            code=itemView.findViewById(R.id.discountCode);
+            delete=itemView.findViewById(R.id.deleteDiscount);
+            value=itemView.findViewById(R.id.discountValue);
+            expiry=itemView.findViewById(R.id.discountExpiry);
+            duration=itemView.findViewById(R.id.discountDuration);
 
             Log.e("Offers", "holder constr");
 
@@ -120,7 +137,7 @@ public class OffersAdapter extends FirestoreRecyclerAdapter<ModelMess, OffersAda
         @Override
         public void onClick(View v) {
 
-//            ModelMess model = getItem(getAdapterPosition());
+//            Discount model = getItem(getAdapterPosition());
 //            Log.e("hihih", model.getTitle());
 //            final Intent intent;
 //            intent =  new Intent(context, ReadOfferss.class);

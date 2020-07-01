@@ -30,10 +30,6 @@ public class AppLocationService extends Service implements LocationListener {
                 .getSystemService(LOCATION_SERVICE);
         this.context = context;
     }
-    public AppLocationService()
-    {
-
-    }
 
     public Location getLocation(String provider) {
 
