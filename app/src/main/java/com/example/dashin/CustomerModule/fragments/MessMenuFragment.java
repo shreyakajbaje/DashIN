@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,13 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.dashin.CustomerModule.activities.BookingScreen;
-import com.example.dashin.CustomerModule.adapters.RecyclerViewAdapter;
 import com.example.dashin.CustomerModule.adapters.SliderAdapter;
 import com.example.dashin.CustomerModule.adapters.menuItemAdapter;
 import com.example.dashin.CustomerModule.models.menuItem;
 import com.example.dashin.R;
 
-import com.example.dashin.utils.Constants;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -55,9 +52,6 @@ public class MessMenuFragment extends Fragment {
     ImageView btn1,btn2,btn3,btn4,btn5,btn6,bookseat,appBarImage;
     RecyclerView thaliView,rotiChapatiView,ricePulavView,sweetsView,beveragesView,sabziView;
     boolean isUpBtn1=false,isUpBtn2=false,isUpBtn3=false,isUpBtn4=false,isUpBtn5=false,isUpBtn6=false;
-    RecyclerView.LayoutManager layoutManager;
-    RecyclerViewAdapter recyclerViewAdapter;
-    int []arr={R.drawable.food4,R.drawable.food5};
     RelativeLayout l1,l2,l3,l4,l5,l6;
     private FirebaseFirestore db;
     private CollectionReference menuRef;
