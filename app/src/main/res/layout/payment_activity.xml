@@ -59,70 +59,77 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/cards"
+        <LinearLayout
+            android:id="@+id/isP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/helveticaneuemedium500"
-            android:text="Cards / Net Banking"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/cardLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/white">
+            <TextView
+                android:id="@+id/cards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:text="Cards / Net Banking"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
-            <LinearLayout
-                android:id="@+id/cardNetBanking"
+            <ListView
+                android:id="@+id/PaymentAppsList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+            </ListView>
+
+            <TextView
+                android:id="@+id/upi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:text="UPI / Wallets"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:src="@drawable/credit_card" />
+            <RelativeLayout
+                android:id="@+id/cardLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white">
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/cardNetBanking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/helveticaneuemedium500"
-                    android:text="Paytm Gateway"
-                    android:textColor="@color/grey"
-                    android:textSize="15sp" />
-            </LinearLayout>
+                    android:orientation="horizontal">
 
-        </RelativeLayout>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/credit_card" />
 
-        <TextView
-            android:id="@+id/upi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/helveticaneuemedium500"
-            android:text="UPI / Wallets"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/helveticaneuemedium500"
+                        android:text="Paytm Gateway"
+                        android:textColor="@color/grey"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
-        <ListView
-            android:id="@+id/PaymentAppsList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-        </ListView>
+            </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -51,7 +51,11 @@ public class MyMessagingService extends FirebaseMessagingService {
     private void sendRegistrationToServer(String token) {
         //  Implement this method to send token to your app server.
         FirebaseFirestore db= FirebaseFirestore.getInstance();
-        DocumentReference Ref=db.collection("customer").document(Constants.mAuth.getCurrentUser().getPhoneNumber());
-        Ref.update("fcm-token",token);
+        if (Constants.mAuth.getCurrentUser()!=null)
+        {
+            DocumentReference Ref=db.collection("customer").document(Constants.mAuth.getCurrentUser().getPhoneNumber());
+            Ref.update("fcm-token",token);
+        }
+
     }
 }

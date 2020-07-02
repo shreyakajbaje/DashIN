@@ -47,7 +47,28 @@ public class menuItemAdapter extends FirestoreRecyclerAdapter<menuItem,menuItemA
         holder.name.setText(model.getName());
         holder.description.setText(model.getDescription());
         holder.price.setText("₹ "+model.getPrice());
-        Picasso.get().load(model.getImage()).resize(300,200).into(holder.image);
+        switch (model.getType())
+        {
+            case "thali":
+                holder.image.setImageResource(R.drawable.food2);
+                break;
+            case "sabji":
+                holder.image.setImageResource(R.drawable.food3);
+                break;
+            case "roti":
+                holder.image.setImageResource(R.drawable.food7);
+                break;
+            case "rice":
+                holder.image.setImageResource(R.drawable.plain_rice);
+                break;
+            case "beverages":
+                holder.image.setImageResource(R.drawable.beverages);
+                break;
+            case "sweets":
+                holder.image.setImageResource(R.drawable.sweets);
+                break;
+        }
+        //Picasso.get().load(model.getImage()).resize(300,200).into(holder.image);
         holder.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

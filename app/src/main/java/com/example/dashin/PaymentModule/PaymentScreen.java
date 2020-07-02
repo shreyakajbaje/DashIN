@@ -100,6 +100,7 @@ try {
         @Override
         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
             if(task.isSuccessful()) {
+                boolean isP=false;
                 DocumentSnapshot documentSnapshot = task.getResult();
                 if (documentSnapshot.getString("merchant_key")==null || documentSnapshot.getString("merchant_id")==null)
                 {
@@ -126,16 +127,21 @@ try {
                             startActivity(intent);
                         }
                     });
+                    isP=true;
                 }
                 if (documentSnapshot.getString("upi_id")==null)
                 {
                     upi.setVisibility(View.GONE);
                     upiMethods.setVisibility(View.GONE);
+                    if (!isP)
+                    {
+                        LinearLayout l = findViewById(R.id.isP);
+                        l.setBackgroundResource(R.drawable.nopaymentmethod);
+                    }
                 }
                 else
                 {
-                    // UPI_ID=documentSnapshot.getString("upi_id");
-                    UPI_ID="prajadhav1243@okaxis";
+                     UPI_ID=documentSnapshot.getString("upi_id");
                     final ListView lv=findViewById(R.id.PaymentAppsList);
                     Uri uri =
                             new Uri.Builder()
@@ -169,6 +175,7 @@ try {
                         }
 
                     });
+                    isP=true;
                 }
                 if(documentSnapshot.get("busi_loc")==null)
                 {
