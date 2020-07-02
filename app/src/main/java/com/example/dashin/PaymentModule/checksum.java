@@ -64,6 +64,7 @@ public class checksum extends AppCompatActivity implements PaytmPaymentTransacti
         //MerchantKey=getIntent().getStringExtra("MKEY");
         //mid=getIntent().getStringExtra("MID");
 
+
         MerchantKey=getIntent().getStringExtra("MKEY");
         mid=getIntent().getStringExtra("MID");
 

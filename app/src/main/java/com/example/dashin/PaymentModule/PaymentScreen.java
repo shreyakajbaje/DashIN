@@ -136,6 +136,8 @@ try {
                     if (!isP)
                     {
                         LinearLayout l = findViewById(R.id.isP);
+                        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,1000);
+                        l.setLayoutParams(parms);
                         l.setBackgroundResource(R.drawable.nopaymentmethod);
                     }
                 }

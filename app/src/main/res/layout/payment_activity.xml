@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FDFDFD"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
@@ -76,25 +77,6 @@
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
-            <ListView
-                android:id="@+id/PaymentAppsList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-            </ListView>
-
-            <TextView
-                android:id="@+id/upi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/helveticaneuemedium500"
-                android:text="UPI / Wallets"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
             <RelativeLayout
                 android:id="@+id/cardLayout"
                 android:layout_width="match_parent"
@@ -129,6 +111,26 @@
                 </LinearLayout>
 
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/upi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/helveticaneuemedium500"
+                android:text="UPI / Wallets"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <ListView
+                android:id="@+id/PaymentAppsList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+            </ListView>
+
         </LinearLayout>
 
     </LinearLayout>
