@@ -140,7 +140,7 @@ public class MessNavigateFragment extends Fragment implements PermissionsListene
 //// Call this method with Context from within an Activity
 //                NavigationLauncher.startNavigation(getActivity(), options);
 
-                                        MessActualNavigateFragment messActualNavigateFragment = new MessActualNavigateFragment(74.2070,19.5761,Double.parseDouble(end.get(1)),Double.parseDouble(end.get(0)));
+                                        MessActualNavigateFragment messActualNavigateFragment = new MessActualNavigateFragment(19.5761,74.2070,Double.parseDouble(end.get(0)),Double.parseDouble(end.get(1)));
                                         FragmentManager fragmentManager = getFragmentManager();
                                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                         fragmentTransaction.replace(R.id.NavRelativeLayout, messActualNavigateFragment);

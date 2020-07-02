@@ -2,6 +2,7 @@ package com.example.dashin.CustomerModule.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -26,8 +27,10 @@ import com.example.dashin.CustomerModule.adapters.menuItemAdapter;
 import com.example.dashin.CustomerModule.models.menuItem;
 import com.example.dashin.R;
 
+import com.example.dashin.utils.Constants;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -40,6 +43,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,7 +53,7 @@ import java.util.Calendar;
 
 public class MessMenuFragment extends Fragment {
     TextView messName,rating,description,priceOPeningHours,openClose;
-    ImageView btn1,btn2,btn3,btn4,btn5,btn6,bookseat,appBarImage;
+    ImageView btn1,btn2,btn3,btn4,btn5,btn6,bookseat,appBarImage,frontPic;
     RecyclerView thaliView,rotiChapatiView,ricePulavView,sweetsView,beveragesView,sabziView;
     boolean isUpBtn1=false,isUpBtn2=false,isUpBtn3=false,isUpBtn4=false,isUpBtn5=false,isUpBtn6=false;
     RelativeLayout l1,l2,l3,l4,l5,l6;
@@ -76,6 +80,7 @@ public class MessMenuFragment extends Fragment {
         openClose=view.findViewById(R.id.openClose);
         rating=view.findViewById(R.id.rating);
         db= FirebaseFirestore.getInstance();
+        frontPic=view.findViewById(R.id.frontPic);
         sliderView = view.findViewById(R.id.imageSlider);
         Intent intent = getActivity().getIntent();
         phone = intent.getStringExtra("phone");
@@ -135,6 +140,17 @@ public class MessMenuFragment extends Fragment {
                     JSONObject mess= new JSONObject(snapshot.getData()) ;
 
                     try {
+
+                            Constants.mStorage.getReference().child(phone).child("mess_images").child(mess.getString("front_pic")).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    if(uri!=null) {
+                                        Picasso.get()
+                                                .load(uri)
+                                                .into(frontPic);
+                                    }
+                                }
+                            });
 
                         messName.setText(mess.getString("busi_name"));
                         description.setText(mess.getString("mess_description"));
