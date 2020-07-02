@@ -126,7 +126,7 @@ public class HomeFragment extends Fragment {
         recyclerView3 = view.findViewById(R.id.rv_offers);
         Log.e("ModelBooks", "setting up recycler view");
         Query query =
-                Constants.mFirestore.collection("discounts");
+                Constants.mFirestore.collectionGroup("discounts");
 
         FirestoreRecyclerOptions<Discount> options = new FirestoreRecyclerOptions.Builder<Discount>()
                 .setQuery(query, Discount.class)
