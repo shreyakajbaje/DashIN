@@ -20,9 +20,12 @@ import com.example.dashin.CustomerModule.fragments.HomeFragment;
 import com.example.dashin.CustomerModule.fragments.ProfileFragment;
 import com.example.dashin.CustomerModule.fragments.SearchFragment;
 import com.example.dashin.R;
+import com.example.dashin.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         forReference_searchFragment=search_fragment;
         cart_fragment=new CartFragment();
         profile_fragment=new ProfileFragment();
-
+        service();
         setFragment(home_fragment);
         Log.e("fragments", "oncreate");
         botnavview.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        service();
+
     }
 
 
@@ -97,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void service()
     {
+
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
@@ -113,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
                         // Log and toast
                         String msg = "Token : "+token;
                         Log.d("token", msg);
+                        FirebaseFirestore db= FirebaseFirestore.getInstance();
+                        DocumentReference Ref=db.collection("customer").document(Constants.mAuth.getCurrentUser().getPhoneNumber());
+                        Ref.update("fcm-token",token);
                         //Toast.makeText(Activity_Navigation.this, msg, Toast.LENGTH_SHORT).show();
                     }
 

@@ -1,10 +1,23 @@
 package com.example.dashin.CustomerModule.models;
 
+import com.google.firebase.firestore.PropertyName;
+
 public class Customer {
     private String name;
     private String password;
     private String contact;
     private String email;
+    @PropertyName("fcm-token")
+    public String getFcm_token() {
+        return fcm_token;
+    }
+    @PropertyName("fcm-token")
+    public void setFcm_token(String fcm_token) {
+        this.fcm_token = fcm_token;
+    }
+
+    @PropertyName("fcm-token")
+    private String fcm_token;
 
     public String getCart_mess_name() {
         return cart_mess_name;
